@@ -1,0 +1,252 @@
+{
+  "kuwait": [
+    {
+      "id": "kw-001",
+      "title": "Senior Software Engineer",
+      "company": "Kuwait Digital Solutions",
+      "location": "Kuwait City, Kuwait",
+      "salary": "1,200 - 1,800 KWD",
+      "type": "Full-time",
+      "experience": "5+ years",
+      "link": "https://linkedin.com/jobs/example",
+      "description": "Leading software development projects for enterprise clients across the GCC region.",
+      "posted": "2026-09-05"
+    },
+    {
+      "id": "kw-002",
+      "title": "Marketing Manager",
+      "company": "Gulf Brands Co.",
+      "location": "Salmiya, Kuwait",
+      "salary": "900 - 1,300 KWD",
+      "type": "Full-time",
+      "experience": "3-5 years",
+      "link": "https://linkedin.com/jobs/example",
+      "description": "Drive marketing strategies and brand awareness across Kuwait market.",
+      "posted": "2026-09-02"
+    },
+    {
+      "id": "kw-003",
+      "title": "Financial Analyst",
+      "company": "Kuwait Investment Group",
+      "location": "Kuwait City, Kuwait",
+      "salary": "800 - 1,200 KWD",
+      "type": "Full-time",
+      "experience": "2-4 years",
+      "link": "https://linkedin.com/jobs/example",
+      "description": "Analyze financial data and provide insights for investment decisions.",
+      "posted": "2026-08-30"
+    },
+    {
+      "id": "kw-004",
+      "title": "HR Manager",
+      "company": "Al-Mulla Group",
+      "location": "Hawally, Kuwait",
+      "salary": "1,000 - 1,500 KWD",
+      "type": "Full-time",
+      "experience": "4-6 years",
+      "link": "https://linkedin.com/jobs/example",
+      "description": "Lead HR operations and talent acquisition for growing organization.",
+      "posted": "2026-08-27"
+    }
+  ],
+  "uae": [
+    {
+      "id": "uae-001",
+      "title": "Project Manager",
+      "company": "Emirates Construction",
+      "location": "Dubai, UAE",
+      "salary": "15,000 - 22,000 AED",
+      "type": "Full-time",
+      "experience": "6+ years",
+      "link": "https://linkedin.com/jobs/example",
+      "description": "Manage large-scale construction projects across Dubai and Abu Dhabi.",
+      "posted": "2026-08-24"
+    },
+    {
+      "id": "uae-002",
+      "title": "Digital Marketing Specialist",
+      "company": "Dubai Media Hub",
+      "location": "Dubai, UAE",
+      "salary": "12,000 - 18,000 AED",
+      "type": "Full-time",
+      "experience": "3-5 years",
+      "link": "https://linkedin.com/jobs/example",
+      "description": "Execute digital marketing campaigns for leading brands in the region.",
+      "posted": "2026-08-21"
+    },
+    {
+      "id": "uae-003",
+      "title": "Data Scientist",
+      "company": "Abu Dhabi Tech",
+      "location": "Abu Dhabi, UAE",
+      "salary": "18,000 - 25,000 AED",
+      "type": "Full-time",
+      "experience": "4-6 years",
+      "link": "https://linkedin.com/jobs/example",
+      "description": "Build ML models and analyze data for business intelligence solutions.",
+      "posted": "2026-08-18"
+    },
+    {
+      "id": "uae-004",
+      "title": "Sales Director",
+      "company": "Emirates Trading LLC",
+      "location": "Sharjah, UAE",
+      "salary": "20,000 - 30,000 AED",
+      "type": "Full-time",
+      "experience": "7+ years",
+      "link": "https://linkedin.com/jobs/example",
+      "description": "Lead sales team and drive revenue growth across GCC markets.",
+      "posted": "2026-08-15"
+    }
+  ],
+  "saudi": [
+    {
+      "id": "sa-001",
+      "title": "Cybersecurity Engineer",
+      "company": "Saudi Tech Solutions",
+      "location": "Riyadh, Saudi Arabia",
+      "salary": "18,000 - 25,000 SAR",
+      "type": "Full-time",
+      "experience": "5+ years",
+      "link": "https://linkedin.com/jobs/example",
+      "description": "Protect digital infrastructure and ensure compliance with security standards.",
+      "posted": "2026-08-12"
+    },
+    {
+      "id": "sa-002",
+      "title": "Operations Manager",
+      "company": "Vision 2030 Enterprises",
+      "location": "Jeddah, Saudi Arabia",
+      "salary": "15,000 - 22,000 SAR",
+      "type": "Full-time",
+      "experience": "6+ years",
+      "link": "https://linkedin.com/jobs/example",
+      "description": "Optimize operations and streamline processes for Vision 2030 initiatives.",
+      "posted": "2026-08-09"
+    },
+    {
+      "id": "sa-003",
+      "title": "Business Analyst",
+      "company": "Aramco Digital",
+      "location": "Dhahran, Saudi Arabia",
+      "salary": "14,000 - 20,000 SAR",
+      "type": "Full-time",
+      "experience": "3-5 years",
+      "link": "https://linkedin.com/jobs/example",
+      "description": "Analyze business processes and recommend digital transformation solutions.",
+      "posted": "2026-08-06"
+    },
+    {
+      "id": "sa-004",
+      "title": "Product Designer",
+      "company": "Neom Creative Studio",
+      "location": "Riyadh, Saudi Arabia",
+      "salary": "16,000 - 23,000 SAR",
+      "type": "Full-time",
+      "experience": "4-6 years",
+      "link": "https://linkedin.com/jobs/example",
+      "description": "Design innovative products for next-generation smart city projects.",
+      "posted": "2026-08-03"
+    }
+  ],
+  "qatar": [
+    {
+      "id": "qa-001",
+      "title": "Civil Engineer",
+      "company": "Qatar Infrastructure Corp",
+      "location": "Doha, Qatar",
+      "salary": "16,000 - 24,000 QAR",
+      "type": "Full-time",
+      "experience": "5+ years",
+      "link": "https://linkedin.com/jobs/example",
+      "description": "Lead infrastructure development projects for Qatar's growing economy.",
+      "posted": "2026-07-31"
+    },
+    {
+      "id": "qa-002",
+      "title": "Finance Controller",
+      "company": "Doha Banking Group",
+      "location": "Doha, Qatar",
+      "salary": "18,000 - 26,000 QAR",
+      "type": "Full-time",
+      "experience": "6+ years",
+      "link": "https://linkedin.com/jobs/example",
+      "description": "Oversee financial operations and ensure regulatory compliance.",
+      "posted": "2026-07-28"
+    },
+    {
+      "id": "qa-003",
+      "title": "Supply Chain Manager",
+      "company": "Qatar Logistics Hub",
+      "location": "Al Wakrah, Qatar",
+      "salary": "14,000 - 20,000 QAR",
+      "type": "Full-time",
+      "experience": "4-6 years",
+      "link": "https://linkedin.com/jobs/example",
+      "description": "Optimize supply chain operations for regional distribution network.",
+      "posted": "2026-07-25"
+    },
+    {
+      "id": "qa-004",
+      "title": "Healthcare Administrator",
+      "company": "Qatar Medical Center",
+      "location": "Doha, Qatar",
+      "salary": "15,000 - 22,000 QAR",
+      "type": "Full-time",
+      "experience": "5+ years",
+      "link": "https://linkedin.com/jobs/example",
+      "description": "Manage healthcare operations and improve patient care services.",
+      "posted": "2026-07-22"
+    }
+  ],
+  "india": [
+    {
+      "id": "in-001",
+      "title": "Full Stack Developer",
+      "company": "Bangalore Tech Labs",
+      "location": "Bangalore, India",
+      "salary": "₹12,00,000 - ₹18,00,000",
+      "type": "Full-time",
+      "experience": "4-6 years",
+      "link": "https://linkedin.com/jobs/example",
+      "description": "Build scalable web applications using modern tech stack.",
+      "posted": "2026-07-19"
+    },
+    {
+      "id": "in-002",
+      "title": "Content Marketing Lead",
+      "company": "Mumbai Digital Agency",
+      "location": "Mumbai, India",
+      "salary": "₹8,00,000 - ₹12,00,000",
+      "type": "Full-time",
+      "experience": "3-5 years",
+      "link": "https://linkedin.com/jobs/example",
+      "description": "Drive content strategy and brand storytelling for diverse clients.",
+      "posted": "2026-07-16"
+    },
+    {
+      "id": "in-003",
+      "title": "Product Manager",
+      "company": "Delhi FinTech",
+      "location": "Gurugram, India",
+      "salary": "₹15,00,000 - ₹25,00,000",
+      "type": "Full-time",
+      "experience": "5-7 years",
+      "link": "https://linkedin.com/jobs/example",
+      "description": "Lead product development for innovative financial technology solutions.",
+      "posted": "2026-07-13"
+    },
+    {
+      "id": "in-004",
+      "title": "UI/UX Designer",
+      "company": "Hyderabad Design Studio",
+      "location": "Hyderabad, India",
+      "salary": "₹6,00,000 - ₹10,00,000",
+      "type": "Full-time",
+      "experience": "2-4 years",
+      "link": "https://linkedin.com/jobs/example",
+      "description": "Create exceptional user experiences for mobile and web applications.",
+      "posted": "2026-07-10"
+    }
+  ]
+}

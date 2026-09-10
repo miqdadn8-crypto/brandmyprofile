@@ -1,0 +1,58 @@
+{
+  "cv-writing": {
+    "basic": {
+      "price": 41,
+      "currency": "SAR"
+    },
+    "pro": {
+      "price": 72,
+      "currency": "SAR"
+    },
+    "elite": {
+      "price": 102,
+      "currency": "SAR"
+    }
+  },
+  "linkedin-makeover": {
+    "basic": {
+      "price": 51,
+      "currency": "SAR"
+    },
+    "pro": {
+      "price": 72,
+      "currency": "SAR"
+    },
+    "elite": {
+      "price": 102,
+      "currency": "SAR"
+    }
+  },
+  "masterclass": {
+    "single": {
+      "price": 153,
+      "currency": "SAR"
+    },
+    "accelerator": {
+      "price": 409,
+      "currency": "SAR"
+    },
+    "vip": {
+      "price": 818,
+      "currency": "SAR"
+    }
+  },
+  "career-guidance": {
+    "clarity": {
+      "price": 409,
+      "currency": "SAR"
+    },
+    "transformation": {
+      "price": 1227,
+      "currency": "SAR"
+    },
+    "executive": {
+      "price": 2454,
+      "currency": "SAR"
+    }
+  }
+}

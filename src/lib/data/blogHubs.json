@@ -1,0 +1,27 @@
+[
+  {
+    "slug": "cv-writing",
+    "title": "CV Writing Guides",
+    "metaDescription": "Practical CV writing guidance covering structure, achievement writing, ATS considerations and regional adaptation, plus links to our CV writing services."
+  },
+  {
+    "slug": "ats",
+    "title": "ATS CV Guides",
+    "metaDescription": "Guides on how applicant tracking systems read CVs, formatting principles, keyword alignment and common ATS myths, plus links to our ATS CV service."
+  },
+  {
+    "slug": "gcc-careers",
+    "title": "GCC Careers Guides",
+    "metaDescription": "Guides on GCC CV format, country differences, job-search positioning, interview preparation and scam awareness for Gulf job applications."
+  },
+  {
+    "slug": "career-guidance",
+    "title": "Career Guidance",
+    "metaDescription": "Practical guidance on career transitions, interview preparation, target-role planning and action plans, plus links to our Career Guidance service."
+  },
+  {
+    "slug": "india-gcc",
+    "title": "India to GCC Careers",
+    "metaDescription": "Informational guides for Indian professionals researching GCC careers, covering CV positioning, industry paths, ATS and interview preparation."
+  }
+]

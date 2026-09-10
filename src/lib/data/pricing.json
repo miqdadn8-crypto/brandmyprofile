@@ -1,0 +1,53 @@
+{
+  "tiers": [
+    {
+      "name": "Basic",
+      "description": "Perfect for getting started with professional career tools",
+      "features": [
+        "Professional CV/Resume",
+        "ATS-Optimized Format",
+        "1 Revision Round",
+        "48-Hour Delivery",
+        "PDF & Word Format",
+        "Email Support"
+      ],
+      "isFeatured": false
+    },
+    {
+      "name": "Pro",
+      "description": "Most popular choice for serious career advancement",
+      "features": [
+        "Everything in Basic",
+        "LinkedIn Profile Optimization",
+        "Custom Cover Letter",
+        "2 Revision Rounds",
+        "24-Hour Delivery",
+        "Phone Consultation",
+        "Achievement Highlighting"
+      ],
+      "isFeatured": true
+    },
+    {
+      "name": "Elite",
+      "description": "Complete career transformation package",
+      "features": [
+        "Everything in Pro",
+        "Career Guidance Session",
+        "Personal Branding Strategy",
+        "Unlimited Revisions",
+        "12-Hour Express Delivery",
+        "Interview Preparation",
+        "90-Day Email Support",
+        "LinkedIn Networking Tips"
+      ],
+      "isFeatured": false
+    }
+  ],
+  "regionalPricing": {
+    "uae": { "basic": 299, "pro": 599, "elite": 999 },
+    "saudi": { "basic": 299, "pro": 599, "elite": 999 },
+    "qatar": { "basic": 299, "pro": 599, "elite": 999 },
+    "kuwait": { "basic": 89, "pro": 179, "elite": 299 },
+    "india": { "basic": 2499, "pro": 4999, "elite": 8999 }
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "cv-writing": {
+    "basic": {
+      "price": 499,
+      "currency": "INR"
+    },
+    "pro": {
+      "price": 899,
+      "currency": "INR"
+    },
+    "elite": {
+      "price": 1499,
+      "currency": "INR"
+    }
+  },
+  "linkedin-makeover": {
+    "basic": {
+      "price": 699,
+      "currency": "INR"
+    },
+    "pro": {
+      "price": 999,
+      "currency": "INR"
+    },
+    "elite": {
+      "price": 1699,
+      "currency": "INR"
+    }
+  },
+  "masterclass": {
+    "single": {
+      "price": 1299,
+      "currency": "INR"
+    },
+    "accelerator": {
+      "price": 2999,
+      "currency": "INR"
+    },
+    "vip": {
+      "price": 5999,
+      "currency": "INR"
+    }
+  },
+  "career-guidance": {
+    "clarity": {
+      "price": 2999,
+      "currency": "INR"
+    },
+    "transformation": {
+      "price": 7999,
+      "currency": "INR"
+    },
+    "executive": {
+      "price": 14999,
+      "currency": "INR"
+    }
+  }
+}

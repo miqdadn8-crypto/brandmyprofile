@@ -1,0 +1,541 @@
+{
+  "cv-writing": {
+    "slug": "cv-writing",
+    "title": "Professional CV Writing Services",
+    "path": "/services/cv-writing",
+    "hero": {
+      "title": "Build a CV That Gets You",
+      "titleAccent": "Hired",
+      "description": "ATS-optimized CVs crafted by experts who understand the GCC and Indian job markets. Achievement-focused writing tailored to your target role.",
+      "cta1": "View Packages",
+      "cta2": "Book Free Consultation"
+    },
+    "seo": {
+      "title": "Professional CV Writing Services",
+      "description": "Professional CV writing tailored to your target role and the GCC and Indian job markets, with ATS-friendly structure and human review.",
+      "keywords": "CV writing, resume writing, ATS resume, professional CV, GCC CV writing, UAE resume"
+    },
+    "benefits": [
+      {
+        "icon": "CheckCircle",
+        "title": "ATS-Optimized",
+        "description": "Get past automated screening systems with a clean, ATS-friendly structure."
+      },
+      {
+        "icon": "Target",
+        "title": "Achievement-Focused",
+        "description": "Highlight measurable results and accomplishments that prove your value."
+      },
+      {
+        "icon": "Award",
+        "title": "Expert Writers",
+        "description": "Experienced resume writers with deep GCC and India market knowledge."
+      },
+      {
+        "icon": "Clock",
+        "title": "Fast Turnaround",
+        "description": "Receive your professionally crafted CV within 2-3 business days."
+      },
+      {
+        "icon": "TrendingUp",
+        "title": "Achievement-Focused Writing",
+        "description": "We highlight measurable achievements and impact to strengthen how your experience reads to recruiters."
+      },
+      {
+        "icon": "FileText",
+        "title": "Multiple Formats",
+        "description": "Get your CV in Standard, ATS-friendly, and EuroPass formats."
+      }
+    ],
+    "howItWorks": [
+      {
+        "step": "01",
+        "title": "Share Your Details",
+        "description": "Fill out a simple questionnaire about your experience, achievements, and career goals. Upload your current CV if you have one."
+      },
+      {
+        "step": "02",
+        "title": "Expert Crafting",
+        "description": "Our writers transform your information into a compelling, ATS-optimized CV that highlights your unique value proposition."
+      },
+      {
+        "step": "03",
+        "title": "Review & Refine",
+        "description": "Receive your professionally written CV, review it, and request any revisions. We offer unlimited edits until you're 100% satisfied."
+      }
+    ],
+    "pricingTiers": [
+      {
+        "name": "Basic",
+        "tier": "basic",
+        "description": "Essential CV writing service",
+        "features": [
+          "Custom-written CV",
+          "ATS-optimized format",
+          "1 revision round",
+          "2-3 day delivery",
+          "PDF & Word formats"
+        ],
+        "cta": "Get Started",
+        "featured": false
+      },
+      {
+        "name": "Pro",
+        "tier": "pro",
+        "description": "Complete career package",
+        "features": [
+          "Everything in Basic",
+          "Professional cover letter",
+          "EuroPass format included",
+          "2 revision rounds",
+          "24-hour delivery option",
+          "LinkedIn headline optimization"
+        ],
+        "cta": "Most Popular",
+        "featured": true
+      },
+      {
+        "name": "Elite",
+        "tier": "elite",
+        "description": "Premium executive service",
+        "features": [
+          "Everything in Pro",
+          "Executive CV format",
+          "Achievement showcase",
+          "Unlimited revisions",
+          "12-hour rush delivery",
+          "30-min strategy call",
+          "Email templates"
+        ],
+        "cta": "Go Premium",
+        "featured": false
+      }
+    ],
+    "sections": {
+      "benefits": {
+        "title": "Why Choose Our CV Writing Service",
+        "subtitle": "Stand out in competitive job markets with a professionally crafted CV designed to get results."
+      },
+      "howItWorks": {
+        "title": "How It Works",
+        "subtitle": "Three simple steps to your professional CV"
+      },
+      "pricing": {
+        "title": "Choose Your Package",
+        "subtitle": "Select the perfect CV writing package for your career goals"
+      },
+      "cta": {
+        "title": "Ready to Transform Your CV?",
+        "description": "Get a professionally written CV designed to help you present your experience clearly to employers.",
+        "cta1": "Get Started Now",
+        "cta2": "Chat on WhatsApp"
+      }
+    }
+  },
+  "linkedin-makeover": {
+    "slug": "linkedin-makeover",
+    "title": "LinkedIn Profile Makeover",
+    "path": "/services/linkedin-makeover",
+    "hero": {
+      "title": "Transform Your LinkedIn into a",
+      "titleAccent": "Job Magnet",
+      "description": "Professional LinkedIn optimization that attracts recruiters, expands your network, and positions you as an industry leader.",
+      "cta1": "View Packages",
+      "cta2": "Book Free Consultation"
+    },
+    "seo": {
+      "title": "LinkedIn Profile Makeover for GCC Job Seekers",
+      "description": "Transform your LinkedIn profile into a job magnet. Expert optimization designed to improve recruiter visibility and attract opportunities in UAE, Saudi Arabia, Qatar, Kuwait, and India.",
+      "keywords": "LinkedIn optimization, LinkedIn profile, LinkedIn makeover, professional branding, GCC LinkedIn"
+    },
+    "benefits": [
+      {
+        "icon": "Eye",
+        "title": "Recruiter Visibility",
+        "description": "Optimize your profile to appear in more recruiter searches and stand out from the crowd."
+      },
+      {
+        "icon": "Sparkles",
+        "title": "Killer Headline",
+        "description": "Craft a compelling headline that immediately captures attention and communicates your value."
+      },
+      {
+        "icon": "Users",
+        "title": "Network Growth",
+        "description": "Strategic tips to expand your network and connect with key decision-makers."
+      },
+      {
+        "icon": "Trophy",
+        "title": "Personal Brand",
+        "description": "Build a powerful personal brand that positions you as an industry expert."
+      },
+      {
+        "icon": "Zap",
+        "title": "Keyword Optimization",
+        "description": "Strategic keyword placement to rank higher in LinkedIn and Google searches."
+      },
+      {
+        "icon": "Linkedin",
+        "title": "Complete Makeover",
+        "description": "Every section optimized - from About to Experience to Skills and Endorsements."
+      }
+    ],
+    "howItWorks": [
+      {
+        "step": "01",
+        "title": "Profile Audit",
+        "description": "We analyze your current LinkedIn profile, identify gaps, and create a customized optimization strategy based on your career goals."
+      },
+      {
+        "step": "02",
+        "title": "Content Creation",
+        "description": "Our experts rewrite your headline, about section, experience, and all other sections with engaging, keyword-rich content."
+      },
+      {
+        "step": "03",
+        "title": "Launch & Guide",
+        "description": "Receive your transformed profile with a complete implementation guide and ongoing tips to maximize visibility and engagement."
+      }
+    ],
+    "pricingTiers": [
+      {
+        "name": "Basic",
+        "tier": "basic",
+        "description": "Essential profile optimization",
+        "features": [
+          "Headline optimization",
+          "About section rewrite",
+          "Keyword optimization",
+          "1 revision round",
+          "Implementation guide"
+        ],
+        "cta": "Get Started",
+        "featured": false
+      },
+      {
+        "name": "Pro",
+        "tier": "pro",
+        "description": "Complete LinkedIn makeover",
+        "features": [
+          "Everything in Basic",
+          "Full experience section rewrite",
+          "Skills & endorsements strategy",
+          "Banner image design",
+          "2 revision rounds",
+          "Networking tips guide",
+          "Post content ideas"
+        ],
+        "cta": "Most Popular",
+        "featured": true
+      },
+      {
+        "name": "Elite",
+        "tier": "elite",
+        "description": "Premium personal branding",
+        "features": [
+          "Everything in Pro",
+          "Thought leadership strategy",
+          "Featured section optimization",
+          "Recommendations template",
+          "Unlimited revisions",
+          "30-min strategy call",
+          "3 months of post ideas",
+          "Profile SEO analysis"
+        ],
+        "cta": "Go Premium",
+        "featured": false
+      }
+    ],
+    "sections": {
+      "benefits": {
+        "title": "Why LinkedIn Optimization Matters",
+        "subtitle": "Your LinkedIn profile is your digital business card. Make it count with professional optimization."
+      },
+      "howItWorks": {
+        "title": "How It Works",
+        "subtitle": "Three steps to a powerful LinkedIn presence"
+      },
+      "pricing": {
+        "title": "Choose Your Package",
+        "subtitle": "Select the perfect LinkedIn optimization package for your goals"
+      },
+      "cta": {
+        "title": "Ready to Upgrade Your LinkedIn?",
+        "description": "Let our experts transform your profile into a powerful career tool that works 24/7.",
+        "cta1": "Get Started Now",
+        "cta2": "Chat on WhatsApp"
+      }
+    }
+  },
+  "masterclass": {
+    "slug": "masterclass",
+    "title": "Career Masterclass",
+    "path": "/services/masterclass",
+    "hero": {
+      "title": "Master Your",
+      "titleAccent": "Career Growth",
+      "titleEnd": "Journey",
+      "description": "Join our exclusive masterclass to learn insider secrets from industry experts. Accelerate your job search and land your dream role in the GCC or India.",
+      "cta1": "Reserve Your Spot",
+      "cta2": "Schedule Info Call"
+    },
+    "seo": {
+      "title": "Career Masterclass - Job Search & LinkedIn Training",
+      "description": "Join our exclusive career masterclass to learn insider job search strategies, LinkedIn mastery, and personal branding from industry experts. Accelerate your career in the GCC and India.",
+      "keywords": "career masterclass, job search training, LinkedIn training, career development, GCC careers"
+    },
+    "benefits": [
+      {
+        "icon": "Lightbulb",
+        "title": "Job Search Hacks",
+        "description": "Learn insider strategies that recruiters don't want you to know about finding hidden opportunities."
+      },
+      {
+        "icon": "Target",
+        "title": "Personal Branding",
+        "description": "Build a magnetic personal brand that attracts recruiters and opportunities to you."
+      },
+      {
+        "icon": "TrendingUp",
+        "title": "LinkedIn Mastery",
+        "description": "Master the art of creating posts that get noticed, shared, and generate job offers."
+      },
+      {
+        "icon": "Lock",
+        "title": "Recruiter Secrets",
+        "description": "Discover what recruiters really look for and how to position yourself as the ideal candidate."
+      },
+      {
+        "icon": "Users",
+        "title": "Networking Skills",
+        "description": "Learn proven networking techniques to build meaningful professional relationships."
+      },
+      {
+        "icon": "GraduationCap",
+        "title": "Expert Instruction",
+        "description": "Learn from experienced career specialists with hiring and career development expertise."
+      }
+    ],
+    "howItWorks": [
+      {
+        "step": "01",
+        "title": "Register & Prepare",
+        "description": "Sign up for the masterclass and receive pre-session materials including worksheets and a checklist to maximize your learning."
+      },
+      {
+        "step": "02",
+        "title": "Attend Live Session",
+        "description": "Join our expert-led live masterclass where you'll learn proven strategies, ask questions in real-time, and network with peers."
+      },
+      {
+        "step": "03",
+        "title": "Implement & Succeed",
+        "description": "Apply the strategies immediately with our action plan guide, templates, and 30 days of email support to ensure your success."
+      }
+    ],
+    "pricingTiers": [
+      {
+        "name": "Single Session",
+        "tier": "single",
+        "description": "One-time masterclass access",
+        "features": [
+          "2-hour live masterclass",
+          "Q&A session",
+          "Workbook & templates",
+          "Recording access (7 days)",
+          "Certificate of completion"
+        ],
+        "cta": "Join Session",
+        "featured": false
+      },
+      {
+        "name": "Career Accelerator",
+        "tier": "accelerator",
+        "description": "Complete career transformation",
+        "features": [
+          "Everything in Single Session",
+          "3 masterclass sessions",
+          "Lifetime recording access",
+          "Private community access",
+          "Monthly live Q&A",
+          "Personal action plan",
+          "Email support (30 days)"
+        ],
+        "cta": "Most Popular",
+        "featured": true
+      },
+      {
+        "name": "VIP Experience",
+        "tier": "vip",
+        "description": "Premium coaching included",
+        "features": [
+          "Everything in Career Accelerator",
+          "6 masterclass sessions",
+          "1-on-1 coaching session",
+          "Priority email support (90 days)",
+          "Resume review included",
+          "LinkedIn profile audit",
+          "Job search strategy call",
+          "Exclusive networking events"
+        ],
+        "cta": "Go VIP",
+        "featured": false
+      }
+    ],
+    "sections": {
+      "benefits": {
+        "title": "What You'll Master",
+        "subtitle": "Transform your career with insider knowledge and proven strategies from industry experts."
+      },
+      "howItWorks": {
+        "title": "How It Works",
+        "subtitle": "Your path to career mastery in three simple steps"
+      },
+      "pricing": {
+        "title": "Choose Your Learning Path",
+        "subtitle": "Invest in your career with the package that fits your goals"
+      },
+      "cta": {
+        "title": "Ready to Accelerate Your Career?",
+        "description": "Join hundreds of professionals who've transformed their careers with our expert-led masterclasses.",
+        "cta1": "Reserve Your Spot",
+        "cta2": "Chat on WhatsApp"
+      }
+    }
+  },
+  "career-guidance": {
+    "slug": "career-guidance",
+    "title": "Career Guidance & Coaching",
+    "path": "/services/career-guidance",
+    "hero": {
+      "title": "Navigate Your Career with",
+      "titleAccent": "Expert Guidance",
+      "description": "One-on-one coaching tailored to your career goals and the GCC market. Get personalized strategies, interview prep, and ongoing support.",
+      "cta1": "View Programs",
+      "cta2": "Book Free Discovery Call"
+    },
+    "seo": {
+      "title": "Career Guidance & Coaching Services",
+      "description": "One-on-one career coaching tailored to the GCC and Indian markets. Get personalized strategies, interview prep, salary negotiation guidance, and ongoing support from expert coaches.",
+      "keywords": "career guidance, career coaching, career counseling, interview preparation, GCC career coach"
+    },
+    "benefits": [
+      {
+        "icon": "Compass",
+        "title": "Career Roadmap",
+        "description": "Get a personalized career plan tailored to your goals, skills, and the GCC/India job market."
+      },
+      {
+        "icon": "MapPin",
+        "title": "Market Insights",
+        "description": "Understand salary trends, in-demand skills, and top companies in your target region."
+      },
+      {
+        "icon": "BriefcaseIcon",
+        "title": "Interview Preparation",
+        "description": "Master behavioral and technical interviews with proven frameworks and mock sessions."
+      },
+      {
+        "icon": "DollarSign",
+        "title": "Salary Negotiation",
+        "description": "Learn negotiation strategies to secure the best compensation package and benefits."
+      },
+      {
+        "icon": "MessageSquare",
+        "title": "1-on-1 Coaching",
+        "description": "Work directly with experienced career coaches with recruitment and HR expertise."
+      },
+      {
+        "icon": "UserCheck",
+        "title": "Long-term Support",
+        "description": "Ongoing guidance and accountability to keep you on track toward your career goals."
+      }
+    ],
+    "howItWorks": [
+      {
+        "step": "01",
+        "title": "Discovery Session",
+        "description": "We start with a deep-dive consultation to understand your background, goals, challenges, and aspirations in the GCC or Indian market."
+      },
+      {
+        "step": "02",
+        "title": "Custom Strategy",
+        "description": "Your dedicated coach creates a personalized action plan with clear milestones, job search strategies, and skill development recommendations."
+      },
+      {
+        "step": "03",
+        "title": "Execution & Growth",
+        "description": "Weekly coaching calls, interview prep, networking guidance, and accountability check-ins to ensure you achieve your career objectives."
+      }
+    ],
+    "pricingTiers": [
+      {
+        "name": "Career Clarity",
+        "tier": "clarity",
+        "description": "Single session guidance",
+        "features": [
+          "1-hour coaching session",
+          "Career assessment",
+          "Personalized action plan",
+          "Market insights report",
+          "7-day email support"
+        ],
+        "cta": "Book Session",
+        "featured": false
+      },
+      {
+        "name": "Career Transformation",
+        "tier": "transformation",
+        "description": "30-day intensive program",
+        "features": [
+          "Everything in Career Clarity",
+          "4 weekly coaching calls",
+          "Interview preparation",
+          "Resume & LinkedIn review",
+          "Salary negotiation guide",
+          "30-day email support",
+          "Resource library access"
+        ],
+        "cta": "Most Popular",
+        "featured": true
+      },
+      {
+        "name": "Executive Coaching",
+        "tier": "executive",
+        "description": "90-day premium program",
+        "features": [
+          "Everything in Career Transformation",
+          "12 weekly coaching calls",
+          "Mock interviews (3 sessions)",
+          "Personal branding strategy",
+          "Networking introductions",
+          "90-day priority support",
+          "Unlimited email access",
+          "Quarterly check-ins (1 year)"
+        ],
+        "cta": "Go Premium",
+        "featured": false
+      }
+    ],
+    "sections": {
+      "benefits": {
+        "title": "What You'll Achieve",
+        "subtitle": "Work with expert career coaches to unlock your full potential and achieve your career goals."
+      },
+      "howItWorks": {
+        "title": "How It Works",
+        "subtitle": "Your personalized career coaching journey"
+      },
+      "pricing": {
+        "title": "Choose Your Coaching Program",
+        "subtitle": "Select the program that aligns with your career goals and timeline"
+      },
+      "cta": {
+        "title": "Ready to Transform Your Career?",
+        "description": "Work with expert career coaches who understand the GCC market and have helped hundreds achieve their career goals.",
+        "cta1": "Start Your Journey",
+        "cta2": "Chat on WhatsApp"
+      }
+    }
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "cv-writing": {
+    "basic": {
+      "price": 58,
+      "currency": "AED"
+    },
+    "pro": {
+      "price": 101,
+      "currency": "AED"
+    },
+    "elite": {
+      "price": 144,
+      "currency": "AED"
+    }
+  },
+  "linkedin-makeover": {
+    "basic": {
+      "price": 72,
+      "currency": "AED"
+    },
+    "pro": {
+      "price": 101,
+      "currency": "AED"
+    },
+    "elite": {
+      "price": 144,
+      "currency": "AED"
+    }
+  },
+  "masterclass": {
+    "single": {
+      "price": 216,
+      "currency": "AED"
+    },
+    "accelerator": {
+      "price": 576,
+      "currency": "AED"
+    },
+    "vip": {
+      "price": 1152,
+      "currency": "AED"
+    }
+  },
+  "career-guidance": {
+    "clarity": {
+      "price": 576,
+      "currency": "AED"
+    },
+    "transformation": {
+      "price": 1728,
+      "currency": "AED"
+    },
+    "executive": {
+      "price": 3456,
+      "currency": "AED"
+    }
+  }
+}

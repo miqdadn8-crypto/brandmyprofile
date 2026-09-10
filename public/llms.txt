@@ -1,0 +1,54 @@
+# BrandMyProfile
+
+> Professional CV writing, ATS CV optimization, GCC-format CV preparation, Europass CV writing, LinkedIn profile optimization, and career coaching for job seekers in Kuwait, the GCC and India.
+
+BrandMyProfile is an online career-support service helping professionals in the GCC region and India present their experience clearly to employers and applicant tracking systems (ATS). Services are delivered online/remotely through WhatsApp, phone and digital consultation - there is no walk-in office. Market focus describes the opportunities clients target, not physical office locations.
+
+## Services
+
+- **Professional CV Writing** — Achievement-focused CV rewrite, role-specific keyword optimization, professional formatting, revision support. (/kuwait/services/cv-writing, and equivalent /uae, /saudi, /qatar, /india, /bahrain, /oman paths)
+- **ATS CV Writing** — CV structure and formatting optimized for applicant tracking systems, with role-specific keyword alignment. (/kuwait/services/ats-cv, and equivalent /uae, /saudi, /qatar, /india paths)
+- **GCC Format CV Writing** — CV positioning and structure adapted for Gulf hiring conventions across Kuwait, UAE, Saudi Arabia and Qatar. (/kuwait/services/gcc-cv, and equivalent /uae, /saudi, /qatar, /india paths)
+- **Europass CV Writing** — Structured Europass-format CVs for European applications where that format is requested or appropriate. India only. (/india/services/europass-cv)
+- **LinkedIn Profile Makeover** — Headline optimization, About section rewrite, experience section improvement, keyword strategy. (/kuwait/services/linkedin-makeover)
+- **Career Masterclass** — Live 2-hour LinkedIn workshop with practical exercises, Q&A, workbook materials and a certificate of completion. (/kuwait/services/masterclass)
+- **One-to-One Career Guidance** — Personal consultation on career direction, job-market positioning and interview strategy. (/kuwait/services/career-guidance)
+- **Industry-specific CV guidance** — Dedicated CV positioning for oil & gas, engineering, construction, finance, technology, healthcare and hospitality, mapped to specific regions (e.g. /kuwait/cv-writing/oil-gas, /uae/cv-writing/technology). India also has GCC-outbound industry variants (e.g. /india/cv-writing/engineering-gcc).
+
+## Pricing
+
+Pricing varies by region and is shown in local currency (KWD, AED, SAR, QAR, INR) on /kuwait/pricing (and the equivalent /uae, /saudi, /qatar, /india paths). Packages: Essential, Professional (most popular), and Executive, each bundling more of the above services. Turnaround: 48 hours (Essential), 24 hours (Professional), 12 hours (Executive), confirmed before work begins. Bahrain and Oman do not currently have published pricing.
+
+## Regions served
+
+Kuwait, United Arab Emirates, Saudi Arabia, Qatar and India have full service coverage, each with its own localized pages. Bahrain and Oman have a limited footprint (home page, Professional CV Writing and Contact only).
+
+## India-specific career pathways
+
+India-based professionals targeting the GCC or Europe can start from two navigation hubs: /india/gcc-jobs (GCC-bound applications) and /india/europe-jobs (European/international applications). These are guidance pages, not recruitment, visa or immigration services.
+
+## Career guides (informational content hubs)
+
+- CV Writing guides: /blog/cv-writing
+- ATS guides: /blog/ats
+- GCC Careers guides: /blog/gcc-careers
+- Career Guidance: /blog/career-guidance
+- India to GCC Careers: /blog/india-gcc
+- Full article index: /blog
+
+## Free resources
+
+- GCC CV Checklist (free, printable, no email required): /resources/gcc-cv-checklist
+
+## Contact
+
+- Phone / WhatsApp: +965 41103254
+- Email: info@brandmyprofile.com
+- Website: https://www.brandmyprofile.com
+- LinkedIn: https://www.linkedin.com/company/brandmyprofile
+- Instagram: https://www.instagram.com/brandmyprofile/
+- Google Business Profile (verified reviews): https://share.google/2G466PLGfS085Dtiz
+
+## What BrandMyProfile does not provide
+
+BrandMyProfile provides CV writing, ATS optimization, LinkedIn optimization and career guidance. It is not a recruitment agency, staffing agency, job-placement service, or visa/immigration consultant, and does not guarantee interviews, job offers or visa outcomes.

@@ -1,0 +1,58 @@
+{
+  "cv-writing": {
+    "basic": {
+      "price": 55,
+      "currency": "QAR"
+    },
+    "pro": {
+      "price": 97,
+      "currency": "QAR"
+    },
+    "elite": {
+      "price": 138,
+      "currency": "QAR"
+    }
+  },
+  "linkedin-makeover": {
+    "basic": {
+      "price": 69,
+      "currency": "QAR"
+    },
+    "pro": {
+      "price": 97,
+      "currency": "QAR"
+    },
+    "elite": {
+      "price": 138,
+      "currency": "QAR"
+    }
+  },
+  "masterclass": {
+    "single": {
+      "price": 207,
+      "currency": "QAR"
+    },
+    "accelerator": {
+      "price": 552,
+      "currency": "QAR"
+    },
+    "vip": {
+      "price": 1104,
+      "currency": "QAR"
+    }
+  },
+  "career-guidance": {
+    "clarity": {
+      "price": 552,
+      "currency": "QAR"
+    },
+    "transformation": {
+      "price": 1656,
+      "currency": "QAR"
+    },
+    "executive": {
+      "price": 3312,
+      "currency": "QAR"
+    }
+  }
+}

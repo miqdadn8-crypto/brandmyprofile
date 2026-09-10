@@ -1,0 +1,103 @@
+{
+  "kuwait": {
+    "seo": {
+      "title": "CV Writing Services in Kuwait",
+      "description": "Professional CV writing, LinkedIn makeovers and career coaching for job seekers in Kuwait and the GCC, with ATS-friendly formatting included."
+    },
+    "pricingIntro": "Transparent pricing for professionals targeting Kuwait and GCC opportunities.",
+    "atsCv": {
+      "metaTitle": "ATS CV Writing in Kuwait",
+      "metaDescription": "Get an ATS-friendly CV tailored to Kuwait job applications, with role-specific keywords, clear structure and human review from BrandMyProfile."
+    },
+    "gccCv": {
+      "metaTitle": "GCC CV Format for Kuwait Jobs",
+      "metaDescription": "Get a professionally written GCC-format CV tailored for Kuwait job applications, with market-relevant positioning, clear experience and human review."
+    }
+  },
+  "uae": {
+    "seo": {
+      "title": "CV Writing Services in UAE",
+      "description": "Professional CV writing, LinkedIn makeovers and career coaching for job seekers in the UAE and the GCC, with ATS-friendly formatting included."
+    },
+    "pricingIntro": "Transparent pricing for professionals targeting UAE and GCC opportunities.",
+    "atsCv": {
+      "metaTitle": "ATS CV Writing in UAE",
+      "metaDescription": "Get an ATS-friendly CV tailored to UAE job applications, with role-specific keywords, clear structure and human review from BrandMyProfile."
+    },
+    "gccCv": {
+      "metaTitle": "GCC CV Format for UAE Jobs",
+      "metaDescription": "Get a professionally written GCC-format CV tailored for UAE job applications, with market-relevant positioning, clear experience and human review."
+    }
+  },
+  "saudi": {
+    "seo": {
+      "title": "CV Writing Services in Saudi Arabia",
+      "description": "Professional CV writing, LinkedIn makeovers and career coaching for job seekers in Saudi Arabia and the GCC, with ATS-friendly formatting included."
+    },
+    "pricingIntro": "Transparent pricing for professionals targeting Saudi and GCC opportunities.",
+    "atsCv": {
+      "metaTitle": "ATS CV Writing in Saudi Arabia",
+      "metaDescription": "Get an ATS-friendly CV tailored to Saudi Arabia job applications, with role-specific keywords, clear structure and human review from BrandMyProfile."
+    },
+    "gccCv": {
+      "metaTitle": "GCC CV Format for Saudi Arabia Jobs",
+      "metaDescription": "Get a professionally written GCC-format CV tailored for Saudi Arabia job applications, with market-relevant positioning, clear experience and human review."
+    }
+  },
+  "qatar": {
+    "seo": {
+      "title": "CV Writing Services in Qatar",
+      "description": "Professional CV writing, LinkedIn makeovers and career coaching for job seekers in Qatar and the GCC, with ATS-friendly formatting included."
+    },
+    "pricingIntro": "Transparent pricing for professionals targeting Qatar and GCC opportunities.",
+    "atsCv": {
+      "metaTitle": "ATS CV Writing in Qatar",
+      "metaDescription": "Get an ATS-friendly CV tailored to Qatar job applications, with role-specific keywords, clear structure and human review from BrandMyProfile."
+    },
+    "gccCv": {
+      "metaTitle": "GCC CV Format for Qatar Jobs",
+      "metaDescription": "Get a professionally written GCC-format CV tailored for Qatar job applications, with market-relevant positioning, clear experience and human review."
+    }
+  },
+  "india": {
+    "seo": {
+      "title": "CV Writing Services in India",
+      "description": "Professional CV writing, LinkedIn makeovers and career coaching for professionals in India targeting roles across the GCC, with ATS-friendly formatting included."
+    },
+    "pricingIntro": "Transparent pricing for professionals targeting Indian and GCC opportunities.",
+    "atsCv": {
+      "metaTitle": "ATS CV Writing in India",
+      "metaDescription": "Get an ATS-friendly CV tailored to Indian, GCC and international job applications, with role-specific keywords, clear structure and human review from BrandMyProfile."
+    },
+    "gccCv": {
+      "metaTitle": "GCC CV Format for Indian Job Seekers",
+      "metaDescription": "Get a GCC-targeted CV for applications from India to Kuwait, UAE, Saudi Arabia, Qatar and other Gulf markets."
+    },
+    "europassCv": {
+      "metaTitle": "Europass CV Writing in India",
+      "metaDescription": "Get a professionally prepared Europass CV for European applications from India, with structured experience, skills and human review from BrandMyProfile."
+    },
+    "gccJobsHub": {
+      "metaTitle": "GCC Jobs from India: CV & Career Guide",
+      "metaDescription": "Prepare for GCC job applications from India with practical guidance on CV writing, ATS optimization, LinkedIn, relocation positioning and Gulf-market targeting."
+    },
+    "europeJobsHub": {
+      "metaTitle": "European Jobs from India: CV & Career Guide",
+      "metaDescription": "Prepare for European job applications from India with guidance on professional CVs, Europass, ATS optimization, LinkedIn and international application positioning."
+    }
+  },
+  "bahrain": {
+    "seo": {
+      "title": "CV Writing Services in Bahrain",
+      "description": "Professional CV writing and career-profile support for professionals targeting Bahrain and GCC jobs. Get a free CV review from BrandMyProfile."
+    },
+    "pricingIntro": "Transparent pricing for professionals targeting Bahrain and GCC opportunities."
+  },
+  "oman": {
+    "seo": {
+      "title": "CV Writing Services in Oman",
+      "description": "Professional CV writing and career-profile support for professionals targeting Oman and GCC jobs. Get a free CV review from BrandMyProfile."
+    },
+    "pricingIntro": "Transparent pricing for professionals targeting Oman and GCC opportunities."
+  }
+}

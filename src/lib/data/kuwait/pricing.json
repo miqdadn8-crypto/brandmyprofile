@@ -1,0 +1,58 @@
+{
+  "cv-writing": {
+    "basic": {
+      "price": 4,
+      "currency": "KWD"
+    },
+    "pro": {
+      "price": 7,
+      "currency": "KWD"
+    },
+    "elite": {
+      "price": 10,
+      "currency": "KWD"
+    }
+  },
+  "linkedin-makeover": {
+    "basic": {
+      "price": 5,
+      "currency": "KWD"
+    },
+    "pro": {
+      "price": 7,
+      "currency": "KWD"
+    },
+    "elite": {
+      "price": 10,
+      "currency": "KWD"
+    }
+  },
+  "masterclass": {
+    "single": {
+      "price": 15,
+      "currency": "KWD"
+    },
+    "accelerator": {
+      "price": 40,
+      "currency": "KWD"
+    },
+    "vip": {
+      "price": 80,
+      "currency": "KWD"
+    }
+  },
+  "career-guidance": {
+    "clarity": {
+      "price": 40,
+      "currency": "KWD"
+    },
+    "transformation": {
+      "price": 120,
+      "currency": "KWD"
+    },
+    "executive": {
+      "price": 240,
+      "currency": "KWD"
+    }
+  }
+}
