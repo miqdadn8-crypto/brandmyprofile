@@ -1,3 +1,4 @@
+import { getRegionChoice } from "./regionChoice";
 import { createContext, useContext, useEffect, useRef, useState, ReactNode } from "react";
 
 export interface Region {
@@ -33,7 +34,6 @@ const regionToCountry: Record<string, string> = Object.fromEntries(
   Object.entries(countryToRegion).map(([country, code]) => [code, country])
 );
 
-const STORAGE_KEY = "brandmyprofile-region";
 const GEO_FETCH_TIMEOUT_MS = 2500;
 
 // Default region (Kuwait) - BrandMyProfile's primary market.
@@ -50,22 +50,10 @@ function getRegionFromPath(pathname: string): Region | null {
   return findRegion(firstSegment);
 }
 
-// Priority 2: a previously persisted manual selection. Malformed/unsupported
-// values (old region codes, corrupted data, etc.) are ignored rather than trusted.
+// Priority 2: the visitor's own earlier choice in the region selector (see regionChoice.ts).
+// Malformed/unsupported values (old region codes, corrupted data, etc.) are ignored.
 function getStoredRegion(): Region | null {
-  try {
-    return findRegion(localStorage.getItem(STORAGE_KEY));
-  } catch {
-    return null;
-  }
-}
-
-function persistRegion(code: string): void {
-  try {
-    localStorage.setItem(STORAGE_KEY, code);
-  } catch {
-    // localStorage unavailable (private browsing, etc.) - not fatal.
-  }
+  return findRegion(getRegionChoice());
 }
 
 // Dev-only QA override: ?geo=KW / ?geo=AE / etc. Never active in production builds,
@@ -100,9 +88,8 @@ interface InitialRegionResult {
 function computeInitialRegion(): InitialRegionResult {
   const urlRegion = getRegionFromPath(window.location.pathname);
   if (urlRegion) {
-    // URL is explicit - it wins outright, and corrects any stale/conflicting
-    // stored value so future visits (e.g. to "/") stay consistent.
-    persistRegion(urlRegion.code);
+    // URL is explicit - it wins for this page view, but is not saved: following a link
+    // to /uae must not override the visitor's own choice or location on later visits.
     return { region: urlRegion, needsGeoLookup: false, source: "url" };
   }
 
@@ -177,7 +164,7 @@ export function RegionProvider({ children }: { children: ReactNode }) {
       if (cancelled) return;
       const finalRegion = detected ?? defaultRegion;
       setSelectedRegionState(finalRegion);
-      persistRegion(finalRegion.code);
+      // Not persisted: the visitor's location is re-checked on each region-less visit.
       setIsDetecting(false);
       logRegionResolution(finalRegion, detected ? "geo" : "default");
     });
@@ -190,10 +177,11 @@ export function RegionProvider({ children }: { children: ReactNode }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // Syncs the context to the current URL. Remembering a choice is done separately by
+  // useChangeRegion, so a visited URL is never saved as the visitor's preference.
   const handleSetRegion = (region: Region) => {
     setSelectedRegionState(region);
-    persistRegion(region.code);
-    logRegionResolution(region, "manual");
+    logRegionResolution(region, "url");
   };
 
   return (

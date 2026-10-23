@@ -1,6 +1,7 @@
 import { useNavigate, useLocation, useParams } from "react-router-dom";
 import { regions } from "@/contexts/RegionContext";
 import { isRoutedPathAvailable } from "@/contexts/regionAvailability";
+import { rememberRegionChoice } from "@/contexts/regionChoice";
 
 /**
  * Hook to handle region switching while preserving the current route.
@@ -18,6 +19,8 @@ export function useChangeRegion() {
             console.error(`Invalid target region: ${newRegionCode}`);
             return;
         }
+        // An explicit choice in the region selector is the only thing remembered.
+        rememberRegionChoice(newRegionCode);
 
         // New logic: path replacement
         // If we are at /uae/services/cv-writing, we want /saudi/services/cv-writing
