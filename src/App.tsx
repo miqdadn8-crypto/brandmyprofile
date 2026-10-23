@@ -22,6 +22,7 @@ import Home from "./pages/Home";
 // while adding an unnecessary Suspense boundary for a component this small.
 import NotFound from "./pages/NotFound";
 import AnalyticsEvents from "./components/AnalyticsEvents";
+import ConsentBanner from "@/components/ConsentBanner";
 import { LeadModalProvider } from "./components/lead/LeadModalContext";
 
 const CVWriting = lazy(() => import("./pages/CVWriting"));
@@ -71,6 +72,7 @@ const App = () => (
           <BrowserRouter>
             <LeadModalProvider>
             <AnalyticsEvents />
+            <ConsentBanner />
             <RegionBanner />
             <RouteErrorBoundary>
               <Suspense fallback={<RouteFallback />}>

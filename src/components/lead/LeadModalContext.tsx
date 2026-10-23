@@ -1,4 +1,4 @@
-import { createContext, lazy, Suspense, useCallback, useContext, useMemo, useState, type ReactNode } from "react";
+import { createContext, lazy, Suspense, useCallback, useContext, useMemo, useRef, useState, type ReactNode } from "react";
 import { trackEvent } from "@/lib/analytics";
 import { captureLeadSource } from "@/lib/leadSource";
 import { suppressLeadPopup } from "@/lib/leadPopupSession";
@@ -26,7 +26,10 @@ export function LeadModalProvider({ children }: { children: ReactNode }) {
     trigger: "free_review_section",
   });
 
+  const returnFocus = useRef<HTMLElement | null>(null);
+
   const openLeadModal = useCallback((options: OpenOptions) => {
+    returnFocus.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
     captureLeadSource();
     // Opening it (manually or automatically) means it must never auto-show again this session.
     suppressLeadPopup();
@@ -45,6 +48,11 @@ export function LeadModalProvider({ children }: { children: ReactNode }) {
             open={state.open}
             trigger={state.trigger}
             initialService={state.service}
+            onRestoreFocus={() => {
+              const target = returnFocus.current;
+              if (target?.isConnected) target.focus();
+              else document.querySelector<HTMLButtonElement>('[aria-label="Open menu"]')?.focus();
+            }}
             onOpenChange={(open) => setState((current) => ({ ...current, open }))}
           />
         </Suspense>

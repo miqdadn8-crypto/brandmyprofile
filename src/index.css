@@ -23,16 +23,17 @@ All colors MUST be HSL.
     --primary-foreground: 0 0% 100%;
     --primary-hover: 192 100% 16%;
 
-    /* Accent Red - CTA Color */
-    --accent: 349 95% 50%;
+    /* Accent Red - CTA Color (46% lightness keeps white button text at 4.96:1, WCAG AA) */
+    --accent: 349 90% 46%;
     --accent-foreground: 0 0% 100%;
-    --accent-hover: 349 95% 45%;
+    --accent-hover: 349 90% 41%;
 
     --secondary: 210 20% 96%;
     --secondary-foreground: 0 0% 7%;
 
     --muted: 210 20% 96%;
-    --muted-foreground: 215 16% 47%;
+    /* >= 4.98:1 on paper, warm and teal-soft surfaces */
+    --muted-foreground: 215 18% 43%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
@@ -81,9 +82,13 @@ All colors MUST be HSL.
 
     /* Brand */
     --brand-teal: 192 100% 20%;
-    --brand-pink: 349 95% 50%;
+    --brand-pink: 349 90% 46%;
+    /* Footer ink surface and WhatsApp brand colours */
+    --surface-ink: 193 72% 13%;
+    --brand-whatsapp: 142 70% 49%;
+    --brand-whatsapp-dark: 173 77% 31%;
     --text-primary: 0 0% 7%;
-    --text-secondary: 215 16% 47%;
+    --text-secondary: 215 18% 43%;
   }
 
   .dark {

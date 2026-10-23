@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { useLeadModal } from "@/components/lead/LeadModalContext";
 import { ArrowRight, Calendar, FileSearch } from "lucide-react";
@@ -21,14 +20,14 @@ export default function CTASection() {
     <section className="section-padding bg-gradient-to-br from-primary to-primary-hover text-primary-foreground">
       <Reveal className="section-container text-center">
         <h2 className="heading-section mb-6">
-          Ready to Transform Your Career?
+          Start with a clearer picture of your CV.
         </h2>
         <p className="mx-auto mb-10 max-w-2xl text-xl leading-relaxed text-primary-foreground/90">
           {content.ctaSupportingText}
         </p>
 
         <div className="flex flex-col justify-center gap-4 sm:flex-row sm:gap-5">
-          <motion.div whileHover={{ scale: 1.01, y: -2 }} whileTap={{ scale: 0.98 }}>
+          <div className="transition-transform duration-200 ease-out hover:-translate-y-0.5 hover:scale-[1.01] active:scale-[0.98] motion-reduce:transform-none motion-reduce:transition-none">
             <Button
               variant="cta"
               size="xl"
@@ -39,24 +38,24 @@ export default function CTASection() {
               Get My Free CV Review
               <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
             </Button>
-          </motion.div>
-          <motion.div whileHover={{ scale: 1.01, y: -2 }} whileTap={{ scale: 0.98 }}>
+          </div>
+          <div className="transition-transform duration-200 ease-out hover:-translate-y-0.5 hover:scale-[1.01] active:scale-[0.98] motion-reduce:transform-none motion-reduce:transition-none">
             <Button
               variant="outline"
               size="xl"
               asChild
-              className="min-h-14 w-full border-white bg-white/10 px-8 text-base text-white backdrop-blur-sm hover:bg-white hover:text-primary sm:w-auto sm:text-lg"
+              className="min-h-14 w-full border-primary-foreground bg-primary-foreground/10 px-8 text-base text-primary-foreground hover:bg-primary-foreground hover:text-primary sm:w-auto sm:text-lg"
             >
               <Link to={secondaryCtaPath}>
                 <Calendar className="h-5 w-5" />
                 Book Free Consultation
               </Link>
             </Button>
-          </motion.div>
+          </div>
         </div>
 
         <p className="mt-9 text-base text-primary-foreground/80">
-          Free consultation • Human written &amp; reviewed • Confidential
+          No obligation • Human written &amp; reviewed • Confidential
         </p>
       </Reveal>
     </section>

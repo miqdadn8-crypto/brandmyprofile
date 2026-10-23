@@ -66,7 +66,7 @@
     ],
     "pricingTiers": [
       {
-        "name": "Basic",
+        "name": "Essential",
         "tier": "basic",
         "description": "Essential CV writing service",
         "features": [
@@ -80,11 +80,11 @@
         "featured": false
       },
       {
-        "name": "Pro",
+        "name": "Professional",
         "tier": "pro",
         "description": "Complete career package",
         "features": [
-          "Everything in Basic",
+          "Everything in Essential",
           "Professional cover letter",
           "EuroPass format included",
           "2 revision rounds",
@@ -95,11 +95,11 @@
         "featured": true
       },
       {
-        "name": "Elite",
+        "name": "Executive",
         "tier": "elite",
         "description": "Premium executive service",
         "features": [
-          "Everything in Pro",
+          "Everything in Professional",
           "Executive CV format",
           "Achievement showcase",
           "Unlimited revisions",

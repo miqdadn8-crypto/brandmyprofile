@@ -31,7 +31,7 @@ export default function RegionBanner() {
         <Button
           variant="link"
           size="sm"
-          className="h-auto p-0 text-[13px] font-medium text-white underline focus-visible:ring-white"
+          className="relative h-auto p-0 text-[13px] font-medium text-white underline after:absolute after:-inset-x-2 after:-inset-y-3 after:content-[''] focus-visible:ring-white"
           onClick={() => {
             Array.from(document.querySelectorAll<HTMLButtonElement>('[data-region-selector]')).find((selector) => selector.offsetParent !== null)?.click();
           }}
@@ -40,7 +40,7 @@ export default function RegionBanner() {
         </Button>
         <button
           onClick={handleDismiss}
-          className="absolute right-3 top-1/2 -translate-y-1/2 hover:bg-white/10 rounded p-1 transition-colors"
+          className="absolute right-3 top-1/2 -translate-y-1/2 rounded p-1 transition-colors after:absolute after:-inset-[11px] after:content-[''] hover:bg-white/10"
           aria-label="Dismiss banner"
         >
           <X className="h-3.5 w-3.5" />

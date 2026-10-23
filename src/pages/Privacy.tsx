@@ -8,7 +8,7 @@ const CANONICAL_URL = "https://www.brandmyprofile.com/privacy";
 const META_TITLE = "Privacy Policy";
 const META_DESCRIPTION =
   "How BrandMyProfile collects, uses and protects information when you use our website, contact forms and WhatsApp-based consultation process.";
-const LAST_UPDATED = "10 September 2026";
+const LAST_UPDATED = "23 October 2026";
 
 export default function Privacy() {
   const structuredData = {
@@ -28,7 +28,7 @@ export default function Privacy() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <SEO title={META_TITLE} description={META_DESCRIPTION} path="/privacy" structuredData={structuredData} noindex={false} />
+      <SEO title={META_TITLE} description={META_DESCRIPTION} path="/privacy" structuredData={structuredData} noindex />
       <Header />
       <main>
         <section className="border-b border-border bg-[hsl(var(--surface-warm))] py-14">
@@ -59,10 +59,16 @@ export default function Privacy() {
                 <li>The service you're interested in and any message or career details you choose to share</li>
               </ul>
               <p className="mt-3">
-                Our forms are designed to prepare a message that is then sent through WhatsApp or your own email
-                client, at your action - the information you enter is not stored in a BrandMyProfile database or
-                server as part of that submission. If you separately email us your CV or other documents, we keep
-                those only for as long as needed to deliver the service you've requested.
+                Our Contact and Schedule forms prepare a message that is then sent through WhatsApp or your own email
+                client, at your action - that information is not stored by us as part of the submission.
+              </p>
+              <p className="mt-3">
+                Our Free CV Review form works differently: when you submit it, your name, email, WhatsApp number,
+                target role, target country, chosen service, the page and any campaign or referral link you came from and, if you attach one, your CV
+                file are sent to us and stored in BrandMyProfile's private Google Sheet and Google Drive, and we
+                receive an email notification. We use this only to review your CV and reply to you. If you email us
+                your CV or other documents, we keep those only for as long as needed to deliver the service you've
+                requested.
               </p>
             </div>
 
@@ -72,8 +78,16 @@ export default function Privacy() {
                 We use your browser's local storage (not third-party tracking cookies) to remember your selected
                 region so the site shows the right content on return visits, and, on our GCC CV Checklist page, to
                 save your checklist progress on your own device. This information stays in your browser and is not
-                sent to us. We do not currently use advertising cookies or third-party analytics trackers on this
-                site.
+                sent to us. We do not use advertising cookies.
+              </p>
+              <p className="mt-3">
+                With your permission, we use Google Analytics to understand how visitors use the site, for example
+                which pages are viewed and which buttons (such as WhatsApp or Free CV Review) are clicked, together
+                with the region and service the page relates to. Google Analytics sets cookies and collects
+                standard technical information such as your approximate location, device and browser. We never send
+                your name, email, phone number, CV or messages to Google Analytics. Analytics only loads if you
+                choose "Accept analytics" in the cookie banner; you can change your choice at any time with the
+                "Cookie settings" link in the footer, and a change takes effect on your next visit.
               </p>
             </div>
 
@@ -92,7 +106,8 @@ export default function Privacy() {
               <h2 className="font-serif text-2xl font-semibold tracking-normal">Third-Party Services</h2>
               <p className="mt-3">
                 Our consultation and booking flows may direct you to WhatsApp or Calendly, and our reviews link to a
-                Google Business Profile. Once you interact with those platforms directly, your information is subject
+                Google Business Profile. Free CV Review submissions are stored using Google Workspace (Google Sheets,
+                Drive and Gmail), and site analytics, if you accept it, is provided by Google Analytics. Once you interact with those platforms directly, your information is subject
                 to their own privacy policies, not this one. We encourage you to review those policies before sharing
                 information there.
               </p>

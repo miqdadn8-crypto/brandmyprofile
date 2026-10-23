@@ -124,6 +124,8 @@ export default function Schedule() {
         title={seo.title}
         description={seo.description}
         keywords="schedule consultation, free career advice, career planning call, job search consultation"
+        // Booking form with no search demand; kept out of the index so Google focuses on service pages.
+        noindex
       />
       <Header />
       <main>

@@ -12,38 +12,11 @@ const reviewAreas = [
   { label: "Presentation", detail: "Clarity, length and polish", icon: Presentation },
 ];
 
-// Document-style visual built from plain CSS (no image request, nothing to load, no fake
-// scores or client data): skeleton CV lines with the four review areas as margin notes.
-function ReviewVisual() {
-  return (
-    <div className="relative mx-auto w-full max-w-[420px]" aria-hidden="true">
-      <div className="absolute inset-0 translate-x-3 translate-y-3 rotate-[2.5deg] rounded-[var(--radius-bento)] bg-primary/10" />
-      <div className="relative rounded-[var(--radius-bento)] border border-border bg-white p-6 shadow-[var(--shadow-card)] sm:p-8">
-        <div className="flex items-center gap-4">
-          <div className="h-12 w-12 rounded-full bg-primary/15" />
-          <div className="flex-1 space-y-2">
-            <div className="h-3 w-3/5 rounded-full bg-foreground/80" />
-            <div className="h-2.5 w-2/5 rounded-full bg-foreground/25" />
-          </div>
-        </div>
-        <div className="mt-6 space-y-5">
-          {[0, 1, 2].map((block) => (
-            <div key={block} className="space-y-2">
-              <div className="h-2.5 w-1/4 rounded-full bg-primary/60" />
-              <div className="h-2 w-full rounded-full bg-foreground/10" />
-              <div className="h-2 w-11/12 rounded-full bg-foreground/10" />
-              <div className="h-2 w-4/5 rounded-full bg-foreground/10" />
-            </div>
-          ))}
-        </div>
-        <span className="absolute -left-3 top-8 rounded-full bg-primary px-3 py-1.5 text-xs font-bold text-primary-foreground shadow-md sm:-left-5">Structure</span>
-        <span className="absolute -right-2 top-1/3 rounded-full bg-primary/80 px-3 py-1.5 text-xs font-bold text-primary-foreground shadow-md sm:-right-5">ATS Readability</span>
-        <span className="absolute -left-2 bottom-24 rounded-full bg-foreground px-3 py-1.5 text-xs font-bold text-background shadow-md sm:-left-5">Role Positioning</span>
-        <span className="absolute -right-2 bottom-8 rounded-full bg-primary px-3 py-1.5 text-xs font-bold text-primary-foreground shadow-md sm:-right-5">Presentation</span>
-      </div>
-    </div>
-  );
-}
+const steps = [
+  { title: "Tell us what you're targeting", detail: "Choose CV writing, share your contact details and tell us the role or market you have in mind." },
+  { title: "Share your current CV", detail: "Attach a PDF, DOC or DOCX in the request form, or arrange to send it on WhatsApp." },
+  { title: "Discuss the next step", detail: "Our team will contact you about your request. The free review helps identify improvements; a full rewrite is a separate service." },
+];
 
 export default function FreeCvReviewSection() {
   const { openLeadModal } = useLeadModal();
@@ -65,7 +38,7 @@ export default function FreeCvReviewSection() {
 
           <ul className="mt-7 grid gap-3 sm:grid-cols-2" aria-label="What the free review looks at">
             {reviewAreas.map(({ label, detail, icon: Icon }) => (
-              <li key={label} className="flex items-center gap-3 rounded-2xl border border-border/80 bg-white px-4 py-3">
+              <li key={label} className="flex items-center gap-3 rounded-2xl border border-border/80 bg-card px-4 py-3">
                 <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-teal-50 text-primary ring-1 ring-primary/10">
                   <Icon className="h-4 w-4" aria-hidden="true" />
                 </span>
@@ -77,18 +50,18 @@ export default function FreeCvReviewSection() {
             ))}
           </ul>
 
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+          <div className="mt-8 flex flex-col gap-3 xl:flex-row">
             <Button
               variant="cta"
               size="xl"
               onClick={() => openLeadModal({ trigger: "free_review_section" })}
-              className="group min-h-14 w-full px-6 text-base sm:w-auto sm:text-lg"
+              className="group min-h-14 w-full px-6 text-base xl:w-auto xl:text-lg"
             >
               <FileSearch className="h-5 w-5" aria-hidden="true" />
               Get My Free CV Review
               <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" aria-hidden="true" />
             </Button>
-            <Button variant="outline" size="xl" asChild className="min-h-14 w-full bg-white/70 px-6 text-base sm:w-auto sm:text-lg">
+            <Button variant="outline" size="xl" asChild className="min-h-14 w-full bg-card/70 px-6 text-base xl:w-auto xl:text-lg">
               <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
                 <MessageCircle className="h-5 w-5" aria-hidden="true" />
                 Continue on WhatsApp
@@ -101,7 +74,17 @@ export default function FreeCvReviewSection() {
         </Reveal>
 
         <Reveal delay={0.1}>
-          <ReviewVisual />
+          <div className="rounded-[var(--radius-bento)] border border-primary/15 bg-card p-6 sm:p-8">
+            <h3 className="text-2xl">How the free review works</h3>
+            <ol className="mt-7 space-y-7">
+              {steps.map((step, index) => (
+                <li key={step.title} className="flex gap-4">
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-teal-50 font-bold text-primary" aria-hidden="true">{index + 1}</span>
+                  <div><h4 className="text-base font-bold">{step.title}</h4><p className="mt-2 text-base leading-7 text-muted-foreground">{step.detail}</p></div>
+                </li>
+              ))}
+            </ol>
+          </div>
         </Reveal>
       </div>
     </section>

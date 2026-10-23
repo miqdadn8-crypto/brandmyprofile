@@ -226,9 +226,9 @@ const packagePositioning: Record<string, string> = {
 };
 
 const packageCtas: Record<string, string> = {
-  basic: "Choose Basic",
-  pro: "Choose Pro",
-  elite: "Choose Elite",
+  basic: "Choose Essential",
+  pro: "Choose Professional",
+  elite: "Choose Executive",
 };
 
 interface PricingTierData {
@@ -376,13 +376,13 @@ export default function CVWriting() {
           <div className="section-container grid min-h-[760px] items-center gap-12 py-16 lg:min-h-[820px] lg:grid-cols-[1fr_0.88fr] lg:py-20">
             <div className="min-w-0 max-w-3xl">
               <p className="mb-5 max-w-full text-xs font-semibold uppercase tracking-[0.14em] text-accent sm:text-sm sm:tracking-[0.22em]">
-                Professional CV Writing for {leadCountry} & GCC
+                Your experience deserves a CV that gets noticed
               </p>
+              {/* Exact-match heading for "CV writing services in {country}" searches. */}
               <h1 className="max-w-full overflow-hidden font-serif text-[clamp(2.35rem,10.4vw,5.95rem)] font-semibold leading-[0.98] tracking-normal text-foreground sm:text-[clamp(3.35rem,7vw,5.95rem)]">
-                <span className="block sm:inline">Your</span>
-                <span className="block sm:inline"> Experience</span>
-                <span className="block">Deserves</span>
-                <span className="block text-primary">a CV That Gets Noticed</span>
+                <span className="block">CV Writing</span>
+                <span className="block">Services in</span>
+                <span className="block text-primary">{selectedRegion.name}</span>
               </h1>
               <p className="mt-7 max-w-2xl text-lg leading-8 text-muted-foreground md:text-xl">
                 We professionally rewrite your CV to highlight achievements, improve ATS compatibility, and position you clearly for {leadCountry} and GCC opportunities.

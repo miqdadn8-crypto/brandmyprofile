@@ -2,12 +2,12 @@
   "kuwait": {
     "seo": {
       "title": "CV Writing Services in Kuwait",
-      "description": "Professional CV writing, LinkedIn makeovers and career coaching for job seekers in Kuwait and the GCC, with ATS-friendly formatting included."
+      "description": "Professional CV and resume writing services in Kuwait. Human-written, ATS-friendly CVs for jobs in Kuwait City and the GCC. Prices in KWD, free CV review."
     },
     "pricingIntro": "Transparent pricing for professionals targeting Kuwait and GCC opportunities.",
     "atsCv": {
-      "metaTitle": "ATS CV Writing in Kuwait",
-      "metaDescription": "ATS-friendly CV writing for Kuwait job applications with clear structure, role-relevant keywords and human review. Start with a free CV review."
+      "metaTitle": "ATS-Friendly CV & Resume Writing in Kuwait",
+      "metaDescription": "ATS-friendly CV and resume writing for Kuwait job applications: clean structure, role-specific keywords and human review. Free CV review."
     },
     "gccCv": {
       "metaTitle": "GCC CV Writing in Kuwait",
@@ -15,8 +15,8 @@
     },
     "serviceSeo": {
       "cv-writing": {
-        "metaTitle": "Professional CV Writing Services in Kuwait",
-        "metaDescription": "Professional CV writing for Kuwait and GCC jobs. ATS-friendly, human-written CVs tailored to your target role. Start with a free CV review."
+        "metaTitle": "CV & Resume Writing Services in Kuwait",
+        "metaDescription": "CV and resume writing services in Kuwait: human-written, ATS-friendly CVs tailored to your target role. Prices in KWD, free CV review."
       },
       "linkedin-makeover": {
         "metaTitle": "LinkedIn Profile Optimization in Kuwait",
@@ -26,57 +26,120 @@
         "metaTitle": "CV Writing Prices & Packages in Kuwait",
         "metaDescriptionTemplate": "Compare CV writing packages in Kuwait, starting from {startingPrice}. See what each package includes, plus LinkedIn, career coaching and masterclass pricing in KWD."
       }
+    },
+    "cities": [
+      "Kuwait City",
+      "Salmiya",
+      "Hawally",
+      "Farwaniya",
+      "Ahmadi",
+      "Jahra"
+    ],
+    "aeoBlock": {
+      "question": "What does a CV writing service in Kuwait include?",
+      "answer": "BrandMyProfile's CV writing service for Kuwait includes a human-written, ATS-friendly CV tailored to your target role, an achievement-focused rewrite of your experience, role-specific keywords and revision support according to your package. Everything is handled online and over WhatsApp, so there is no office to visit. Job seekers in Kuwait City, Salmiya, Hawally, Farwaniya, Ahmadi and Jahra can start with a free CV review, and prices are shown in KWD."
     }
   },
   "uae": {
     "seo": {
-      "title": "CV Writing Services in UAE",
-      "description": "Professional CV writing, LinkedIn makeovers and career coaching for job seekers in the UAE and the GCC, with ATS-friendly formatting included."
+      "title": "CV Writing Services in Dubai & UAE",
+      "description": "Professional CV and resume writing services in Dubai, Abu Dhabi and across the UAE. Human-written, ATS-friendly CVs. Prices in AED, free CV review."
     },
     "pricingIntro": "Transparent pricing for professionals targeting UAE and GCC opportunities.",
     "atsCv": {
-      "metaTitle": "ATS CV Writing in UAE",
-      "metaDescription": "Get an ATS-friendly CV tailored to UAE job applications, with role-specific keywords, clear structure and human review from BrandMyProfile."
+      "metaTitle": "ATS-Friendly CV & Resume Writing in UAE",
+      "metaDescription": "ATS-friendly CV and resume writing for the UAE job applications: clean structure, role-specific keywords and human review. Free CV review."
     },
     "gccCv": {
       "metaTitle": "GCC CV Format for UAE Jobs",
       "metaDescription": "Get a professionally written GCC-format CV tailored for UAE job applications, with market-relevant positioning, clear experience and human review."
+    },
+    "cities": [
+      "Dubai",
+      "Abu Dhabi",
+      "Sharjah",
+      "Ajman",
+      "Al Ain"
+    ],
+    "aeoBlock": {
+      "question": "What does a CV writing service in Dubai and the UAE include?",
+      "answer": "BrandMyProfile's CV writing service for the UAE includes a human-written, ATS-friendly CV tailored to your target role, an achievement-focused rewrite of your experience, role-specific keywords and revision support according to your package. Everything is handled online and over WhatsApp, so there is no office to visit. Job seekers in Dubai, Abu Dhabi, Sharjah, Ajman and Al Ain can start with a free CV review, and prices are shown in AED."
+    },
+    "serviceSeo": {
+      "cv-writing": {
+        "metaTitle": "CV & Resume Writing Services in Dubai & UAE",
+        "metaDescription": "CV and resume writing services in Dubai and the UAE: human-written, ATS-friendly CVs tailored to your target role. Prices in AED, free CV review."
+      }
     }
   },
   "saudi": {
     "seo": {
       "title": "CV Writing Services in Saudi Arabia",
-      "description": "Professional CV writing, LinkedIn makeovers and career coaching for job seekers in Saudi Arabia and the GCC, with ATS-friendly formatting included."
+      "description": "Professional CV and resume writing services in Saudi Arabia for jobs in Riyadh, Jeddah and Dammam. Human-written, ATS-friendly CVs. Prices in SAR."
     },
     "pricingIntro": "Transparent pricing for professionals targeting Saudi and GCC opportunities.",
     "atsCv": {
-      "metaTitle": "ATS CV Writing in Saudi Arabia",
-      "metaDescription": "Get an ATS-friendly CV tailored to Saudi Arabia job applications, with role-specific keywords, clear structure and human review from BrandMyProfile."
+      "metaTitle": "ATS-Friendly CV & Resume Writing in Saudi Arabia",
+      "metaDescription": "ATS-friendly CV and resume writing for Saudi Arabia job applications: clean structure, role-specific keywords and human review. Free CV review."
     },
     "gccCv": {
       "metaTitle": "GCC CV Format for Saudi Arabia Jobs",
       "metaDescription": "Get a professionally written GCC-format CV tailored for Saudi Arabia job applications, with market-relevant positioning, clear experience and human review."
+    },
+    "cities": [
+      "Riyadh",
+      "Jeddah",
+      "Dammam",
+      "Khobar",
+      "Mecca",
+      "Medina"
+    ],
+    "aeoBlock": {
+      "question": "What does a CV writing service in Saudi Arabia include?",
+      "answer": "BrandMyProfile's CV writing service for Saudi Arabia includes a human-written, ATS-friendly CV tailored to your target role, an achievement-focused rewrite of your experience, role-specific keywords and revision support according to your package. Everything is handled online and over WhatsApp, so there is no office to visit. Job seekers in Riyadh, Jeddah, Dammam, Khobar, Mecca and Medina can start with a free CV review, and prices are shown in SAR."
+    },
+    "serviceSeo": {
+      "cv-writing": {
+        "metaTitle": "CV & Resume Writing Services in Saudi Arabia",
+        "metaDescription": "CV and resume writing services in Saudi Arabia: human-written, ATS-friendly CVs tailored to your target role. Prices in SAR, free CV review."
+      }
     }
   },
   "qatar": {
     "seo": {
-      "title": "CV Writing Services in Qatar",
-      "description": "Professional CV writing, LinkedIn makeovers and career coaching for job seekers in Qatar and the GCC, with ATS-friendly formatting included."
+      "title": "CV Writing Services in Doha, Qatar",
+      "description": "Professional CV and resume writing services in Doha and across Qatar. Human-written, ATS-friendly CVs for Qatar and GCC jobs. Prices in QAR, free CV review."
     },
     "pricingIntro": "Transparent pricing for professionals targeting Qatar and GCC opportunities.",
     "atsCv": {
-      "metaTitle": "ATS CV Writing in Qatar",
-      "metaDescription": "Get an ATS-friendly CV tailored to Qatar job applications, with role-specific keywords, clear structure and human review from BrandMyProfile."
+      "metaTitle": "ATS-Friendly CV & Resume Writing in Qatar",
+      "metaDescription": "ATS-friendly CV and resume writing for Qatar job applications: clean structure, role-specific keywords and human review. Free CV review."
     },
     "gccCv": {
       "metaTitle": "GCC CV Format for Qatar Jobs",
       "metaDescription": "Get a professionally written GCC-format CV tailored for Qatar job applications, with market-relevant positioning, clear experience and human review."
+    },
+    "cities": [
+      "Doha",
+      "Al Rayyan",
+      "Al Wakrah",
+      "Lusail"
+    ],
+    "aeoBlock": {
+      "question": "What does a CV writing service in Qatar include?",
+      "answer": "BrandMyProfile's CV writing service for Qatar includes a human-written, ATS-friendly CV tailored to your target role, an achievement-focused rewrite of your experience, role-specific keywords and revision support according to your package. Everything is handled online and over WhatsApp, so there is no office to visit. Job seekers in Doha, Al Rayyan, Al Wakrah and Lusail can start with a free CV review, and prices are shown in QAR."
+    },
+    "serviceSeo": {
+      "cv-writing": {
+        "metaTitle": "CV & Resume Writing Services in Doha, Qatar",
+        "metaDescription": "CV and resume writing services in Doha and Qatar: human-written, ATS-friendly CVs tailored to your target role. Prices in QAR, free CV review."
+      }
     }
   },
   "india": {
     "seo": {
       "title": "CV Writing Services in India",
-      "description": "Professional CV writing, LinkedIn makeovers and career coaching for professionals in India targeting roles across the GCC, with ATS-friendly formatting included."
+      "description": "Professional CV and resume writing services in India for GCC and international jobs. Human-written, ATS-friendly CVs. Prices in INR, free CV review."
     },
     "pricingIntro": "Transparent pricing for professionals targeting Indian and GCC opportunities.",
     "atsCv": {
@@ -98,6 +161,18 @@
     "europeJobsHub": {
       "metaTitle": "European Jobs from India: CV & Career Guide",
       "metaDescription": "Prepare for European job applications from India with guidance on professional CVs, Europass, ATS optimization, LinkedIn and international application positioning."
+    },
+    "cities": [
+      "Kerala",
+      "Mumbai",
+      "Hyderabad",
+      "Chennai",
+      "Bengaluru",
+      "Delhi"
+    ],
+    "aeoBlock": {
+      "question": "What does a CV writing service for Gulf jobs from India include?",
+      "answer": "BrandMyProfile's CV writing service for India includes a human-written, ATS-friendly CV tailored to the GCC or international role you are targeting, an achievement-focused rewrite of your experience, role-specific keywords and revision support according to your package. Everything is handled online and over WhatsApp, so there is no office to visit. Professionals across India, from Kerala and Mumbai to Hyderabad, Chennai, Bengaluru and Delhi, can start with a free CV review, and prices are shown in INR."
     }
   },
   "bahrain": {
@@ -105,13 +180,35 @@
       "title": "CV Writing Services in Bahrain",
       "description": "Professional CV writing and career-profile support for professionals targeting Bahrain and GCC jobs. Get a free CV review from BrandMyProfile."
     },
-    "pricingIntro": "Transparent pricing for professionals targeting Bahrain and GCC opportunities."
+    "pricingIntro": "Transparent pricing for professionals targeting Bahrain and GCC opportunities.",
+    "cities": [
+      "Manama",
+      "Muharraq",
+      "Riffa"
+    ],
+    "serviceSeo": {
+      "cv-writing": {
+        "metaTitle": "CV & Resume Writing Services in Bahrain",
+        "metaDescription": "CV and resume writing services in Bahrain: human-written, ATS-friendly CVs tailored to your target role. Start with a free CV review."
+      }
+    }
   },
   "oman": {
     "seo": {
       "title": "CV Writing Services in Oman",
       "description": "Professional CV writing and career-profile support for professionals targeting Oman and GCC jobs. Get a free CV review from BrandMyProfile."
     },
-    "pricingIntro": "Transparent pricing for professionals targeting Oman and GCC opportunities."
+    "pricingIntro": "Transparent pricing for professionals targeting Oman and GCC opportunities.",
+    "cities": [
+      "Muscat",
+      "Salalah",
+      "Sohar"
+    ],
+    "serviceSeo": {
+      "cv-writing": {
+        "metaTitle": "CV & Resume Writing Services in Oman",
+        "metaDescription": "CV and resume writing services in Oman: human-written, ATS-friendly CVs tailored to your target role. Start with a free CV review."
+      }
+    }
   }
 }

@@ -89,6 +89,10 @@ const REGION_ROUTE_SUFFIXES = [
 ];
 
 // The subset of REGION_ROUTE_SUFFIXES that actually exists for limited-footprint regions.
+// Real pages kept out of the index (and sitemap) so crawling focuses on service, country and
+// guide pages. Mirrors the `noindex` prop on Schedule.tsx and SuccessStories.tsx.
+const NOINDEX_SUFFIXES = ['/schedule', '/success-stories'];
+
 const LIMITED_FOOTPRINT_ROUTE_SUFFIXES = REGION_ROUTE_SUFFIXES.filter((entry) =>
     ['', '/contact', '/services/cv-writing'].includes(entry.suffix)
 );
@@ -246,8 +250,8 @@ function buildPriorityPageMeta(servicesData, regionSeo, pageSeo, industryPages) 
         if (cvWriting?.seo) {
             pages.push({
                 urlPath: `/${region}/services/cv-writing`,
-                title: buildFullTitle(`${cvWriting.seo.title} in ${name}`, region),
-                description: fillRegionTemplate(pageSeo.serviceDescriptionTemplates['cv-writing'], name),
+                title: buildFullTitle(home.serviceSeo?.['cv-writing']?.metaTitle ?? `${cvWriting.seo.title} in ${name}`, region),
+                description: home.serviceSeo?.['cv-writing']?.metaDescription ?? fillRegionTemplate(pageSeo.serviceDescriptionTemplates['cv-writing'], name),
             });
         }
     });
@@ -313,7 +317,7 @@ function buildAlternates(urlPath, indexablePaths) {
 // Page-specific replacement for index.html's generic <noscript><main> block, so crawlers
 // that never run JavaScript (GPTBot, PerplexityBot, ...) see a distinct H1, summary and
 // links on every URL instead of one identical Kuwait-first text.
-function buildCrawlerFallback({ title, description, urlPath, indexablePaths, alternates, extraLinks = [] }) {
+function buildCrawlerFallback({ title, description, urlPath, indexablePaths, alternates, extraLinks = [], sections = [] }) {
     const region = urlPath.split('/')[1];
     const regionName = REGION_NAMES[region];
     const links = regionName
@@ -338,6 +342,8 @@ function buildCrawlerFallback({ title, description, urlPath, indexablePaths, alt
         `        <h1>${htmlEscape(heading)}</h1>`,
         `        <p>${htmlEscape(description)}</p>`,
         '        <p>BrandMyProfile is an online career-support service: CV writing, ATS and GCC-format CVs, LinkedIn optimization and career coaching. Services are delivered online; there is no walk-in office.</p>',
+        ...sections.map(({ heading: sectionHeading, text }) => `        <h2>${htmlEscape(sectionHeading)}</h2>
+        <p>${htmlEscape(text)}</p>`),
         allLinks.length ? `        <ul>${allLinks.map((link) => `<li><a href="${link.href}">${htmlEscape(link.label)}</a></li>`).join('')}</ul>` : '',
         regionLinks.length ? `        <h2>This page in other regions</h2>\n        <ul>${regionLinks.join('')}</ul>` : '',
         // Contact details match index.html's fallback and organization.json.
@@ -503,6 +509,7 @@ async function main() {
             // Job listing pages are illustrative sample data for now (see IS_MOCK_JOB_SOURCE)
             // - keep the sitemap free of them until a real feed is wired in.
             if (suffix === '/jobs' && IS_MOCK_JOB_SOURCE) return;
+            if (NOINDEX_SUFFIXES.includes(suffix)) return;
             addSitemapEntry({
                 loc: `${SITE_URL}/${region}${suffix}`,
                 changefreq,
@@ -547,7 +554,8 @@ async function main() {
     const organization = loadJSON(ORGANIZATION_PATH)?.organization;
     const priorityPages = buildPriorityPageMeta(servicesData, regionSeo, pageSeo, industryPages);
     // Sample job listing pages are noindex,follow with no canonical (see IS_MOCK_JOB_SOURCE).
-    const isNoindexPage = (urlPath) => IS_MOCK_JOB_SOURCE && /^\/[a-z]+\/jobs$/.test(urlPath);
+    const isNoindexPage = (urlPath) => (IS_MOCK_JOB_SOURCE && /^\/[a-z]+\/jobs$/.test(urlPath))
+        || NOINDEX_SUFFIXES.some((suffix) => urlPath.endsWith(suffix));
     const indexablePaths = new Set(priorityPages.map(({ urlPath }) => urlPath).filter((urlPath) => !isNoindexPage(urlPath)));
 
     // Organization + WebSite share @ids with the client-side schema in organization.ts,
@@ -570,11 +578,29 @@ async function main() {
     };
 
     // Shared by every indexable static page: hreflang, page-specific crawler text, JSON-LD.
+    // Region homes and CV-writing pages also carry the "what's included" answer and the
+    // cities served (regionSeo.json), the copy that targets "CV writing services in X".
+    const localSections = (urlPath) => {
+        const match = urlPath.match(/^\/([a-z]+)(\/services\/cv-writing)?$/);
+        const local = match && regionSeo[match[1]];
+        if (!local) return [];
+        const sections = [];
+        if (local.aeoBlock) sections.push({ heading: local.aeoBlock.question, text: local.aeoBlock.answer });
+        if (local.cities?.length) {
+            const place = match[1] === 'uae' ? 'the UAE' : REGION_NAMES[match[1]];
+            sections.push({
+                heading: `CV writing for job seekers across ${place}`,
+                text: `BrandMyProfile works online with professionals in ${local.cities.join(', ')} and elsewhere in ${place}.`,
+            });
+        }
+        return sections;
+    };
+
     const generateIndexablePage = (urlPath, title, description, image = null, extraLinks = []) => {
         const alternates = buildAlternates(urlPath, indexablePaths);
         generatePage(urlPath, title, description, image, {
             alternates,
-            crawlerHtml: buildCrawlerFallback({ title, description, urlPath, indexablePaths, alternates, extraLinks }),
+            crawlerHtml: buildCrawlerFallback({ title, description, urlPath, indexablePaths, alternates, extraLinks, sections: localSections(urlPath) }),
             jsonLd: buildJsonLd(urlPath, title, description),
         });
     };
@@ -665,8 +691,8 @@ async function main() {
         ];
         legalPages.forEach(({ url, title, description }) => {
             urls.push(url);
-            generateIndexablePage(url, title, description);
-            addSitemapEntry({ loc: `${SITE_URL}${url}`, changefreq: 'yearly', priority: '0.3' });
+            // Legal pages stay reachable but out of the index and sitemap (Privacy.tsx / Terms.tsx noindex).
+            generatePage(url, title, description, null, { noindex: true });
         });
     }
 

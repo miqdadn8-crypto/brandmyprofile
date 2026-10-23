@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
 import {
   ArrowRight,
+  Award,
   FileSearch,
   MapPinned,
   ShieldCheck,
@@ -15,15 +15,6 @@ import { LIMITED_FOOTPRINT_REGIONS } from "@/contexts/regionAvailability";
 import { getRegionContent } from "@/lib/data/regionContent";
 import heroImage from "@/assets/hero-gcc-professional.webp";
 import laurelArtwork from "../../../laurel.svg";
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 12 },
-  visible: (delay = 0) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.45, ease: "easeOut" as const, delay },
-  }),
-};
 
 const collageDocuments = [
   { type: "ATS CV", tone: "mono", className: "hero-doc--ats" },
@@ -59,12 +50,12 @@ function TrustStrip({ market, className = "" }: { market: string; className?: st
   ];
 
   return (
-    <div className={`grid max-w-[720px] grid-cols-2 overflow-hidden rounded-[var(--radius-md)] border border-primary/10 bg-white/80 sm:grid-cols-4 ${className}`}>
+    <div className={`grid max-w-[720px] grid-cols-2 overflow-hidden rounded-[var(--radius-md)] border border-primary/10 bg-card/80 sm:grid-cols-4 ${className}`}>
       {items.map(({ title, label, icon: Icon }, index) => (
-        <div key={title} className={`flex h-[78px] flex-col justify-center p-3 sm:h-[74px] ${index % 2 !== 0 ? "border-l border-primary/10" : ""} ${index > 1 ? "border-t border-primary/10 sm:border-t-0" : ""} ${index > 0 ? "sm:border-l sm:border-primary/10" : ""}`}>
+        <div key={title} className={`flex min-h-[90px] flex-col justify-center p-3 ${index % 2 !== 0 ? "border-l border-primary/10" : ""} ${index > 1 ? "border-t border-primary/10 sm:border-t-0" : ""} ${index > 0 ? "sm:border-l sm:border-primary/10" : ""}`}>
           <Icon className="mb-1 h-4 w-4 shrink-0 text-primary/80" aria-hidden="true" />
           <p className="text-sm font-bold leading-5 text-foreground">{title}</p>
-          <p className="text-xs font-medium leading-4 text-muted-foreground">{label}</p>
+          <p className="text-sm font-medium leading-5 text-muted-foreground">{label}</p>
         </div>
       ))}
     </div>
@@ -83,17 +74,22 @@ export default function Hero() {
   const secondaryCtaLabel = isLimitedFootprint ? "Ask About Pricing" : "View CV Packages";
   const marketLabel = selectedRegion.code === "india" ? "India & GCC" : `${selectedRegion.name} & GCC`;
   const badgeMarketLabel = `${selectedRegion.name.toUpperCase()} · GCC CAREERS`;
+  const place = selectedRegion.code === "uae" ? "the UAE" : selectedRegion.name;
+  const mobileDescription = selectedRegion.code === "india"
+    ? "Professional CV and resume writing in India, plus LinkedIn and career support for GCC and international jobs."
+    : `Professional CV and resume writing in ${place}, plus LinkedIn and career support for GCC jobs.`;
   return (
-    <section className="relative overflow-hidden border-b border-primary/10 bg-[hsl(35_33%_97%)] pb-12 pt-[112px] sm:pb-14 sm:pt-[120px] lg:min-h-[720px] lg:pb-12 lg:pt-[112px]">
+    <section className="relative overflow-hidden border-b border-primary/10 bg-[hsl(var(--surface-warm))] pb-12 pt-[112px] sm:pb-14 sm:pt-[120px] lg:min-h-[720px] lg:pb-12 lg:pt-[112px]">
       <div className="hero-background-wash absolute inset-0" aria-hidden="true" />
       <div className="section-container relative z-10 grid items-center gap-7 lg:grid-cols-[1.28fr_1fr] lg:gap-10 xl:gap-14">
         <div className="min-w-0 max-w-[760px]">
-          <motion.div
-            custom={0}
-            initial="hidden"
-            animate="visible"
-            variants={fadeUp}
-            className="relative mb-0 aspect-[2553/802] w-[275px] max-w-full sm:mb-2 sm:w-[330px]"
+          {/* Phones: one readable line (the laurel's inner gap is too narrow below 640px). */}
+          <p className="mb-3 flex items-center gap-2 text-sm font-semibold text-primary sm:hidden">
+            <Award className="h-4 w-4 shrink-0" aria-hidden="true" />
+            <span>500+ professionals supported</span>
+          </p>
+          <div
+            className="relative mb-2 hidden aspect-[2553/802] w-[340px] max-w-full sm:block"
           >
             <span className="sr-only">500+ Professionals Supported. {selectedRegion.name} and GCC careers.</span>
             <span
@@ -112,45 +108,37 @@ export default function Hero() {
             />
             <span className="absolute inset-0 flex items-center justify-center" aria-hidden="true">
               <span className="min-w-0 -translate-y-0.5 text-center leading-none">
-                <span className="block whitespace-nowrap text-[11px] font-semibold uppercase tracking-[0.1em] text-foreground sm:text-xs">500+ Professionals Supported</span>
-                <span className="mt-1.5 block whitespace-nowrap text-[10px] font-semibold uppercase tracking-[0.14em] text-primary/80 sm:text-[11px]">{badgeMarketLabel}</span>
+                <span className="block whitespace-nowrap text-xs font-semibold uppercase tracking-[0.06em] text-foreground">500+ Professionals Supported</span>
+                <span className="mt-1.5 block whitespace-nowrap text-xs font-semibold uppercase tracking-[0.06em] text-primary/80">{badgeMarketLabel}</span>
               </span>
             </span>
-          </motion.div>
+          </div>
 
-          <motion.h1
-            custom={0.06}
-            initial="hidden"
-            animate="visible"
-            variants={fadeUp}
-            className="max-w-full break-words font-serif text-[clamp(2.1rem,9.4vw,2.6rem)] font-semibold leading-[0.96] tracking-[-0.035em] text-foreground sm:text-[3.35rem] sm:leading-[0.98] md:text-[3.7rem] lg:text-[2.75rem] xl:text-[3.5rem] 2xl:text-[3.5rem]"
+          <h1
+            className="max-w-full break-words font-serif text-[clamp(2.1rem,9.4vw,2.6rem)] font-bold leading-[1.08] tracking-[-0.035em] text-foreground sm:text-[3.35rem] sm:leading-[1.08] md:text-[3.7rem] lg:text-[2.75rem] xl:text-[3.5rem] 2xl:text-[3.5rem]"
           >
             <span className="block lg:hidden">
-              <span className="block whitespace-nowrap">Your Experience</span>
-              <span className="block whitespace-nowrap">Deserves a CV That</span>
-              <span className="block whitespace-nowrap">Gets Noticed</span>
+              <span className="block ">Your Experience</span>
+              <span className="block ">Deserves a CV That</span>
+              <span className="block ">Gets Noticed</span>
             </span>
             <span className="hidden lg:block">
               <span className="block">Your Experience Deserves</span>
               <span className="block">a CV That Gets Noticed</span>
             </span>
-          </motion.h1>
+          </h1>
 
-          <motion.p
-            custom={0.12}
-            initial="hidden"
-            animate="visible"
-            variants={fadeUp}
-            className="mt-4 max-w-2xl text-lg font-medium leading-7 text-foreground/70 sm:mt-5 sm:text-xl sm:leading-8"
+          {/* Short version on phones keeps both CTAs in the first screen on small devices. */}
+          <p className="mt-4 text-lg font-medium leading-7 text-foreground/70 sm:hidden">
+            {mobileDescription}
+          </p>
+          <p
+            className="mt-5 hidden max-w-2xl text-xl font-medium leading-8 text-foreground/70 sm:block"
           >
             {content.hero.description}
-          </motion.p>
+          </p>
 
-          <motion.div
-            custom={0.18}
-            initial="hidden"
-            animate="visible"
-            variants={fadeUp}
+          <div
             className="mt-5 flex flex-col gap-2.5 sm:mt-6 sm:flex-row sm:gap-3 lg:flex-col xl:flex-row"
           >
             <Button variant="cta" size="xl" onClick={() => openLeadModal({ trigger: "hero_cv_review" })} className="group min-h-14 w-full whitespace-normal px-4 text-base sm:w-auto sm:px-6 sm:text-lg lg:w-full lg:text-base xl:w-auto xl:text-lg">
@@ -158,37 +146,23 @@ export default function Hero() {
               Get My Free CV Review
               <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" aria-hidden="true" />
             </Button>
-            <Button variant="outline" size="xl" asChild className="min-h-14 w-full whitespace-normal border-primary/55 bg-white/75 px-6 text-base font-medium text-primary shadow-none transition-all duration-200 hover:border-primary hover:bg-primary hover:text-primary-foreground hover:shadow-md focus-visible:bg-primary focus-visible:text-primary-foreground sm:w-auto sm:text-lg lg:w-full lg:text-base xl:w-auto xl:text-lg">
+            <Button variant="outline" size="xl" asChild className="min-h-14 w-full whitespace-normal border-primary/55 bg-card/75 px-6 text-base font-medium text-primary shadow-none transition-all duration-200 hover:border-primary hover:bg-primary hover:text-primary-foreground hover:shadow-md focus-visible:bg-primary focus-visible:text-primary-foreground sm:w-auto sm:text-lg lg:w-full lg:text-base xl:w-auto xl:text-lg">
               <Link to={secondaryCtaPath}>{secondaryCtaLabel}</Link>
             </Button>
-          </motion.div>
+          </div>
 
-          <motion.p
-            custom={0.22}
-            initial="hidden"
-            animate="visible"
-            variants={fadeUp}
+          <p
             className="mt-3 flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-center text-sm font-semibold text-muted-foreground sm:mt-3.5 sm:justify-start sm:text-left"
           >
             <span>No obligation</span><span className="text-primary/50" aria-hidden="true">·</span><span>Free CV review</span>
-          </motion.p>
+          </p>
 
-          <motion.div
-            custom={0.26}
-            initial="hidden"
-            animate="visible"
-            variants={fadeUp}
-            className="mt-5 hidden lg:block"
-          >
+          <div className="mt-5">
             <TrustStrip market={marketLabel} />
-          </motion.div>
+          </div>
         </div>
 
-        <motion.div
-          custom={0.12}
-          initial="hidden"
-          animate="visible"
-          variants={fadeUp}
+        <div
           className="hero-visual relative mx-auto w-full max-w-[560px] lg:mx-0 lg:max-w-none"
         >
           <div className="hero-collage" aria-hidden="true">
@@ -208,17 +182,7 @@ export default function Hero() {
             />
             <div className="absolute inset-0 bg-gradient-to-t from-primary/45 via-transparent to-transparent" aria-hidden="true" />
           </div>
-        </motion.div>
-
-        <motion.div
-          custom={0.26}
-          initial="hidden"
-          animate="visible"
-          variants={fadeUp}
-          className="mt-4 lg:hidden"
-        >
-          <TrustStrip market={marketLabel} />
-        </motion.div>
+        </div>
       </div>
     </section>
   );

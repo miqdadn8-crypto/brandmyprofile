@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Linkedin, Instagram, Mail, Phone, Star } from "lucide-react";
 import { GOOGLE_BUSINESS_PROFILE_URL } from "@/lib/seo/organization";
 import { useRegion } from "@/contexts/RegionContext";
+import { GA_MEASUREMENT_ID, resetConsent } from "@/lib/analyticsConsent";
 import { LIMITED_FOOTPRINT_REGIONS } from "@/contexts/regionAvailability";
 
 const footerLinkClass = "transition-colors hover:text-accent";
@@ -14,7 +15,7 @@ export default function Footer() {
   const isLimitedFootprint = LIMITED_FOOTPRINT_REGIONS.has(selectedRegion.code);
 
   return (
-    <footer className="border-t border-white/15 bg-[hsl(193_72%_13%)] text-white">
+    <footer className="border-t border-white/15 bg-[hsl(var(--surface-ink))] text-white">
       <div className="section-container pb-24 pt-10 md:pb-8 md:pt-12">
         <div className="mb-8 grid grid-cols-1 gap-x-8 gap-y-9 sm:grid-cols-2 lg:grid-cols-4">
           <div>
@@ -31,7 +32,7 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="BrandMyProfile on LinkedIn"
-                className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-white/85 transition-colors hover:border-accent hover:text-accent"
+                className="flex h-11 w-11 items-center justify-center rounded-full border border-white/15 text-white/85 transition-colors hover:border-accent hover:text-accent"
               >
                 <Linkedin className="h-5 w-5" />
               </a>
@@ -40,7 +41,7 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="BrandMyProfile on Instagram"
-                className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-white/85 transition-colors hover:border-accent hover:text-accent"
+                className="flex h-11 w-11 items-center justify-center rounded-full border border-white/15 text-white/85 transition-colors hover:border-accent hover:text-accent"
               >
                 <Instagram className="h-5 w-5" />
               </a>
@@ -49,7 +50,7 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Read our reviews on Google"
-                className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-white/85 transition-colors hover:border-accent hover:text-accent"
+                className="flex h-11 w-11 items-center justify-center rounded-full border border-white/15 text-white/85 transition-colors hover:border-accent hover:text-accent"
               >
                 <Star className="h-5 w-5" />
               </a>
@@ -110,12 +111,16 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-white/15 pt-5">
+        {/* Bottom padding on phones so the last links scroll clear of the floating WhatsApp button. */}
+        <div className="border-t border-white/15 pb-20 pt-5 sm:pb-0">
           <div className="flex flex-col items-center justify-between gap-3 text-center text-sm text-white/65 md:flex-row md:text-left">
             <p>&copy; {new Date().getFullYear()} BrandMyProfile. All rights reserved.</p>
             <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 md:justify-end">
               <Link to="/privacy" className={footerLinkClass}>Privacy Policy</Link>
               <Link to="/terms" className={footerLinkClass}>Terms of Service</Link>
+              {GA_MEASUREMENT_ID && (
+                <button type="button" onClick={resetConsent} className={footerLinkClass}>Cookie settings</button>
+              )}
             </div>
           </div>
         </div>

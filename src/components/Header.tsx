@@ -13,6 +13,7 @@ import { LIMITED_FOOTPRINT_REGIONS } from "@/contexts/regionAvailability";
 import { useChangeRegion } from "@/hooks/useChangeRegion";
 import RegionFlag from "@/components/RegionFlag";
 import { cn } from "@/lib/utils";
+import { useLeadModal } from "@/components/lead/LeadModalContext";
 
 // `/blog` is a global (region-less) route by design - see src/App.tsx - and must never
 // be prefixed with a region segment. Every other link here targets a region-scoped page.
@@ -93,6 +94,8 @@ export default function Header() {
   const { selectedRegion } = useRegion();
   const changeRegion = useChangeRegion();
   const location = useLocation();
+  const { openLeadModal } = useLeadModal();
+  const isHome = location.pathname.replace(/\/$/, "") === `/${selectedRegion.code}`;
   const regionPath = (suffix: string) => `/${selectedRegion.code}${suffix}`;
   // Bahrain/Oman only have a home, CV Writing, and Contact page live so far (Unit 3A) -
   // never link to their other service/utility pages until that content genuinely exists.
@@ -129,13 +132,9 @@ export default function Header() {
     { to: "/contact", label: "Contact" },
   ];
 
-  const isHome = location.pathname === `/${selectedRegion.code}`;
   const isServicesPath = location.pathname.startsWith(`/${selectedRegion.code}/services/`);
   const isResourcesPath = location.pathname.startsWith("/blog") || location.pathname.startsWith("/resources/");
   const isAboutPath = aboutLinks.some((link) => location.pathname === regionPath(link.to));
-  // The homepage hero now uses a light editorial surface, so its top-state
-  // navigation needs the same high-contrast treatment as other light pages.
-  const transparent = false;
 
   useEffect(() => {
     const handleScroll = () => setFloating(window.scrollY > 60);
@@ -201,10 +200,7 @@ export default function Header() {
           floating
             ? "h-[60px] w-[calc(100%-24px)] rounded-[17px] border border-border/70 bg-background/90 shadow-[var(--shadow-nav)] backdrop-blur-md supports-[backdrop-filter]:bg-background/75 sm:h-[52px] sm:w-[calc(100%-3rem)] sm:max-w-[1200px] sm:rounded-[18px]"
             : cn(
-                "h-16 w-full rounded-none border-b",
-                transparent
-                  ? "border-white/10 bg-transparent"
-                  : "border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60",
+                "h-16 w-full rounded-none border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60",
               ),
         )}
       >
@@ -227,7 +223,7 @@ export default function Header() {
               className={cn(
                 "truncate font-bold transition-[color,font-size] duration-300",
                 floating ? "text-base sm:text-lg" : "text-base sm:text-xl",
-                transparent ? "text-white" : "text-primary",
+                "text-primary",
               )}
             >
               Brand
@@ -249,9 +245,8 @@ export default function Header() {
               aria-label={`Change region. Current region: ${selectedRegion.name}`}
               className={cn(
                 "ml-auto flex h-9 shrink-0 items-center gap-1.5 rounded-[11px] border px-3 text-[13px] font-semibold transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring max-[340px]:w-9 max-[340px]:justify-center max-[340px]:px-0 sm:h-auto sm:w-auto sm:justify-start sm:rounded-md sm:px-2 sm:py-1.5 sm:text-sm sm:font-medium xl:hidden",
-                transparent
-                  ? "border-white/40 text-white hover:bg-white/10"
-                  : "border-border/80 hover:bg-secondary",
+                // 36px visual, 44px tap target
+                "relative border-border/80 hover:bg-secondary after:absolute after:-inset-1 after:content-['']",
               )}
             >
               <RegionFlag code={selectedRegion.code} name={selectedRegion.name} size="md" />
@@ -275,7 +270,7 @@ export default function Header() {
                 className={cn(
                   "flex items-center gap-1 rounded-sm text-sm font-medium transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 data-[state=open]:text-primary",
                   isServicesPath ? "text-primary" : "text-foreground",
-                  transparent ? "text-white hover:text-white/80" : "hover:text-primary",
+                  "hover:text-primary",
                 )}
               >
                 Services <ChevronDown className="h-4 w-4" />
@@ -332,7 +327,7 @@ export default function Header() {
                   className={cn(
                     "rounded-sm text-sm font-medium underline-offset-[10px] transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
                     isActive ? "text-primary underline decoration-2 decoration-primary" : "text-foreground",
-                    transparent ? "text-white hover:text-white/80" : "hover:text-primary",
+                    "hover:text-primary",
                   )}
                 >
                   {link.label}
@@ -405,9 +400,7 @@ export default function Header() {
                 aria-label={`Change region. Current region: ${selectedRegion.name}`}
                 className={cn(
                   "flex items-center gap-2 rounded-md border px-3 py-1.5 text-sm font-medium transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-                  transparent
-                    ? "border-white/40 text-white hover:bg-white/10"
-                    : "border-border/80 text-foreground/80 hover:bg-secondary",
+                  "border-border/80 text-foreground/80 hover:bg-secondary",
                 )}
               >
                 <RegionFlag code={selectedRegion.code} name={selectedRegion.name} size="md" />
@@ -426,9 +419,16 @@ export default function Header() {
               </DropdownMenuContent>
             </DropdownMenu>
 
-            <Button variant="cta" size="sm" className="h-10 px-5" asChild>
-              <Link to={bookConsultationPath}>Book Consultation</Link>
-            </Button>
+            {isHome ? (
+              // Teal while the hero's own pink CTA is on screen; pink once the page scrolls.
+              <Button variant={floating ? "cta" : "default"} size="sm" className="h-10 px-5" onClick={() => openLeadModal({ trigger: "hero_cv_review" })}>
+                Get My Free CV Review
+              </Button>
+            ) : (
+              <Button variant="cta" size="sm" className="h-10 px-5" asChild>
+                <Link to={bookConsultationPath}>Book Free Consultation</Link>
+              </Button>
+            )}
           </div>
 
           {/* Mobile menu toggle - refined to a soft teal border (never orange/accent-red,
@@ -439,7 +439,6 @@ export default function Header() {
               mobileMenuOpen
                 ? "border border-primary/25 text-primary hover:border-primary/45 hover:bg-primary/5"
                 : "border border-transparent",
-              transparent && !mobileMenuOpen && "text-white",
             )}
             aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
             aria-expanded={mobileMenuOpen}
@@ -488,7 +487,7 @@ export default function Header() {
               <DropdownMenuTrigger
                 data-region-selector
                 aria-label={`Change region. Current region: ${selectedRegion.name}`}
-                className="ml-auto flex h-9 shrink-0 items-center gap-1.5 rounded-[11px] border border-border/80 px-3 text-[13px] font-semibold transition-colors hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring max-[340px]:w-9 max-[340px]:justify-center max-[340px]:px-0"
+                className="relative ml-auto flex h-9 shrink-0 items-center gap-1.5 rounded-[11px] border border-border/80 px-3 text-[13px] font-semibold transition-colors after:absolute after:-inset-1 after:content-[''] hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring max-[340px]:w-9 max-[340px]:justify-center max-[340px]:px-0"
               >
                 <RegionFlag code={selectedRegion.code} name={selectedRegion.name} size="md" />
                 <span className="max-w-[70px] truncate max-[340px]:hidden">{selectedRegion.name}</span>
@@ -565,11 +564,18 @@ export default function Header() {
               home-indicator safe area on notched phones so the CTA is never flush with the
               edge, and the nav above scrolls independently so this row never covers Contact. */}
           <div className="shrink-0 border-t border-border/70 bg-background px-4 pb-[max(1rem,env(safe-area-inset-bottom))] pt-3.5">
-            <Button variant="cta" size="lg" className="h-[50px] w-full rounded-[14px] font-semibold shadow-md hover:shadow-md" asChild>
-              <Link to={bookConsultationPath} onClick={() => setMobileMenuOpen(false)}>
-                Book Consultation
-              </Link>
-            </Button>
+            {isHome ? (
+              <Button variant="cta" size="lg" className="min-h-[50px] w-full" onClick={() => {
+                setMobileMenuOpen(false);
+                openLeadModal({ trigger: "hero_cv_review" });
+              }}>
+                Get My Free CV Review
+              </Button>
+            ) : (
+              <Button variant="cta" size="lg" className="min-h-[50px] w-full" asChild>
+                <Link to={bookConsultationPath} onClick={() => setMobileMenuOpen(false)}>Book Free Consultation</Link>
+              </Button>
+            )}
           </div>
         </div>
       )}

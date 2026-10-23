@@ -98,6 +98,13 @@ export default function ServicesSection() {
           </p>
         </Reveal>
 
+        {content.aeoBlock && (
+          <details className="mb-8 rounded-2xl border border-border bg-card px-6 py-4">
+            <summary className="cursor-pointer text-base font-semibold text-primary">{content.aeoBlock.question}</summary>
+            <p className="mt-3 max-w-4xl text-base leading-7 text-muted-foreground">{content.aeoBlock.answer}</p>
+          </details>
+        )}
+
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-12">
           {/* Featured tile: Professional CV Writing - spans full width when the other
               tiles are hidden for limited-footprint regions, so it never leaves an
@@ -111,7 +118,7 @@ export default function ServicesSection() {
                   <FeaturedIcon className="h-5 w-5" aria-hidden="true" />
                 </div>
                 <span className="rounded-full border border-primary/15 bg-primary/10 px-3.5 py-2 text-sm font-semibold leading-none text-primary">
-                  Most Popular
+                  CV Writing
                 </span>
               </div>
 
@@ -142,7 +149,7 @@ export default function ServicesSection() {
               <Button
                 size="lg"
                 asChild
-                className="mt-auto min-w-[220px] max-w-[300px] w-fit self-start h-[50px] rounded-xl px-6 text-base"
+                className="mt-7 max-w-full w-fit self-start h-[50px] rounded-xl px-6 text-base"
               >
                 <Link to={"/" + selectedRegion.code + (isLimitedFootprint ? "/contact" : "/pricing")}>
                   {isLimitedFootprint ? "Ask About Pricing" : featuredService.cta}

@@ -5,12 +5,12 @@
   "extensions": {
     "colorMeta": {
       "deep-teal": { "role": "primary", "displayName": "Deep Teal", "canonical": "hsl(192 100% 20%)", "tonalRamp": ["hsl(192 100% 8%)", "hsl(192 100% 12%)", "hsl(192 100% 20%)", "hsl(192 80% 32%)", "hsl(192 60% 50%)", "hsl(192 60% 70%)", "hsl(192 60% 90%)", "hsl(192 60% 95%)"] },
-      "signal-pink": { "role": "secondary", "displayName": "Signal Pink", "canonical": "hsl(349 95% 50%)", "tonalRamp": ["hsl(349 95% 18%)", "hsl(349 95% 30%)", "hsl(349 95% 45%)", "hsl(349 95% 50%)", "hsl(349 90% 63%)", "hsl(349 90% 78%)", "hsl(349 85% 90%)", "hsl(349 85% 97%)"] },
+      "signal-pink": { "role": "secondary", "displayName": "Signal Pink", "canonical": "hsl(349 90% 46%)", "tonalRamp": ["hsl(349 90% 18%)", "hsl(349 90% 30%)", "hsl(349 90% 41%)", "hsl(349 90% 46%)", "hsl(349 90% 63%)", "hsl(349 90% 78%)", "hsl(349 85% 90%)", "hsl(349 85% 97%)"] },
       "paper": { "role": "neutral", "displayName": "Paper", "canonical": "hsl(0 0% 98%)", "tonalRamp": ["hsl(0 0% 7%)", "hsl(0 0% 20%)", "hsl(0 0% 35%)", "hsl(0 0% 50%)", "hsl(0 0% 65%)", "hsl(0 0% 80%)", "hsl(0 0% 92%)", "hsl(0 0% 98%)"] }
     },
     "typographyMeta": {
       "display": { "displayName": "Display", "purpose": "h1 hero headlines (responsive 2.25rem to 3.75rem)." },
-      "editorial-accent": { "displayName": "Editorial Accent", "purpose": "Rare serif accent via font-serif." }
+      "editorial-accent": { "displayName": "Editorial Accent", "purpose": "Editorial serif for the hero and section headings; sans serif for controls, body copy and card titles." }
     },
     "shadows": [
       { "name": "card", "value": "0 14px 40px -30px hsl(192 100% 20% / 0.35)", "purpose": "Resting bento cards." },
@@ -43,7 +43,7 @@
       "refersTo": "button-cta",
       "description": "The single primary call to action.",
       "html": "<button class=\"ds-btn-cta\">Book Free Consultation</button>",
-      "css": ".ds-btn-cta{background:hsl(349 95% 50%);color:#fff;height:2.5rem;padding:.5rem 1rem;border:0;border-radius:.625rem;font:500 .875rem Inter,system-ui,sans-serif;cursor:pointer;box-shadow:0 10px 15px -3px rgb(0 0 0/.1);transition:all .2s}.ds-btn-cta:hover{background:hsl(349 95% 45%);box-shadow:0 20px 25px -5px rgb(0 0 0/.1)}.ds-btn-cta:focus-visible{outline:2px solid hsl(192 100% 20%);outline-offset:2px}"
+      "css": ".ds-btn-cta{background:hsl(349 90% 46%);color:#fff;height:2.5rem;padding:.5rem 1rem;border:0;border-radius:.625rem;font:500 .875rem Inter,system-ui,sans-serif;cursor:pointer;box-shadow:0 10px 15px -3px rgb(0 0 0/.1);transition:all .2s}.ds-btn-cta:hover{background:hsl(349 90% 41%);box-shadow:0 20px 25px -5px rgb(0 0 0/.1)}.ds-btn-cta:focus-visible{outline:2px solid hsl(192 100% 20%);outline-offset:2px}"
     },
     {
       "name": "Outline Button",
@@ -59,7 +59,7 @@
       "refersTo": "card-bento",
       "description": "Feature card with soft teal-tinted shadow.",
       "html": "<div class=\"ds-card\"><h3>ATS-Optimized</h3><p>Clean structure that passes automated screening.</p></div>",
-      "css": ".ds-card{background:#fff;color:hsl(0 0% 7%);padding:1.5rem;border-radius:1.5rem;border:1px solid hsl(192 100% 20%/.1);box-shadow:0 14px 40px -30px hsl(192 100% 20%/.35);font-family:Inter,system-ui,sans-serif;transition:box-shadow .3s}.ds-card:hover{box-shadow:0 20px 50px -30px hsl(192 100% 20%/.45)}.ds-card h3{margin:0 0 .5rem;font-size:1.25rem;font-weight:700;letter-spacing:-.025em}.ds-card p{margin:0;color:hsl(215 16% 47%);font-size:.875rem}"
+      "css": ".ds-card{background:#fff;color:hsl(0 0% 7%);padding:1.5rem;border-radius:1.5rem;border:1px solid hsl(192 100% 20%/.1);box-shadow:0 14px 40px -30px hsl(192 100% 20%/.35);font-family:Inter,system-ui,sans-serif;transition:box-shadow .3s}.ds-card:hover{box-shadow:0 20px 50px -30px hsl(192 100% 20%/.45)}.ds-card h3{margin:0 0 .5rem;font-size:1.25rem;font-weight:700;letter-spacing:-.025em}.ds-card p{margin:0;color:hsl(215 18% 43%);font-size:.875rem}"
     }
   ],
   "narrative": {
@@ -69,7 +69,7 @@
       "Deep teal carries trust, with links, headings, surfaces and focus rings all in teal",
       "Red-pink appears only on primary calls to action",
       "Large, soft radii and long teal-tinted shadows",
-      "One sans family (Inter) for nearly everything, with Playfair Display held back as an editorial accent",
+      "Inter for body copy, controls and card titles; Playfair Display for the hero and section headings",
       "Light and dark themes share the same hues"
     ],
     "rules": [
@@ -81,7 +81,7 @@
     ],
     "dos": [
       "Do use semantic tokens (bg-primary, text-muted-foreground, border-border) rather than raw colors.",
-      "Do reserve Signal Pink (hsl(349 95% 50%)) for the one primary action in a view.",
+      "Do reserve Signal Pink (hsl(349 90% 46%)) for the one primary action in a view.",
       "Do use teal-tinted long shadows and the 1.5rem bento radius for feature cards.",
       "Do keep sections on the py-16 md:py-24 rhythm inside .section-container.",
       "Do provide a prefers-reduced-motion fallback for any looping decoration."

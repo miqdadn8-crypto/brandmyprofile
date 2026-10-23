@@ -33,7 +33,7 @@ export const blogHubs: BlogHubConfig[] = [
       "CV writing and ATS optimization are related but distinct: writing focuses on how your experience is presented and argued, while ATS optimization focuses on machine-readable structure. Regional adaptation - GCC formatting conventions, industry-specific positioning - sits on top of both.",
     ],
     cornerstoneSlug: "gcc-cv-format-guide",
-    supportingSlugs: ["kuwait-cv-format-guide", "gcc-cv-mistakes", "cover-letter-gcc-jobs", "engineering-cv-kuwait-guide", "oil-gas-cv-gcc-guide", "ats-friendly-cv-tips-2025"],
+    supportingSlugs: ["best-cv-writing-service-kuwait", "best-cv-writing-service-uae", "best-cv-writing-service-saudi", "best-cv-writing-service-qatar", "best-cv-writing-service-bahrain", "best-cv-writing-service-oman", "kuwait-cv-format-guide", "gcc-cv-mistakes", "cover-letter-gcc-jobs", "engineering-cv-kuwait-guide", "oil-gas-cv-gcc-guide", "ats-friendly-cv-tips-2025"],
     serviceLinks: [
       { label: "Professional CV Writing in Kuwait", path: "/kuwait/services/cv-writing" },
       { label: "GCC CV Writing", path: "/kuwait/services/gcc-cv" },
@@ -67,7 +67,7 @@ export const blogHubs: BlogHubConfig[] = [
       "These guides focus on CV writing, application positioning and interview preparation - not visa, immigration or legal advice. Confirm any visa or work-authorization requirements with official authorities or a qualified professional.",
     ],
     cornerstoneSlug: "gcc-cv-format-guide",
-    supportingSlugs: ["kuwait-cv-format-guide", "gcc-cv-mistakes", "engineering-cv-kuwait-guide", "oil-gas-cv-gcc-guide", "gcc-interview-preparation", "career-transition-gcc-job-market"],
+    supportingSlugs: ["best-cv-writing-service-kuwait", "best-cv-writing-service-uae", "best-cv-writing-service-saudi", "best-cv-writing-service-qatar", "best-cv-writing-service-bahrain", "best-cv-writing-service-oman", "kuwait-cv-format-guide", "gcc-cv-mistakes", "engineering-cv-kuwait-guide", "oil-gas-cv-gcc-guide", "gcc-interview-preparation", "career-transition-gcc-job-market"],
     serviceLinks: [
       { label: "GCC CV Writing", path: "/kuwait/services/gcc-cv" },
       { label: "Career Guidance", path: "/kuwait/services/career-guidance" },

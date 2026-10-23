@@ -68,6 +68,8 @@ export default function SuccessStories() {
         title={seo.title}
         description={seo.description}
         keywords="BrandMyProfile feedback, CV writing testimonials, LinkedIn makeover feedback, career guidance Kuwait, GCC career support"
+        // No unique content until the live Google reviews feed is on; re-enable indexing then.
+        noindex
         structuredData={{
           "@context": "https://schema.org",
           "@graph": [

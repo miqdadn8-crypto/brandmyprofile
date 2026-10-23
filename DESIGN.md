@@ -5,12 +5,12 @@ colors:
   deep-teal: "hsl(192 100% 20%)"
   deep-teal-hover: "hsl(192 100% 16%)"
   deep-teal-dark-mode: "hsl(192 100% 35%)"
-  signal-pink: "hsl(349 95% 50%)"
-  signal-pink-hover: "hsl(349 95% 45%)"
+  signal-pink: "hsl(349 90% 46%)"
+  signal-pink-hover: "hsl(349 90% 41%)"
   paper: "hsl(0 0% 98%)"
   card-white: "hsl(0 0% 100%)"
   ink: "hsl(0 0% 7%)"
-  slate-muted: "hsl(215 16% 47%)"
+  slate-muted: "hsl(215 18% 43%)"
   mist: "hsl(210 20% 96%)"
   hairline: "hsl(214 32% 91%)"
   teal-wash: "hsl(192 45% 95%)"
@@ -126,13 +126,13 @@ A restrained two-hue palette on near-white paper: teal for trust, pink for actio
 - **Deep Teal** (hsl(192 100% 20%)): Brand color. Primary buttons, links, outline buttons, focus ring, heading emphasis, and shadow tint. Hover deepens to hsl(192 100% 16%). In dark mode it lifts to hsl(192 100% 35%) for contrast.
 
 ### Secondary
-- **Signal Pink** (hsl(349 95% 50%)): The call-to-action color, used for the `cta` button variant and nothing decorative. Hover hsl(349 95% 45%); dark mode hsl(349 95% 55%).
+- **Signal Pink** (hsl(349 90% 46%)): The call-to-action color, used for the `cta` button variant and nothing decorative. Hover hsl(349 90% 41%). Set at 46% lightness so white button text passes WCAG AA (4.96:1); don't lighten it.
 
 ### Neutral
 - **Paper** (hsl(0 0% 98%)): Page background.
 - **Card White** (hsl(0 0% 100%)): Cards, popovers, document mockups.
 - **Ink** (hsl(0 0% 7%)): Body and heading text, also the dark-mode background.
-- **Slate Muted** (hsl(215 16% 47%)): Secondary text and captions.
+- **Slate Muted** (hsl(215 18% 43%)): Secondary text and captions.
 - **Mist** (hsl(210 20% 96%)): Secondary and muted fills.
 - **Hairline** (hsl(214 32% 91%)): Borders and input outlines.
 
@@ -220,7 +220,7 @@ A bordered, translucent-white grid of 2 or 4 cells with small teal icons and bol
 
 ### Do:
 - **Do** use semantic tokens (`bg-primary`, `text-muted-foreground`, `border-border`) rather than raw colors.
-- **Do** reserve Signal Pink (hsl(349 95% 50%)) for the one primary action in a view.
+- **Do** reserve Signal Pink (hsl(349 90% 46%)) for the one primary action in a view.
 - **Do** use teal-tinted long shadows and the 1.5rem bento radius for feature cards.
 - **Do** keep sections on the `py-16 md:py-24` rhythm inside `.section-container`.
 - **Do** provide a `prefers-reduced-motion` fallback for any looping decoration.
@@ -230,4 +230,4 @@ A bordered, translucent-white grid of 2 or 4 cells with small teal icons and bol
 - **Don't** use pink for decoration, icons, or secondary links.
 - **Don't** use hard drop shadows or neutral-grey shadows beside teal surfaces.
 - **Don't** edit `src/components/ui/` by hand; use the shadcn CLI.
-- **Don't** assume brand and surface tokens change in dark mode; only the core tokens do, so verify dark surfaces explicitly.
+- **Don't** rely on dark mode: `.dark` tokens exist in `src/index.css` but nothing enables them (no theme toggle). Treat the site as light-only until dark mode is deliberately designed.

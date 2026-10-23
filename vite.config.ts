@@ -18,4 +18,16 @@ export default defineConfig(({ mode }) => ({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  build: {
+    rollupOptions: {
+      output: {
+        // Stable vendor chunks: cached across deploys and downloaded in parallel with app code.
+        manualChunks: {
+          react: ["react", "react-dom", "react/jsx-runtime", "react-router-dom", "react-helmet-async"],
+          motion: ["framer-motion"],
+          radix: ["@radix-ui/react-dialog", "@radix-ui/react-dropdown-menu", "@radix-ui/react-accordion", "@radix-ui/react-tooltip", "@radix-ui/react-toast"],
+        },
+      },
+    },
+  },
 }));

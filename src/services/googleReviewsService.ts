@@ -1,4 +1,3 @@
-import { supabase } from "@/integrations/supabase/client";
 
 export interface GoogleReview {
   author: string;
@@ -47,6 +46,8 @@ export const googleReviewsService = {
     const cached = getCached();
     if (cached) return cached;
 
+    // Loaded on demand so the Supabase client stays out of the homepage's initial bundle.
+    const { supabase } = await import("@/integrations/supabase/client");
     const { data, error } = await supabase.functions.invoke<GoogleReviewsData>("fetch-google-reviews");
 
     if (error || !data || "error" in data) {

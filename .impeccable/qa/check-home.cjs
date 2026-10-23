@@ -1,0 +1,40 @@
+const { chromium } = require('C:/Users/ADMIN/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
+const fs = require('fs');
+(async () => {
+ const browser = await chromium.launch({headless:true, executablePath:'C:/Users/ADMIN/AppData/Local/ms-playwright/chromium-1243/chrome-win64/chrome.exe'});
+ const page = await browser.newPage();
+ const errors=[]; page.on('pageerror',e=>errors.push(e.message));
+ const results=[];
+ for (const width of [1440,768,390,320]) {
+  await page.setViewportSize({width,height:900});
+  await page.goto('http://127.0.0.1:4174/kuwait',{waitUntil:'networkidle'});
+  await page.evaluate(()=>document.fonts.ready);
+  results.push({width,...await page.evaluate(()=>({scrollWidth:document.documentElement.scrollWidth,viewport:innerWidth,hiddenHeadings:[...document.querySelectorAll('main h1,main h2')].filter(e=>{const r=e.getBoundingClientRect();return r.width>0 && Number(getComputedStyle(e.parentElement).opacity)===0}).map(e=>e.textContent),overflow:[...document.querySelectorAll('main a,main button,main h1,main h2,main h3')].filter(e=>{const r=e.getBoundingClientRect();return r.width>0&&(r.right>innerWidth+1||r.left< -1)}).map(e=>e.textContent?.trim())}))});
+  await page.screenshot({path:'.impeccable/qa/home-'+width+'.png',fullPage:true});
+  if(width===390) await page.screenshot({path:'.impeccable/qa/mobile-top.png'});
+ }
+ await page.getByRole('button',{name:'Get My Free CV Review',exact:true}).first().click();
+ await page.getByRole('dialog').waitFor();
+ await page.getByRole('button',{name:'Professional CV Writing',exact:true}).click();
+ await page.getByRole('button',{name:'Request My Free CV Review',exact:true}).click();
+ await page.screenshot({path:'.impeccable/qa/mobile-form.png'});
+ results.push({emptyValidation:await page.getByRole('alert').innerText()});
+ await page.keyboard.press('Escape');
+ await page.waitForFunction(() => document.activeElement?.textContent?.trim() === 'Get My Free CV Review');
+ results.push({focusRestored:await page.evaluate(()=>document.activeElement?.textContent?.trim())});
+ await page.getByRole('button',{name:'Open menu',exact:true}).click();
+ await page.getByRole('dialog',{name:'Mobile menu',exact:true}).getByRole('button',{name:'Get My Free CV Review',exact:true}).click();
+ await page.getByRole('dialog').waitFor();
+ await page.keyboard.press('Escape');
+ results.push({mobileMenuFocus:await page.evaluate(()=>document.activeElement?.getAttribute('aria-label'))});
+ await page.getByRole('button',{name:/How long does it take/}).click();
+ results.push({faqExpanded:await page.getByRole('button',{name:/How long does it take/}).getAttribute('aria-expanded')});
+ await page.emulateMedia({reducedMotion:'reduce'});
+ await page.goto('http://127.0.0.1:4174/kuwait',{waitUntil:'networkidle'});
+ results.push({reducedMotionAnimations:await page.evaluate(()=>document.getAnimations().filter(a=>a.playState==='running').length)});
+ await page.evaluate(()=>window.scrollTo(0,document.body.scrollHeight));
+ results.push({automaticDialog:await page.getByRole('dialog').count(),errors});
+ fs.writeFileSync('.impeccable/qa/results.json',JSON.stringify(results,null,2));
+ console.log(JSON.stringify(results,null,2));
+ await browser.close();
+})().catch(e=>{console.error(e);process.exit(1)});

@@ -28,7 +28,7 @@ export default function Terms() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <SEO title={META_TITLE} description={META_DESCRIPTION} path="/terms" structuredData={structuredData} noindex={false} />
+      <SEO title={META_TITLE} description={META_DESCRIPTION} path="/terms" structuredData={structuredData} noindex />
       <Header />
       <main>
         <section className="border-b border-border bg-[hsl(var(--surface-warm))] py-14">

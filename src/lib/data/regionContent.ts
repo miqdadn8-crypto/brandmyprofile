@@ -53,6 +53,8 @@ export interface RegionContentEntry {
     question: string;
     answer: string;
   };
+  // Main cities job seekers search from (regionSeo.json); the service is online-only.
+  cities?: string[];
   // ATS CV page content - deliberately optional and only populated for the 5 regions
   // that have this page (Unit 3B). Bahrain/Oman have no `atsCv` entry at all, which
   // ATSCV.tsx and regionAvailability.ts both treat as "this page doesn't exist here".
@@ -140,7 +142,7 @@ export const regionContent: Record<string, RegionContentEntry> = {
       eyebrow: "ATS CV Writing for Kuwait & GCC",
       headline: "Get an ATS-Ready CV Built for Kuwait and GCC Jobs",
       description:
-        "Professional CV writing, LinkedIn optimization and career support tailored to your target role and Kuwait/GCC hiring market.",
+        "Professional CV and resume writing services in Kuwait, plus LinkedIn optimization and career support tailored to your target role and the Kuwait/GCC hiring market.",
     },
     marketFocus: {
       title: "Kuwait & GCC Market Focus",
@@ -221,7 +223,7 @@ export const regionContent: Record<string, RegionContentEntry> = {
       eyebrow: "ATS CV Writing for UAE & GCC",
       headline: "Get an ATS-Ready CV Built for UAE and GCC Jobs",
       description:
-        "Professional CV writing, LinkedIn optimization and career support tailored to your target role and UAE/GCC hiring market.",
+        "Professional CV and resume writing services in Dubai and across the UAE, plus LinkedIn optimization and career support tailored to your target role and the UAE/GCC hiring market.",
     },
     marketFocus: {
       title: "UAE & GCC Market Focus",
@@ -302,7 +304,7 @@ export const regionContent: Record<string, RegionContentEntry> = {
       eyebrow: "ATS CV Writing for Saudi Arabia & GCC",
       headline: "Get an ATS-Ready CV Built for Saudi and GCC Jobs",
       description:
-        "Professional CV writing, LinkedIn optimization and career support tailored to your target role and Saudi/GCC hiring market.",
+        "Professional CV and resume writing services in Saudi Arabia, plus LinkedIn optimization and career support tailored to your target role and the Saudi/GCC hiring market.",
     },
     marketFocus: {
       title: "Saudi & GCC Market Focus",
@@ -383,7 +385,7 @@ export const regionContent: Record<string, RegionContentEntry> = {
       eyebrow: "ATS CV Writing for Qatar & GCC",
       headline: "Get an ATS-Ready CV Built for Qatar and GCC Jobs",
       description:
-        "Professional CV writing, LinkedIn optimization and career support tailored to your target role and Qatar/GCC hiring market.",
+        "Professional CV and resume writing services in Doha and across Qatar, plus LinkedIn optimization and career support tailored to your target role and the Qatar/GCC hiring market.",
     },
     marketFocus: {
       title: "Qatar & GCC Market Focus",

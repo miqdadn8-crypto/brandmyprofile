@@ -10,7 +10,7 @@ import TestimonialsSection from "@/components/home/TestimonialsSection";
 import FAQSection from "@/components/home/FAQSection";
 import CTASection from "@/components/home/CTASection";
 import FreeCvReviewSection from "@/components/home/FreeCvReviewSection";
-import LeadPopupTriggers from "@/components/lead/LeadPopupTriggers";
+import WritingExampleSection from "@/components/home/WritingExampleSection";
 import BlogSection from "@/components/home/BlogSection";
 import { organizationSchema, professionalServiceSchema, websiteSchema } from "@/lib/seo/organization";
 import faqs from "@/lib/data/faqs.json";
@@ -56,16 +56,6 @@ export default function Home() {
       <Header />
       <main>
         <Hero />
-        {content.aeoBlock && (
-          <section className="bg-[hsl(var(--surface-warm))] pb-16 pt-8 md:pb-20 md:pt-8" aria-labelledby="aeo-question">
-            <div className="section-container max-w-3xl">
-              <h2 id="aeo-question" className="mb-3 text-xl font-bold leading-snug sm:text-2xl">
-                {content.aeoBlock.question}
-              </h2>
-              <p className="text-base leading-7 text-muted-foreground sm:text-lg">{content.aeoBlock.answer}</p>
-            </div>
-          </section>
-        )}
         {/* India-only compact wayfinding (Unit 5) - never shown for other regions, and
             deliberately just two text-forward cards rather than a Bento restructure. */}
         {selectedRegion.code === "india" && (
@@ -77,7 +67,7 @@ export default function Home() {
               <div className="mx-auto grid max-w-3xl gap-4 sm:grid-cols-2">
                 <Link
                   to="/india/gcc-jobs"
-                  className="group flex items-center gap-4 rounded-[var(--radius-lg)] border border-border bg-white p-6 shadow-sm transition-shadow hover:shadow-md"
+                  className="group flex items-center gap-4 rounded-[var(--radius-lg)] border border-border bg-card p-6 shadow-sm transition-shadow hover:shadow-md"
                 >
                   <Globe2 className="h-8 w-8 shrink-0 text-primary" />
                   <span className="flex-1">
@@ -88,7 +78,7 @@ export default function Home() {
                 </Link>
                 <Link
                   to="/india/europe-jobs"
-                  className="group flex items-center gap-4 rounded-[var(--radius-lg)] border border-border bg-white p-6 shadow-sm transition-shadow hover:shadow-md"
+                  className="group flex items-center gap-4 rounded-[var(--radius-lg)] border border-border bg-card p-6 shadow-sm transition-shadow hover:shadow-md"
                 >
                   <Plane className="h-8 w-8 shrink-0 text-primary" />
                   <span className="flex-1">
@@ -102,17 +92,17 @@ export default function Home() {
           </section>
         )}
         <TestimonialsSection />
+        <WritingExampleSection />
         <ServicesSection />
-        <CvFormatsSection />
         <FreeCvReviewSection />
-        <RegionsSection />
-        <BlogSection />
+        <CvFormatsSection />
         <FAQSection />
         <CTASection />
+        <BlogSection />
+        <RegionsSection />
       </main>
       <Footer />
       <WhatsAppButton />
-      <LeadPopupTriggers />
     </div>
   );
 }

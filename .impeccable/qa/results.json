@@ -1,0 +1,49 @@
+[
+  {
+    "width": 1440,
+    "scrollWidth": 1440,
+    "viewport": 1440,
+    "hiddenHeadings": [],
+    "overflow": []
+  },
+  {
+    "width": 768,
+    "scrollWidth": 768,
+    "viewport": 768,
+    "hiddenHeadings": [],
+    "overflow": []
+  },
+  {
+    "width": 390,
+    "scrollWidth": 390,
+    "viewport": 390,
+    "hiddenHeadings": [],
+    "overflow": []
+  },
+  {
+    "width": 320,
+    "scrollWidth": 320,
+    "viewport": 320,
+    "hiddenHeadings": [],
+    "overflow": []
+  },
+  {
+    "emptyValidation": "Please enter your name.\n\nContinue on WhatsApp"
+  },
+  {
+    "focusRestored": "Get My Free CV Review"
+  },
+  {
+    "mobileMenuFocus": "Open menu"
+  },
+  {
+    "faqExpanded": "true"
+  },
+  {
+    "reducedMotionAnimations": 0
+  },
+  {
+    "automaticDialog": 0,
+    "errors": []
+  }
+]

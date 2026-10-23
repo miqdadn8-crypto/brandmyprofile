@@ -1,8 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
-import { motion } from "framer-motion";
 import { Link, Navigate } from "react-router-dom";
 import {
-  ArrowRight,
   BadgeCheck,
   Check,
   CheckCircle2,
@@ -99,11 +97,9 @@ const pricingTiers: PricingTier[] = [
 const comparisonRows = [
   { label: "Professional CV Writing", values: ["Included", "Included", "Executive format"] },
   { label: "ATS Optimization", values: ["Included", "Included", "Included"] },
-  { label: "GCC Formatting", values: ["Ask us", "Ask us", "Ask us"] },
   { label: "LinkedIn Profile Makeover", values: ["Headline only", "Full makeover", "Full makeover"] },
   { label: "Cover Letter", values: ["—", "Included", "Included"] },
   { label: "Revision Rounds", values: ["1 round", "2 rounds", "Unlimited"] },
-  { label: "Interview Preparation", values: ["—", "—", "—"] },
   { label: "Career Guidance", values: ["—", "—", "30-min strategy call"] },
   { label: "Priority Support", values: ["—", "—", "Included"] },
   { label: "Delivery Time", values: ["48 hours", "24 hours", "12 hours"] },
@@ -238,8 +234,8 @@ const getDynamicFaqs = (regionName: string, essentialPrice: string | undefined) 
   {
     question: `How much does CV writing cost in ${regionName}?`,
     answer: essentialPrice
-      ? `BrandMyProfile CV packages in ${regionName} currently start from ${essentialPrice} for the Essential package, with pricing depending on the level of support and services included. Review the packages below to compare what each option includes.`
-      : `Pricing for ${regionName} depends on the package and level of support you choose. Ask us directly for current pricing, or review the packages below.`,
+      ? `BrandMyProfile CV packages in ${regionName} currently start from ${essentialPrice} for the Essential package, with pricing depending on the level of support and services included. Compare what each package includes above.`
+      : `Pricing for ${regionName} depends on the package and level of support you choose. Ask us directly for current pricing, or compare the packages above.`,
   },
   {
     question: "Is LinkedIn optimization included?",
@@ -247,12 +243,11 @@ const getDynamicFaqs = (regionName: string, essentialPrice: string | undefined) 
   },
 ];
 
-const reveal = {
-  initial: { opacity: 0.96, y: 10 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, amount: 0.1 },
-  transition: { duration: 0.45 },
-};
+// Priced services first, quote-only services after, so the list reads as a price list.
+const orderedServices = [
+  ...singleServices.filter((service) => service.serviceKey),
+  ...singleServices.filter((service) => !service.serviceKey),
+];
 
 const formatPrice = (priceData?: PriceData) => {
   if (!priceData) return undefined;
@@ -376,33 +371,50 @@ export default function Pricing() {
       />
       <Header />
       <main>
-        <section className="border-b border-border bg-[linear-gradient(135deg,hsl(var(--surface-warm))_0%,hsl(var(--background))_50%,hsl(var(--surface-teal-soft))_100%)] py-16 md:py-24">
+        <section id="packages" className="border-b border-border bg-[linear-gradient(135deg,hsl(var(--surface-warm))_0%,hsl(var(--background))_50%,hsl(var(--surface-teal-soft))_100%)] pb-16 pt-12 md:pb-20 md:pt-16">
           <div className="section-container">
-            <div className="mx-auto max-w-5xl text-center">
-              <p className="text-sm font-semibold uppercase tracking-[0.22em] text-accent">Career Service Pricing</p>
-              <h1 className="mx-auto mt-5 max-w-4xl font-serif text-[clamp(2.65rem,8vw,5.7rem)] font-semibold leading-[1.02] tracking-normal">
-                Choose the Right Career Support for Your Next Move
+            <div className="mx-auto max-w-3xl text-center">
+              <h1 className="font-serif text-[clamp(2.25rem,5vw,3.75rem)] font-semibold leading-[1.05] tracking-normal">
+                CV Writing &amp; Career Service Prices in {selectedRegion.name}
               </h1>
-              <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-muted-foreground md:text-xl">
-                Flexible packages for CV writing, LinkedIn optimization, career guidance and GCC-focused job-search support.
+              <p className="mx-auto mt-4 max-w-2xl text-lg leading-8 text-muted-foreground">
+                Three CV packages, plus single services if you only need one thing. Every price is in {selectedRegion.currency}.
               </p>
-              <div className="mt-7 inline-flex flex-wrap items-center justify-center gap-2 rounded-full border border-primary/15 bg-white px-5 py-3 text-sm font-semibold text-primary shadow-sm">
-                <BadgeCheck className="h-5 w-5 text-accent" />
-                Prices shown for {selectedRegion.name} in {selectedRegion.currency}
-              </div>
-              <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-                <Button variant="cta" size="lg" className="min-h-12 w-full sm:w-auto" asChild>
-                  <a href="#packages">Choose a Package<ArrowRight className="h-5 w-5" /></a>
-                </Button>
-                <Button variant="outline" size="lg" className="min-h-12 w-full bg-white/70 sm:w-auto" asChild>
-                  <a href={buildWhatsAppUrl(generalMessage)} target="_blank" rel="noopener noreferrer"><MessageCircle className="h-5 w-5" />Ask on WhatsApp</a>
-                </Button>
-              </div>
             </div>
+            <div className="mt-10 grid gap-6 lg:grid-cols-3">
+              {pricingTiers.map((tier) => {
+                const price = getTierPrice(tier);
+                return (
+                  <article key={tier.name} className={`relative flex flex-col rounded-[var(--radius-bento)] border bg-card p-6 shadow-[var(--shadow-card)] ${tier.isFeatured ? "border-2 border-primary shadow-[var(--shadow-card-hover)] lg:-mt-4 lg:pb-8" : "border-border"}`}>
+                    {tier.isFeatured && <div className="absolute -top-3.5 left-6 rounded-full bg-primary px-3.5 py-1.5 text-xs font-bold text-primary-foreground">Most popular</div>}
+                    <div className="pt-2">
+                      <h2 className="text-2xl font-semibold tracking-normal">{tier.name}</h2>
+                      <p className="mt-2 min-h-12 text-sm leading-6 text-muted-foreground"><span className="font-semibold text-foreground">Best for:</span> {tier.bestFor}</p>
+                      <p className="mt-4 text-4xl font-bold tabular-nums">{isLoading ? "..." : price ?? "Ask for pricing"}</p>
+                    </div>
+                    <ul className="mt-6 flex-1 space-y-3">
+                      {tier.features.map((feature) => (
+                        <li key={feature} className="flex gap-3 text-sm leading-6 text-foreground/80"><CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-primary" aria-hidden="true" /><span>{feature}</span></li>
+                      ))}
+                    </ul>
+                    <Button variant={tier.isFeatured ? "cta" : "outline"} size="lg" className="mt-8 min-h-12 w-full" asChild>
+                      <a data-track="package_cta_click" data-track-package={tier.name} data-track-service="pricing" href={buildWhatsAppUrl(buildPackageEnquiryMessage({ packageName: tier.name, serviceName: "Career Services", regionName: selectedRegion.name, price }))} target="_blank" rel="noopener noreferrer">{tier.cta}</a>
+                    </Button>
+                    <a href={buildWhatsAppUrl(`Hello BrandMyProfile, I have a question about the ${tier.name} package for ${selectedRegion.name}. Please help me understand whether it fits my needs.`)} target="_blank" rel="noopener noreferrer" className="mt-3 inline-flex min-h-11 items-center justify-center gap-2 text-sm font-semibold text-primary hover:underline">
+                      <MessageCircle className="h-4 w-4" aria-hidden="true" />Ask about this package
+                    </a>
+                  </article>
+                );
+              })}
+            </div>
+            <p className="mt-8 flex items-center justify-center gap-2 text-sm font-semibold text-primary">
+              <BadgeCheck className="h-5 w-5" aria-hidden="true" />
+              Prices shown for {selectedRegion.name} in {selectedRegion.currency}
+            </p>
           </div>
         </section>
 
-        <section className="border-b border-border bg-white py-10">
+        <section className="border-b border-border bg-card py-10">
           <div className="section-container max-w-3xl">
             <h2 className="font-serif text-xl font-semibold tracking-normal sm:text-2xl">
               How much does CV writing cost in {selectedRegion.name}?
@@ -411,67 +423,29 @@ export default function Pricing() {
           </div>
         </section>
 
-        <section id="packages" className="section-padding bg-[hsl(var(--surface-warm))]">
+        <section className="section-padding bg-card">
           <div className="section-container">
             <div className="mx-auto max-w-3xl text-center">
-              <p className="text-sm font-semibold uppercase tracking-[0.22em] text-accent">Career Packages</p>
-              <h2 className="mt-4 font-serif font-semibold tracking-normal">Choose the Level of Support You Need</h2>
-              <p className="mt-5 text-lg leading-8 text-muted-foreground">Every package is priced for {selectedRegion.name} and uses the currency shown above.</p>
-            </div>
-            <div className="mt-12 grid gap-6 lg:grid-cols-3">
-              {pricingTiers.map((tier) => {
-                const price = getTierPrice(tier);
-                return (
-                  <article key={tier.name} className={`relative flex flex-col rounded-[1.5rem] border bg-white p-6 shadow-sm ${tier.isFeatured ? "border-accent shadow-[0_24px_70px_-45px_hsl(var(--accent)/0.9)] lg:-mt-5 lg:pb-8" : "border-border"}`}>
-                    {tier.isFeatured && <div className="absolute -top-4 left-6 rounded-full bg-accent px-4 py-2 text-xs font-bold uppercase tracking-[0.14em] text-white">Most Popular</div>}
-                    <div className="pt-3">
-                      <h3 className="text-3xl font-semibold tracking-normal">{tier.name}</h3>
-                      <p className="mt-3 text-sm font-bold uppercase tracking-[0.12em] text-accent">Best for</p>
-                      <p className="mt-1 min-h-12 font-semibold leading-6 text-primary">{tier.bestFor}</p>
-                      <p className="mt-5 text-4xl font-bold">{isLoading ? "..." : price ?? "Ask for pricing"}</p>
-                    </div>
-                    <ul className="mt-7 flex-1 space-y-3">
-                      {tier.features.map((feature) => (
-                        <li key={feature} className="flex gap-3 text-sm leading-6 text-muted-foreground"><CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-accent" /><span>{feature}</span></li>
-                      ))}
-                    </ul>
-                    <Button variant={tier.isFeatured ? "cta" : "outline"} size="lg" className="mt-8 min-h-12 w-full" asChild>
-                      <a data-track="package_cta_click" data-track-package={tier.name} data-track-service="pricing" href={buildWhatsAppUrl(buildPackageEnquiryMessage({ packageName: tier.name, serviceName: "Career Services", regionName: selectedRegion.name, price }))} target="_blank" rel="noopener noreferrer">{tier.cta}</a>
-                    </Button>
-                    <a href={buildWhatsAppUrl(`Hello BrandMyProfile, I have a question about the ${tier.name} package for ${selectedRegion.name}. Please help me understand whether it fits my needs.`)} target="_blank" rel="noopener noreferrer" className="mt-3 inline-flex min-h-11 items-center justify-center gap-2 text-sm font-semibold text-primary hover:underline">
-                      <MessageCircle className="h-4 w-4" />Ask about this package
-                    </a>
-                  </article>
-                );
-              })}
-            </div>
-          </div>
-        </section>
-
-        <motion.section {...reveal} className="section-padding bg-white">
-          <div className="section-container">
-            <div className="mx-auto max-w-3xl text-center">
-              <p className="text-sm font-semibold uppercase tracking-[0.22em] text-accent">Package Comparison</p>
-              <h2 className="mt-4 font-serif font-semibold tracking-normal">Compare What’s Included</h2>
+              <h2 className="heading-section">Compare What’s Included</h2>
               <p className="mt-5 text-lg leading-8 text-muted-foreground">A direct view of the inclusions currently supported by each package.</p>
             </div>
 
-            <div className="mt-12 hidden overflow-hidden rounded-[1.5rem] border border-border shadow-sm md:block">
-              <table className="w-full table-fixed border-collapse bg-white text-left">
-                <thead className="bg-primary text-white">
+            <div className="mt-12 hidden overflow-hidden rounded-[var(--radius-bento)] border border-border shadow-sm md:block">
+              <table className="w-full table-fixed border-collapse bg-card text-left">
+                <thead className="bg-primary text-primary-foreground">
                   <tr>
                     <th className="w-[34%] px-6 py-5 text-sm font-semibold">Feature</th>
-                    {pricingTiers.map((tier) => <th key={tier.name} className={`px-4 py-5 text-center text-base font-semibold ${tier.isFeatured ? "bg-accent" : ""}`}>{tier.name}</th>)}
+                    {pricingTiers.map((tier) => <th key={tier.name} className={`px-4 py-5 text-center text-base font-semibold ${tier.isFeatured ? "bg-primary-hover" : ""}`}>{tier.name}{tier.isFeatured && <span className="block text-xs font-medium text-primary-foreground/75">Most popular</span>}</th>)}
                   </tr>
                 </thead>
                 <tbody>
                   {comparisonRows.map((row, rowIndex) => (
-                    <tr key={row.label} className={rowIndex % 2 === 0 ? "bg-background" : "bg-white"}>
+                    <tr key={row.label} className={rowIndex % 2 === 0 ? "bg-background" : "bg-card"}>
                       <th className="px-6 py-4 text-sm font-semibold">{row.label}</th>
                       {row.values.map((value, valueIndex) => (
                         <td key={`${row.label}-${pricingTiers[valueIndex].name}`} className="px-4 py-4 text-center text-sm text-muted-foreground">
                           <span className="inline-flex items-center justify-center gap-1.5">
-                            {value === "Included" ? <Check className="h-4 w-4 text-accent" /> : value === "—" ? <X className="h-4 w-4 text-muted-foreground/50" /> : null}
+                            {value === "Included" ? <Check className="h-4 w-4 text-primary" aria-hidden="true" /> : value === "—" ? <X className="h-4 w-4 text-muted-foreground/50" /> : null}
                             {value === "—" ? <span className="sr-only">Not included</span> : value}
                           </span>
                         </td>
@@ -484,8 +458,8 @@ export default function Pricing() {
 
             <div className="mt-10 grid gap-5 md:hidden">
               {pricingTiers.map((tier, tierIndex) => (
-                <article key={tier.name} className={`rounded-[1.35rem] border bg-white p-5 ${tier.isFeatured ? "border-accent" : "border-border"}`}>
-                  <div className="flex items-center justify-between gap-3"><h3 className="text-2xl font-semibold tracking-normal">{tier.name}</h3>{tier.isFeatured && <span className="rounded-full bg-accent px-3 py-1 text-xs font-bold text-white">Most Popular</span>}</div>
+                <article key={tier.name} className={`rounded-[var(--radius-lg)] border bg-card p-5 ${tier.isFeatured ? "border-2 border-primary" : "border-border"}`}>
+                  <div className="flex items-center justify-between gap-3"><h3 className="text-2xl font-semibold tracking-normal">{tier.name}</h3>{tier.isFeatured && <span className="rounded-full bg-primary px-3 py-1 text-xs font-bold text-primary-foreground">Most popular</span>}</div>
                   <dl className="mt-5 space-y-3">
                     {comparisonRows.map((row) => (
                       <div key={row.label} className="flex items-start justify-between gap-4 border-b border-border pb-3 text-sm last:border-0 last:pb-0">
@@ -496,44 +470,46 @@ export default function Pricing() {
                 </article>
               ))}
             </div>
+            <p className="mx-auto mt-6 max-w-2xl text-center text-sm leading-6 text-muted-foreground">
+              Need a GCC-format CV? Ask when you order and we&apos;ll confirm it for your target country and role.
+            </p>
           </div>
-        </motion.section>
+        </section>
 
-        <motion.section {...reveal} className="section-padding bg-background">
+        <section className="section-padding bg-background">
           <div className="section-container">
             <div className="mx-auto max-w-3xl text-center">
-              <p className="text-sm font-semibold uppercase tracking-[0.22em] text-accent">Standalone Services</p>
-              <h2 className="mt-4 font-serif font-semibold tracking-normal">Need Just One Service?</h2>
-              <p className="mt-5 text-lg leading-8 text-muted-foreground">Choose a standalone career document or service without purchasing a full package.</p>
+              <h2 className="heading-section">Only Need One Service?</h2>
+              <p className="mt-5 text-lg leading-8 text-muted-foreground">Order a single document or session without a full package.</p>
             </div>
-            <div className="mt-12 grid min-w-0 gap-5 md:grid-cols-2 lg:auto-rows-fr lg:grid-cols-12">
-              {singleServices.map((service) => {
+            <ul className="mx-auto mt-10 max-w-4xl divide-y divide-border overflow-hidden rounded-[var(--radius-bento)] border border-border bg-card shadow-[var(--shadow-card)]">
+              {orderedServices.map((service) => {
                 const Icon = service.icon;
                 const startingPrice = getSingleServicePrice(service.serviceKey, service.tierKey);
                 return (
-                  <article key={service.name} className={`flex min-w-0 flex-col rounded-[1.35rem] border border-border p-6 shadow-sm ${service.className}`}>
-                    <Icon className={`h-7 w-7 ${service.featured ? "text-white" : "text-primary"}`} />
-                    <h3 className={`mt-7 font-semibold tracking-normal ${service.featured ? "text-3xl" : "text-xl"}`}>{service.name}</h3>
-                    <p className={`mt-4 leading-7 ${service.featured ? "text-white/80" : "text-muted-foreground"}`}>{service.description}</p>
-                    <p className={`mt-5 text-sm font-bold uppercase tracking-[0.12em] ${service.featured ? "text-white/70" : "text-accent"}`}>
-                      {startingPrice ? `Starts from ${startingPrice}` : "Ask for pricing"}
-                    </p>
-                    <div className="mt-auto pt-7">
-                      <Button variant={service.featured ? "cta" : "default"} className="min-h-11 w-full whitespace-normal" asChild>
-                        <a href={buildWhatsAppUrl(service.message)} target="_blank" rel="noopener noreferrer"><MessageCircle className="h-4 w-4" />Enquire on WhatsApp</a>
-                      </Button>
+                  <li key={service.name} className="grid gap-3 px-5 py-5 sm:grid-cols-[1fr_auto_auto] sm:items-center sm:gap-6 sm:px-6">
+                    <div className="flex min-w-0 items-start gap-4">
+                      <span className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-teal-50 text-primary ring-1 ring-primary/10"><Icon className="h-5 w-5" aria-hidden="true" /></span>
+                      <span className="min-w-0">
+                        <span className="block font-semibold">{service.name}</span>
+                        <span className="mt-0.5 block text-sm leading-6 text-muted-foreground">{service.description}</span>
+                      </span>
                     </div>
-                  </article>
+                    <p className="pl-14 text-base font-bold tabular-nums sm:pl-0 sm:text-right">{startingPrice ? `From ${startingPrice}` : <span className="font-semibold text-muted-foreground">Quote on request</span>}</p>
+                    <a href={buildWhatsAppUrl(service.message)} target="_blank" rel="noopener noreferrer" className="ml-14 inline-flex min-h-11 w-fit items-center gap-2 px-1 text-sm font-semibold text-primary hover:underline sm:ml-0">
+                      <MessageCircle className="h-4 w-4" aria-hidden="true" />{startingPrice ? "Order on WhatsApp" : "Get a quote"}
+                    </a>
+                  </li>
                 );
               })}
-            </div>
+            </ul>
           </div>
-        </motion.section>
+        </section>
 
-        <section className="border-y border-border bg-white">
+        <section className="border-y border-border bg-card">
           <div className="section-container grid gap-3 py-6 sm:grid-cols-2 lg:grid-cols-4">
             {["Human Written", "Region-Specific", "Confidential", "Revision Support"].map((item) => (
-              <div key={item} className="flex items-center gap-3 rounded-xl bg-background px-4 py-4"><CheckCircle2 className="h-5 w-5 text-accent" /><span className="font-semibold">{item}</span></div>
+              <div key={item} className="flex items-center gap-3 rounded-xl bg-background px-4 py-4"><CheckCircle2 className="h-5 w-5 text-primary" aria-hidden="true" /><span className="font-semibold">{item}</span></div>
             ))}
           </div>
         </section>
@@ -542,12 +518,11 @@ export default function Pricing() {
           <div className="section-container">
             <div className="grid gap-10 lg:grid-cols-[0.72fr_1.28fr]">
               <div>
-                <p className="text-sm font-semibold uppercase tracking-[0.22em] text-accent">Questions Before You Choose</p>
-                <h2 className="mt-4 font-serif font-semibold tracking-normal">Pricing & Package FAQs</h2>
+                <h2 className="heading-section">Pricing &amp; Package FAQs</h2>
               </div>
               <div className="space-y-3">
                 {faqs.map((faq) => (
-                  <details key={faq.question} className="group rounded-2xl border border-border bg-white p-5">
+                  <details key={faq.question} className="group rounded-2xl border border-border bg-card p-5">
                     <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-semibold">{faq.question}<ChevronDown className="h-5 w-5 flex-shrink-0 text-primary transition-transform group-open:rotate-180" /></summary>
                     <p className="mt-4 leading-7 text-muted-foreground">{faq.answer}</p>
                   </details>
@@ -561,12 +536,12 @@ export default function Pricing() {
           <div className="section-container">
             <div className="mx-auto max-w-3xl text-center">
               <h2 className="font-serif font-semibold tracking-normal">Not Sure Which Package You Need?</h2>
-              <p className="mx-auto mt-4 max-w-2xl text-lg leading-8 text-white/80">Send us your current CV or tell us your career goal. We’ll recommend the right option based on your experience and target market.</p>
+              <p className="mx-auto mt-4 max-w-2xl text-lg leading-8 text-primary-foreground/80">Send us your current CV or tell us your career goal. We’ll recommend the right option based on your experience and target market.</p>
               <div className="mx-auto mt-7 flex max-w-lg flex-col justify-center gap-3 sm:flex-row">
                 <Button variant="cta" size="lg" className="min-h-12 w-full sm:flex-1" asChild><a href={buildWhatsAppUrl(generalMessage)} target="_blank" rel="noopener noreferrer"><MessageCircle className="h-5 w-5" />Ask on WhatsApp</a></Button>
-                <Button variant="outline" size="lg" className="min-h-12 w-full border-white bg-white/10 text-white hover:bg-white hover:text-primary sm:flex-1" asChild><Link to={`/${selectedRegion.code}/schedule`}>Book Free Consultation</Link></Button>
+                <Button variant="outline" size="lg" className="min-h-12 w-full border-primary-foreground bg-primary-foreground/10 text-primary-foreground hover:bg-primary-foreground hover:text-primary sm:flex-1" asChild><Link to={`/${selectedRegion.code}/schedule`}>Book Free Consultation</Link></Button>
               </div>
-              <p className="mt-5 text-sm font-medium text-white/70">Confidential • No obligation • Fast response</p>
+              <p className="mt-5 text-sm font-medium text-primary-foreground/70">Confidential • No obligation • Fast response</p>
             </div>
           </div>
         </section>

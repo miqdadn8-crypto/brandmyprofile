@@ -37,9 +37,10 @@ interface LeadModalProps {
   trigger: LeadTrigger;
   initialService?: LeadService;
   onOpenChange: (open: boolean) => void;
+  onRestoreFocus: () => void;
 }
 
-export default function LeadModal({ open, trigger, initialService, onOpenChange }: LeadModalProps) {
+export default function LeadModal({ open, trigger, initialService, onOpenChange, onRestoreFocus }: LeadModalProps) {
   const { selectedRegion } = useRegion();
   const defaultCountry = (LEAD_COUNTRIES as readonly string[]).includes(selectedRegion.name) ? selectedRegion.name : "Other";
 
@@ -123,6 +124,7 @@ export default function LeadModal({ open, trigger, initialService, onOpenChange 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent
+        onCloseAutoFocus={(event) => { event.preventDefault(); onRestoreFocus(); }}
         className={cn(
           "fixed bottom-0 left-0 top-auto max-h-[92dvh] w-full max-w-none translate-x-0 translate-y-0 gap-0 overflow-y-auto rounded-t-3xl border-0 bg-white p-5 pb-8 sm:bottom-auto sm:left-[50%] sm:top-[50%] sm:max-h-[90vh] sm:max-w-[520px] sm:-translate-x-1/2 sm:-translate-y-1/2 sm:rounded-3xl sm:p-8",
         )}

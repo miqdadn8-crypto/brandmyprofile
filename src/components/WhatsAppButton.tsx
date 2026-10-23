@@ -27,11 +27,11 @@ export default function WhatsAppButton() {
       className="group fixed bottom-5 right-5 z-50 sm:bottom-6 sm:right-6"
     >
       {/* Pulse rings */}
-      <span className="absolute inset-0 rounded-full bg-[#25D366] opacity-30 animate-ping" />
-      <span className="absolute inset-[-6px] rounded-full border-2 border-[#25D366] opacity-20 animate-pulse" />
+      <span className="absolute inset-0 rounded-full bg-[hsl(var(--brand-whatsapp))] opacity-30 motion-safe:animate-ping motion-safe:[animation-iteration-count:3]" />
+      <span className="absolute inset-[-6px] rounded-full border-2 border-[hsl(var(--brand-whatsapp))] opacity-20 motion-safe:animate-pulse motion-safe:[animation-iteration-count:3]" />
 
       {/* Button */}
-      <span className="relative flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] shadow-lg shadow-[#25D366]/40 transition-transform duration-200 group-hover:scale-110">
+      <span className="relative flex h-14 w-14 items-center justify-center rounded-full bg-[hsl(var(--brand-whatsapp))] shadow-lg shadow-[hsl(var(--brand-whatsapp)/0.4)] ring-2 ring-[hsl(var(--brand-whatsapp-dark))] transition-transform duration-200 motion-safe:group-hover:scale-110">
         {/* Official WhatsApp logo SVG */}
         <svg
           xmlns="http://www.w3.org/2000/svg"
