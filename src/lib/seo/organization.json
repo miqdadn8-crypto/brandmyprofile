@@ -4,6 +4,10 @@
     "@type": "Organization",
     "@id": "https://www.brandmyprofile.com/#organization",
     "name": "BrandMyProfile",
+    "alternateName": [
+      "Brand My Profile",
+      "BrandMyProfile.com"
+    ],
     "url": "https://www.brandmyprofile.com",
     "logo": "https://www.brandmyprofile.com/brandmyprofile-og.png",
     "description": "Professional CV writing, LinkedIn optimization and career coaching for professionals in Kuwait, UAE, Saudi Arabia, Qatar and India.",
@@ -15,13 +19,38 @@
       "https://share.google/2G466PLGfS085Dtiz"
     ],
     "areaServed": [
-      { "@type": "Country", "name": "Kuwait" },
-      { "@type": "Country", "name": "United Arab Emirates" },
-      { "@type": "Country", "name": "Saudi Arabia" },
-      { "@type": "Country", "name": "Qatar" },
-      { "@type": "Country", "name": "Bahrain" },
-      { "@type": "Country", "name": "Oman" },
-      { "@type": "Country", "name": "India" }
+      {
+        "@type": "Country",
+        "name": "Kuwait"
+      },
+      {
+        "@type": "Country",
+        "name": "United Arab Emirates"
+      },
+      {
+        "@type": "Country",
+        "name": "Saudi Arabia"
+      },
+      {
+        "@type": "Country",
+        "name": "Qatar"
+      },
+      {
+        "@type": "Country",
+        "name": "Bahrain"
+      },
+      {
+        "@type": "Country",
+        "name": "Oman"
+      },
+      {
+        "@type": "Country",
+        "name": "India"
+      }
     ]
-  }
+  },
+  "siteAlternateName": [
+    "Brand My Profile",
+    "BrandMyProfile.com"
+  ]
 }

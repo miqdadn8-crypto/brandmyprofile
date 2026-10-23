@@ -567,7 +567,7 @@ async function main() {
             '@context': 'https://schema.org',
             '@graph': [
                 ...(organization ? [organization] : []),
-                { '@type': 'WebSite', '@id': `${SITE_URL}/#website`, url: SITE_URL, name: 'BrandMyProfile', publisher: { '@id': `${SITE_URL}/#organization` } },
+                { '@type': 'WebSite', '@id': `${SITE_URL}/#website`, url: SITE_URL, name: 'BrandMyProfile', alternateName: ['Brand My Profile', 'BrandMyProfile.com'], publisher: { '@id': `${SITE_URL}/#organization` } },
                 {
                     '@type': 'WebPage', '@id': `${url}#webpage`, url, name: headingFromTitle(title), description,
                     inLanguage: REGION_HREFLANG[region] || 'en',

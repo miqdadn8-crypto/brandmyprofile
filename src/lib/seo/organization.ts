@@ -46,6 +46,8 @@ export const websiteSchema = {
   "@type": "WebSite",
   "@id": `${SITE_URL}/#website`,
   name: "BrandMyProfile",
+  // Helps Google treat the one-word brand as a site name instead of correcting it to "brand profile".
+  alternateName: organizationData.siteAlternateName,
   url: SITE_URL,
   publisher: { "@id": organizationSchema["@id"] },
 };
