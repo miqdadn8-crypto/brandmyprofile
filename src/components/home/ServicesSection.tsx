@@ -18,8 +18,7 @@ const featuredService = {
     "Achievement-focused content",
     "Revision support",
   ],
-  path: "/contact",
-  cta: "Get My Free CV Review",
+  cta: "View CV Packages",
 };
 
 const secondaryServices = [
@@ -50,7 +49,7 @@ const masterclass = {
   cta: "Explore Masterclasses",
 };
 
-const TILE_RADIUS = "rounded-[21px]";
+const TILE_RADIUS = "rounded-[var(--radius-bento)]";
 const TILE_TRANSITION =
   "transition-[transform,box-shadow,border-color] duration-200 hover:-translate-y-[3px] motion-reduce:transition-none motion-reduce:hover:translate-y-0";
 
@@ -83,14 +82,14 @@ export default function ServicesSection() {
       />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -right-24 bottom-16 h-72 w-72 rounded-full bg-accent/[0.06] blur-3xl"
+        className="pointer-events-none absolute -right-24 bottom-16 h-72 w-72 rounded-full bg-primary/[0.05] blur-3xl"
       />
 
       <div className="section-container relative z-10 max-w-[1180px]">
         <Reveal className="mx-auto mb-12 max-w-3xl text-center md:mb-14">
           <h2
             id="services-heading"
-            className="mb-5 font-serif text-[2rem] font-bold leading-tight tracking-tight text-foreground md:text-[2.625rem]"
+            className="heading-section mb-5"
           >
             Career Services Built to Get You Noticed
           </h2>
@@ -105,13 +104,13 @@ export default function ServicesSection() {
               awkward empty gap. */}
           <Reveal className={isLimitedFootprint ? "sm:col-span-2 lg:col-span-12" : "sm:col-span-2 lg:col-span-7 lg:row-span-2"}>
             <div
-              className={`flex h-full flex-col overflow-hidden ${TILE_RADIUS} border border-accent/25 bg-[hsl(var(--surface-pink-soft))] p-7 shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-card-hover)] sm:p-8 ${TILE_TRANSITION}`}
+              className={`flex h-full flex-col overflow-hidden ${TILE_RADIUS} border border-primary/20 bg-[hsl(var(--surface-teal-soft))] p-7 shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-card-hover)] sm:p-8 ${TILE_TRANSITION}`}
             >
               <div className="mb-5 flex min-h-11 items-start justify-between gap-4">
-                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-accent/10 text-accent ring-1 ring-accent/15">
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-primary/10 text-primary ring-1 ring-primary/15">
                   <FeaturedIcon className="h-5 w-5" aria-hidden="true" />
                 </div>
-                <span className="rounded-full border border-accent/15 bg-accent/10 px-3.5 py-2 text-sm font-semibold leading-none text-accent">
+                <span className="rounded-full border border-primary/15 bg-primary/10 px-3.5 py-2 text-sm font-semibold leading-none text-primary">
                   Most Popular
                 </span>
               </div>
@@ -124,7 +123,7 @@ export default function ServicesSection() {
               </p>
 
               {startingPrice && (
-                <p className="mt-4 w-fit rounded-full border border-accent/15 bg-accent/[0.08] px-3.5 py-2 text-lg font-semibold leading-none text-foreground">
+                <p className="mt-4 w-fit rounded-full border border-primary/15 bg-primary/[0.08] px-3.5 py-2 text-lg font-semibold leading-none text-foreground">
                   From {startingPrice}
                 </p>
               )}
@@ -132,7 +131,7 @@ export default function ServicesSection() {
               <ul className="mt-5 space-y-3" aria-label={featuredService.title + " includes"}>
                 {featuredService.benefits.map((benefit) => (
                   <li key={benefit} className="flex items-start gap-3.5 text-base leading-7 text-foreground/85">
-                    <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-accent/10 text-accent">
+                    <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
                       <Check className="h-3.5 w-3.5" strokeWidth={2.5} aria-hidden="true" />
                     </span>
                     <span>{benefit}</span>
@@ -141,12 +140,13 @@ export default function ServicesSection() {
               </ul>
 
               <Button
-                variant="cta"
                 size="lg"
-                className="mt-auto min-w-[220px] max-w-[300px] w-fit self-start h-[50px] rounded-xl px-6 text-base shadow-md shadow-accent/20 hover:shadow-lg hover:shadow-accent/25 focus-visible:ring-2 focus-visible:ring-offset-2"
                 asChild
+                className="mt-auto min-w-[220px] max-w-[300px] w-fit self-start h-[50px] rounded-xl px-6 text-base"
               >
-                <Link to={"/" + selectedRegion.code + featuredService.path}>{featuredService.cta}</Link>
+                <Link to={"/" + selectedRegion.code + (isLimitedFootprint ? "/contact" : "/pricing")}>
+                  {isLimitedFootprint ? "Ask About Pricing" : featuredService.cta}
+                </Link>
               </Button>
             </div>
           </Reveal>

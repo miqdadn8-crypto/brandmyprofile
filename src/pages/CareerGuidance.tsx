@@ -607,7 +607,7 @@ export default function CareerGuidance() {
                       ))}
                     </ul>
                     <Button variant={isFeatured ? "cta" : "outline"} size="lg" className="mt-8 h-auto min-h-12 w-full whitespace-normal py-3" asChild>
-                      <a href={buildWhatsAppUrl(buildPackageEnquiryMessage({ packageName: display.name, serviceName: serviceData.title, regionName: selectedRegion.name, price: getTierPrice(tier.tier) }))} target="_blank" rel="noopener noreferrer">{display.cta}</a>
+                      <a data-track="package_cta_click" data-track-package={display.name} data-track-service="career-guidance" href={buildWhatsAppUrl(buildPackageEnquiryMessage({ packageName: display.name, serviceName: serviceData.title, regionName: selectedRegion.name, price: getTierPrice(tier.tier) }))} target="_blank" rel="noopener noreferrer">{display.cta}</a>
                     </Button>
                   </article>
                 );

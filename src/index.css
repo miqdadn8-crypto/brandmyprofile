@@ -150,6 +150,14 @@ All colors MUST be HSL.
     @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
   }
 
+  .heading-section {
+    @apply font-serif font-bold;
+    font-size: clamp(2rem, 1.5rem + 1.8vw, 3rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
   .section-padding {
     @apply py-16 md:py-24;
   }

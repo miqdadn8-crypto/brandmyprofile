@@ -1,33 +1,15 @@
+import organizationData from "./organization.json";
+
 const SITE_URL = "https://www.brandmyprofile.com";
 
 // Google Business Profile listing (real, user-confirmed) — included in `sameAs` so
 // Google can consolidate entity/review signals with this site, and linked from the UI
 // (see Footer, Contact, SuccessStories) to drive traffic back to leave reviews.
-export const GOOGLE_BUSINESS_PROFILE_URL = "https://share.google/2G466PLGfS085Dtiz";
+export const GOOGLE_BUSINESS_PROFILE_URL = organizationData.googleBusinessProfileUrl;
 
-export const organizationSchema = {
-  "@type": "Organization",
-  "@id": `${SITE_URL}/#organization`,
-  name: "BrandMyProfile",
-  url: SITE_URL,
-  logo: `${SITE_URL}/brandmyprofile-og.png`,
-  description:
-    "Professional CV writing, LinkedIn optimization and career coaching for professionals in Kuwait, UAE, Saudi Arabia, Qatar and India.",
-  telephone: "+965 41103254",
-  email: "info@brandmyprofile.com",
-  sameAs: [
-    "https://www.linkedin.com/company/brandmyprofile",
-    "https://www.instagram.com/brandmyprofile/",
-    GOOGLE_BUSINESS_PROFILE_URL,
-  ],
-  areaServed: [
-    { "@type": "Country", name: "Kuwait" },
-    { "@type": "Country", name: "United Arab Emirates" },
-    { "@type": "Country", name: "Saudi Arabia" },
-    { "@type": "Country", name: "Qatar" },
-    { "@type": "Country", name: "India" },
-  ],
-};
+// Lives in organization.json so scripts/generate-static-pages.js can pre-render the
+// exact same entity into the static HTML without importing this .ts file.
+export const organizationSchema = organizationData.organization;
 
 // Unit 7: was previously typed as "ProfessionalService", a schema.org LocalBusiness
 // subtype. BrandMyProfile operates online with no customer-facing physical office (a

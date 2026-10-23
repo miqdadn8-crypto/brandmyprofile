@@ -1,0 +1,97 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-20T00:00:00Z",
+  "title": "Design System: BrandMyProfile",
+  "extensions": {
+    "colorMeta": {
+      "deep-teal": { "role": "primary", "displayName": "Deep Teal", "canonical": "hsl(192 100% 20%)", "tonalRamp": ["hsl(192 100% 8%)", "hsl(192 100% 12%)", "hsl(192 100% 20%)", "hsl(192 80% 32%)", "hsl(192 60% 50%)", "hsl(192 60% 70%)", "hsl(192 60% 90%)", "hsl(192 60% 95%)"] },
+      "signal-pink": { "role": "secondary", "displayName": "Signal Pink", "canonical": "hsl(349 95% 50%)", "tonalRamp": ["hsl(349 95% 18%)", "hsl(349 95% 30%)", "hsl(349 95% 45%)", "hsl(349 95% 50%)", "hsl(349 90% 63%)", "hsl(349 90% 78%)", "hsl(349 85% 90%)", "hsl(349 85% 97%)"] },
+      "paper": { "role": "neutral", "displayName": "Paper", "canonical": "hsl(0 0% 98%)", "tonalRamp": ["hsl(0 0% 7%)", "hsl(0 0% 20%)", "hsl(0 0% 35%)", "hsl(0 0% 50%)", "hsl(0 0% 65%)", "hsl(0 0% 80%)", "hsl(0 0% 92%)", "hsl(0 0% 98%)"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "h1 hero headlines (responsive 2.25rem to 3.75rem)." },
+      "editorial-accent": { "displayName": "Editorial Accent", "purpose": "Rare serif accent via font-serif." }
+    },
+    "shadows": [
+      { "name": "card", "value": "0 14px 40px -30px hsl(192 100% 20% / 0.35)", "purpose": "Resting bento cards." },
+      { "name": "card-hover", "value": "0 20px 50px -30px hsl(192 100% 20% / 0.45)", "purpose": "Card hover lift." },
+      { "name": "nav", "value": "0 8px 24px -18px rgb(0 0 0 / 0.18)", "purpose": "Sticky header." }
+    ],
+    "motion": [
+      { "name": "base", "value": "all 0.2s cubic-bezier(0.4, 0, 0.2, 1)", "purpose": "Default state transitions." },
+      { "name": "smooth", "value": "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)", "purpose": "Larger surface transitions." }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" },
+      { "name": "2xl", "value": "1400px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-default",
+      "description": "Default teal action.",
+      "html": "<button class=\"ds-btn-primary\">View Packages</button>",
+      "css": ".ds-btn-primary{background:hsl(192 100% 20%);color:#fff;height:2.5rem;padding:.5rem 1rem;border:0;border-radius:.625rem;font:500 .875rem Inter,system-ui,sans-serif;cursor:pointer;transition:background .2s}.ds-btn-primary:hover{background:hsl(192 100% 16%)}.ds-btn-primary:focus-visible{outline:2px solid hsl(192 100% 20%);outline-offset:2px}"
+    },
+    {
+      "name": "CTA Button",
+      "kind": "button",
+      "refersTo": "button-cta",
+      "description": "The single primary call to action.",
+      "html": "<button class=\"ds-btn-cta\">Book Free Consultation</button>",
+      "css": ".ds-btn-cta{background:hsl(349 95% 50%);color:#fff;height:2.5rem;padding:.5rem 1rem;border:0;border-radius:.625rem;font:500 .875rem Inter,system-ui,sans-serif;cursor:pointer;box-shadow:0 10px 15px -3px rgb(0 0 0/.1);transition:all .2s}.ds-btn-cta:hover{background:hsl(349 95% 45%);box-shadow:0 20px 25px -5px rgb(0 0 0/.1)}.ds-btn-cta:focus-visible{outline:2px solid hsl(192 100% 20%);outline-offset:2px}"
+    },
+    {
+      "name": "Outline Button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Secondary teal outline action.",
+      "html": "<button class=\"ds-btn-outline\">Learn more</button>",
+      "css": ".ds-btn-outline{background:transparent;color:hsl(192 100% 20%);height:2.5rem;padding:.5rem 1rem;border:2px solid hsl(192 100% 20%);border-radius:.625rem;font:500 .875rem Inter,system-ui,sans-serif;cursor:pointer;transition:all .2s}.ds-btn-outline:hover{background:hsl(192 100% 20%);color:#fff}.ds-btn-outline:focus-visible{outline:2px solid hsl(192 100% 20%);outline-offset:2px}"
+    },
+    {
+      "name": "Bento Card",
+      "kind": "card",
+      "refersTo": "card-bento",
+      "description": "Feature card with soft teal-tinted shadow.",
+      "html": "<div class=\"ds-card\"><h3>ATS-Optimized</h3><p>Clean structure that passes automated screening.</p></div>",
+      "css": ".ds-card{background:#fff;color:hsl(0 0% 7%);padding:1.5rem;border-radius:1.5rem;border:1px solid hsl(192 100% 20%/.1);box-shadow:0 14px 40px -30px hsl(192 100% 20%/.35);font-family:Inter,system-ui,sans-serif;transition:box-shadow .3s}.ds-card:hover{box-shadow:0 20px 50px -30px hsl(192 100% 20%/.45)}.ds-card h3{margin:0 0 .5rem;font-size:1.25rem;font-weight:700;letter-spacing:-.025em}.ds-card p{margin:0;color:hsl(215 16% 47%);font-size:.875rem}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Trusted Career Atelier",
+    "overview": "The interface behaves like a well-run studio where careers are tailored: calm paper-white surfaces, a single deep teal that signals competence, and one decisive red-pink reserved for the next step. Cards are generous and softly lifted, so content feels crafted and orderly rather than loud.",
+    "keyCharacteristics": [
+      "Deep teal carries trust, with links, headings, surfaces and focus rings all in teal",
+      "Red-pink appears only on primary calls to action",
+      "Large, soft radii and long teal-tinted shadows",
+      "One sans family (Inter) for nearly everything, with Playfair Display held back as an editorial accent",
+      "Light and dark themes share the same hues"
+    ],
+    "rules": [
+      { "name": "The One Action Rule", "body": "Signal Pink marks the single next step. If a section has no action, it has no pink.", "section": "colors" },
+      { "name": "The Tinted Neutral Rule", "body": "Washes and shadows lean teal. Do not drop in neutral grey shadows or cool-grey panels beside the brand surfaces.", "section": "colors" },
+      { "name": "The Token Rule", "body": "Colors are HSL variables in src/index.css. Never hardcode brand hex in components.", "section": "colors" },
+      { "name": "The Tight Heading Rule", "body": "Every heading is bold with tight tracking; headings do not go light-weight.", "section": "typography" },
+      { "name": "The Long Soft Shadow Rule", "body": "Shadows use a large blur with a strongly negative spread so they read as ambient glow, never as hard drop shadows.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do use semantic tokens (bg-primary, text-muted-foreground, border-border) rather than raw colors.",
+      "Do reserve Signal Pink (hsl(349 95% 50%)) for the one primary action in a view.",
+      "Do use teal-tinted long shadows and the 1.5rem bento radius for feature cards.",
+      "Do keep sections on the py-16 md:py-24 rhythm inside .section-container.",
+      "Do provide a prefers-reduced-motion fallback for any looping decoration."
+    ],
+    "donts": [
+      "Don't add a new brand color without an HSL token in src/index.css and a Tailwind mapping.",
+      "Don't use pink for decoration, icons, or secondary links.",
+      "Don't use hard drop shadows or neutral-grey shadows beside teal surfaces.",
+      "Don't edit src/components/ui/ by hand; use the shadcn CLI.",
+      "Don't assume brand and surface tokens change in dark mode; only the core tokens do, so verify dark surfaces explicitly."
+    ]
+  }
+}

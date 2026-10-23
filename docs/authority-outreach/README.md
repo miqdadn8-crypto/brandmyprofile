@@ -1,4 +1,38 @@
-# Authority & Digital PR Reference (Unit 8)
+# Authority & Digital PR Reference (Unit 8, extended in the Authority + Lead Acquisition unit)
+
+## Start here (current working files)
+| File | Purpose |
+|---|---|
+| [2026-30-day-plan.md](./2026-30-day-plan.md) | Week-by-week plan, asset audit, top 4 assets |
+| [prospect-tracker.csv](./prospect-tracker.csv) | Empty tracker (use this; the older `prospect-tracker-template.csv` is superseded) |
+| [prospect-scoring.md](./prospect-scoring.md), [prospect-categories.md](./prospect-categories.md) | Scoring model (0-10) and target categories |
+| [resource-page-template.md](./resource-page-template.md), [content-mention-template.md](./content-mention-template.md), [partnership-template.md](./partnership-template.md), [broken-resource-template.md](./broken-resource-template.md), [expert-contribution-template.md](./expert-contribution-template.md), [follow-ups.md](./follow-ups.md) | Outreach templates (supersede the short drafts in `outreach-templates.md`) |
+| [../growth/](../growth/) | GBP, reviews, leads, KPIs, social plans |
+
+### Backlink quality rules
+**Good link:** relevant, editorial, contextual, on a page with a real audience, natural anchor.
+**Bad link:** paid bulk placement, PBN, irrelevant directory, spam profile, sitewide footer link spam, exact-match anchor manipulation.
+
+### Anchor text
+Preferred: "BrandMyProfile", "GCC CV Checklist", "Kuwait CV Format Guide", "this CV guide", "career resource". Never request or repeat a forced commercial anchor such as "cv writing services kuwait".
+
+### Realistic partnership ideas (none exist yet; each is a proposal)
+1. Training center shares the GCC CV Checklist with trainees.
+2. Career coach references the GCC CV guide in a resource list.
+3. Engineering group shares the Kuwait/engineering CV guide.
+4. Alumni group shares the checklist with members heading to the Gulf.
+5. Guest Q&A on GCC CV mistakes for a career blog.
+6. Online CV/LinkedIn session for a community [owner to confirm format].
+7. Career workshop for a university career center [owner to confirm].
+8. Short expert quote for an article on ATS or CV length.
+9. Inclusion in a "resources for Gulf job seekers" roundup.
+10. Newsletter mention of the checklist.
+
+### Community outreach (non-spam)
+LinkedIn groups, professional/expat communities and engineering groups: help first. Answer the question fully, share a resource only when it adds something the answer cannot, follow each group's rules, never paste the same link across groups. Fake accounts and automated posting are not allowed.
+
+### Claims
+Do not claim "featured in", "trusted by" or "as seen in" unless verified. Never publish invented reviews, awards or partnerships.
 
 Internal working reference for the business owner - not user-facing content, never linked from
 the site. Nothing in this folder is a claim about work already done (no outreach has been sent,

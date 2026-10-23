@@ -76,10 +76,14 @@ export default function SEO({
 
   // Pages that already name the active region in their `title` (e.g. "... in Kuwait")
   // skip the auto-appended region suffix below to avoid "... Kuwait | BrandMyProfile Kuwait".
+  // Titles that already name the brand (e.g. About) only get the region, never a second brand.
   const titleAlreadyMentionsRegion = title.toLowerCase().includes(regionName.toLowerCase());
-  const fullTitle = titleAlreadyMentionsRegion
-    ? `${title} | BrandMyProfile`
-    : `${title} | BrandMyProfile ${regionName}`;
+  const titleAlreadyMentionsBrand = title.includes("BrandMyProfile");
+  const fullTitle = titleAlreadyMentionsBrand
+    ? titleAlreadyMentionsRegion ? title : `${title} | ${regionName}`
+    : titleAlreadyMentionsRegion
+      ? `${title} | BrandMyProfile`
+      : `${title} | BrandMyProfile ${regionName}`;
   const defaultImage = `${siteUrl}/brandmyprofile-og.png`;
   const imageUrl = ogImage ? (ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}`) : defaultImage;
   const ogLocale = REGION_OG_LOCALE[activeRegionCode] || "en_US";
@@ -140,22 +144,24 @@ export default function SEO({
       <meta name="twitter:image" content={imageUrl} />
 
       {/* Additional SEO */}
-      <meta name="robots" content={noindex ? "noindex, nofollow" : "index, follow"} />
-      {noindex && <meta name="googlebot" content="noindex, nofollow" />}
+      {/* noindex pages (e.g. sample job listings) stay crawlable (follow) so Google can see
+          the directive, and deliberately emit no canonical / hreflang / JSON-LD below. */}
+      <meta name="robots" content={noindex ? "noindex, follow" : "index, follow"} />
+      {noindex && <meta name="googlebot" content="noindex, follow" />}
       <meta name="language" content="English" />
       <meta name="author" content="BrandMyProfile" />
       <meta name="geo.region" content={activeRegionCode.toUpperCase()} />
       <meta name="geo.placename" content={regionName} />
-      <link rel="canonical" href={canonicalUrl} />
+      {!noindex && <link rel="canonical" href={canonicalUrl} />}
 
       {/* Hreflang alternates for region variants */}
-      {hreflangAlternates.map((alt) => (
+      {!noindex && hreflangAlternates.map((alt) => (
         <link key={alt.hreflang} rel="alternate" hrefLang={alt.hreflang} href={alt.href} />
       ))}
-      {xDefaultHref && <link rel="alternate" hrefLang="x-default" href={xDefaultHref} />}
+      {!noindex && xDefaultHref && <link rel="alternate" hrefLang="x-default" href={xDefaultHref} />}
 
       {/* Structured Data */}
-      {structuredData && (
+      {!noindex && structuredData && (
         <script type="application/ld+json">
           {JSON.stringify(structuredData)}
         </script>

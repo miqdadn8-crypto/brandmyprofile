@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import SEO from "@/components/SEO";
+import RelatedServiceLinks from "@/components/RelatedServiceLinks";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
@@ -238,6 +239,7 @@ export default function LinkedInMakeover() {
   const regionCopy = getRegionContent(selectedRegion.code).servicePages["linkedin-makeover"];
   const marketHeading = marketHeadings[selectedRegion.code] ?? marketHeadings.kuwait;
   const reviewMessage = `Hello BrandMyProfile, I’d like my LinkedIn profile reviewed for ${selectedRegion.name}. My target role is [target role]. Please share the process and pricing.`;
+  const seoOverride = getRegionContent(selectedRegion.code).serviceSeo?.["linkedin-makeover"];
   const seoDescription = getServiceSeoDescription("linkedin-makeover", selectedRegion.name);
 
   if (dataLoading || !rawServiceData) {
@@ -291,8 +293,8 @@ export default function LinkedInMakeover() {
   return (
     <>
       <SEO
-        title={`${serviceData.seo.title} in ${selectedRegion.name}`}
-        description={seoDescription}
+        title={seoOverride?.metaTitle ?? `${serviceData.seo.title} in ${selectedRegion.name}`}
+        description={seoOverride?.metaDescription ?? seoDescription}
         keywords={serviceData.seo.keywords}
         structuredData={structuredData}
       />
@@ -558,7 +560,7 @@ export default function LinkedInMakeover() {
                       ))}
                     </ul>
                     <Button variant={isFeatured ? "cta" : "outline"} size="lg" className="mt-8 w-full" asChild>
-                      <a href={buildWhatsAppUrl(buildPackageEnquiryMessage({ packageName: tier.name, serviceName: serviceData.title, regionName: selectedRegion.name, price: getTierPrice(tier.tier) }))} target="_blank" rel="noopener noreferrer">
+                      <a data-track="package_cta_click" data-track-package={tier.name} data-track-service="linkedin-makeover" href={buildWhatsAppUrl(buildPackageEnquiryMessage({ packageName: tier.name, serviceName: serviceData.title, regionName: selectedRegion.name, price: getTierPrice(tier.tier) }))} target="_blank" rel="noopener noreferrer">
                         Enquire About {tier.name}
                       </a>
                     </Button>
@@ -627,6 +629,7 @@ export default function LinkedInMakeover() {
           </div>
         </section>
       </main>
+      <RelatedServiceLinks region={selectedRegion.code} currentSuffix="/services/linkedin-makeover" />
       <Footer />
       <WhatsAppButton />
     </>

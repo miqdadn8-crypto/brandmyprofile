@@ -14,7 +14,7 @@ import { JobData, jobsConfig } from "@/config/jobs";
 import { getTemplatedPageSeo } from "@/config/pageSeo";
 
 // The live job source is currently sample/illustrative data (see src/config/jobs.ts),
-// not a real-time jobs feed. Structured data must not present it as real job postings.
+// not a real-time jobs feed. This page is noindex and emits no job structured data.
 const isIllustrativeJobSource = jobsConfig.source === "mock";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
@@ -90,8 +90,8 @@ const matchesExperienceBand = (experience: string, band: string) => {
 };
 
 const trustItems = [
-  { label: "Region-Specific Listings", icon: MapPinned },
-  { label: "Updated Regularly", icon: RefreshCw },
+  { label: "Region-Specific Examples", icon: MapPinned },
+  { label: "Sample Listings", icon: RefreshCw },
   { label: "CV Support Available", icon: FileCheck2 },
   { label: "Application Guidance", icon: SearchCheck },
 ];
@@ -169,40 +169,6 @@ export default function Jobs() {
     return defaultJobsSeo.title;
   }, [jobType, searchQuery, selectedRegion.name, defaultJobsSeo.title]);
 
-  const jobPostingSchema = useMemo(() => {
-    if (filteredJobs.length === 0 || isIllustrativeJobSource) return undefined;
-    return {
-      "@context": "https://schema.org",
-      "@type": "ItemList",
-      itemListElement: filteredJobs.slice(0, 10).map((job, index) => {
-        const datePosted = job.posted || new Date().toISOString();
-        const validThrough = new Date(datePosted);
-        validThrough.setDate(validThrough.getDate() + 30);
-        return {
-          "@type": "ListItem",
-          position: index + 1,
-          item: {
-            "@type": "JobPosting",
-            title: job.title,
-            description: job.description || `${job.title} position at ${job.company}`,
-            hiringOrganization: { "@type": "Organization", name: job.company },
-            jobLocation: {
-              "@type": "Place",
-              address: {
-                "@type": "PostalAddress",
-                addressLocality: job.location,
-                addressCountry: selectedRegion.code.toUpperCase(),
-              },
-            },
-            datePosted,
-            validThrough: validThrough.toISOString(),
-            employmentType: job.type?.toUpperCase() || "FULL_TIME",
-          },
-        };
-      }),
-    };
-  }, [filteredJobs, selectedRegion.code]);
-
   const cvReviewPath = `/${selectedRegion.code}/contact`;
   const linkedInPath = `/${selectedRegion.code}/services/linkedin-makeover`;
 
@@ -212,7 +178,7 @@ export default function Jobs() {
         title={seoTitle}
         description={defaultJobsSeo.description}
         keywords={`jobs ${selectedRegion.name}, careers ${selectedRegion.name}, job openings, employment opportunities, ${selectedRegion.name} recruitment, ${searchQuery}`}
-        structuredData={jobPostingSchema}
+        noindex
       />
       <Header />
       <main>
@@ -227,7 +193,7 @@ export default function Jobs() {
                 Latest Jobs in <span className="text-primary">{selectedRegion.name}</span>
               </h1>
               <p className="mt-7 max-w-2xl text-lg leading-8 text-foreground/75 sm:text-xl">
-                Browse curated opportunities in {selectedRegion.name} and make sure your CV is ready before you apply.
+                Explore sample roles in {selectedRegion.name} and make sure your CV is ready before you apply.
               </p>
               <p className="mt-3 max-w-2xl text-base leading-7 text-muted-foreground">
                 Use search and filters to find roles by job type, experience level and salary range.
@@ -251,7 +217,7 @@ export default function Jobs() {
           <div className="section-container">
             {isIllustrativeJobSource && (
               <p className="mb-8 rounded-lg border border-border bg-muted/50 px-4 py-3 text-sm text-muted-foreground">
-                These listings are sample opportunities shown for illustration while we connect a live jobs feed. Contact us on WhatsApp for current openings and application guidance.
+                Sample job listings are shown for career exploration and demonstration purposes. Availability is not verified, and BrandMyProfile is not the employer or recruiter for these roles. Contact us on WhatsApp for career guidance.
               </p>
             )}
             {error && !loading && (

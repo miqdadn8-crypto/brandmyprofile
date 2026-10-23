@@ -1,3 +1,4 @@
+import { trackEvent } from "@/lib/analytics";
 import { useEffect, useMemo, useState } from "react";
 import {
   AlertTriangle,
@@ -280,7 +281,7 @@ export default function GccCvChecklist() {
                 safety, experience writing and proofreading - work through it before you submit your next application.
               </p>
               <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-                <Button variant="cta" size="xl" className="w-full whitespace-normal px-6 text-base sm:w-auto" onClick={() => window.print()}>
+                <Button variant="cta" size="xl" className="w-full whitespace-normal px-6 text-base sm:w-auto" onClick={() => { trackEvent("resource_print", { page_type: "resource", service: "gcc-cv-checklist" }); window.print(); }}>
                   <Printer className="h-5 w-5" />
                   Print or Save as PDF
                 </Button>

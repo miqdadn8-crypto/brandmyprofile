@@ -11,6 +11,7 @@ import {
 import { useRegion, regions } from "@/contexts/RegionContext";
 import { LIMITED_FOOTPRINT_REGIONS } from "@/contexts/regionAvailability";
 import { useChangeRegion } from "@/hooks/useChangeRegion";
+import RegionFlag from "@/components/RegionFlag";
 import { cn } from "@/lib/utils";
 
 // `/blog` is a global (region-less) route by design - see src/App.tsx - and must never
@@ -20,10 +21,20 @@ import { cn } from "@/lib/utils";
 const navLinks = [
   { to: "/pricing", label: "Pricing" },
   { to: "/jobs", label: "Jobs" },
-  { to: "/blog", label: "Blog", global: true, limitedRegionSafe: true },
+];
+
+// Both are region-less routes (see src/App.tsx). Bahrain/Oman only get the blog, as a plain link.
+const resourceLinks = [
+  { to: "/blog", label: "All Articles" },
+  { to: "/resources/gcc-cv-checklist", label: "GCC CV Checklist" },
+];
+
+// Grouped under one "About" menu so the top bar stays at five entries. Bahrain/Oman only
+// have Contact live, so they get it as a plain link instead of a menu.
+const aboutLinks = [
+  { to: "/about", label: "About Us" },
   { to: "/success-stories", label: "Success Stories" },
-  { to: "/about", label: "About" },
-  { to: "/contact", label: "Contact", limitedRegionSafe: true },
+  { to: "/contact", label: "Contact" },
 ];
 
 interface MobileNavItem {
@@ -37,7 +48,7 @@ interface MobileNavItem {
 // never introduces a stray h4/h5 into the page's heading hierarchy.
 function MobileNavSectionLabel({ children }: { children: React.ReactNode }) {
   return (
-    <p className="mb-1.5 mt-6 px-3.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-primary/55 first:mt-0">
+    <p className="mb-1.5 mt-6 px-3.5 text-xs font-semibold text-primary/70 first:mt-0">
       {children}
     </p>
   );
@@ -90,9 +101,7 @@ export default function Header() {
   // in regionAvailability.ts, which this mirrors for nav-visibility purposes.
   const isIndia = selectedRegion.code === "india";
   const bookConsultationPath = regionPath(isLimitedFootprint ? "/contact" : "/schedule");
-  const visibleNavLinks = isLimitedFootprint
-    ? navLinks.filter((link) => link.limitedRegionSafe)
-    : navLinks;
+  const visibleNavLinks = isLimitedFootprint ? [] : navLinks;
 
   // Grouped mobile-drawer navigation - mirrors the exact same availability rules as the
   // desktop Services dropdown and visibleNavLinks above (never a separate source of truth
@@ -101,8 +110,8 @@ export default function Header() {
     ? [{ to: "/services/cv-writing", label: "CV Writing" }]
     : [
         { to: "/services/cv-writing", label: "Professional CV Writing" },
-        { to: "/services/ats-cv", label: "ATS CV Writing" },
-        { to: "/services/gcc-cv", label: "GCC Format CV" },
+        { to: "/services/ats-cv", label: "ATS Friendly CV" },
+        { to: "/services/gcc-cv", label: "GCC Standard CV" },
         ...(isIndia ? [{ to: "/services/europass-cv", label: "Europass CV" }] : []),
       ];
   const mobileCareerServices: MobileNavItem[] = isLimitedFootprint
@@ -113,13 +122,17 @@ export default function Header() {
         { to: "/services/career-guidance", label: "Career Guidance" },
       ];
   const mobileExplore: MobileNavItem[] = [
-    ...(isLimitedFootprint ? [] : [{ to: "/jobs", label: "Jobs" }, { to: "/pricing", label: "Pricing" }]),
+    { to: "", label: "Home" },
+    ...(isLimitedFootprint ? [] : [{ to: "/pricing", label: "Pricing" }, { to: "/jobs", label: "Jobs" }]),
     { to: "/blog", label: "Blog", global: true },
     ...(isLimitedFootprint ? [] : [{ to: "/success-stories", label: "Success Stories" }, { to: "/about", label: "About" }]),
     { to: "/contact", label: "Contact" },
   ];
 
   const isHome = location.pathname === `/${selectedRegion.code}`;
+  const isServicesPath = location.pathname.startsWith(`/${selectedRegion.code}/services/`);
+  const isResourcesPath = location.pathname.startsWith("/blog") || location.pathname.startsWith("/resources/");
+  const isAboutPath = aboutLinks.some((link) => location.pathname === regionPath(link.to));
   // The homepage hero now uses a light editorial surface, so its top-state
   // navigation needs the same high-contrast treatment as other light pages.
   const transparent = false;
@@ -195,12 +208,16 @@ export default function Header() {
               ),
         )}
       >
-        <nav className="mx-auto flex w-full max-w-[1200px] items-center px-3.5 sm:px-6 lg:px-8">
+        <nav aria-label="Main navigation" className="mx-auto flex w-full max-w-[1200px] items-center px-3.5 sm:px-6 lg:px-8">
           {/* Logo */}
-          <Link to={`/${selectedRegion.code}`} className="flex min-w-0 shrink-0 items-center space-x-1.5 sm:space-x-2">
+          <Link
+            to={`/${selectedRegion.code}`}
+            aria-label="BrandMyProfile home"
+            className="flex min-w-0 shrink-0 items-center space-x-1.5 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 sm:space-x-2"
+          >
             <img
               src="/brandmyprofile (20).png"
-              alt="BrandMyProfile logo"
+              alt=""
               className={cn(
                 "shrink-0 rounded-full object-cover ring-1 ring-black/5 transition-[height,width] duration-300 ease-in-out",
                 floating ? "h-9 w-9" : "h-9 w-9 sm:h-11 sm:w-11",
@@ -237,14 +254,14 @@ export default function Header() {
                   : "border-border/80 hover:bg-secondary",
               )}
             >
-              <span aria-hidden="true" className="text-sm leading-none sm:text-base">{selectedRegion.flag}</span>
+              <RegionFlag code={selectedRegion.code} name={selectedRegion.name} size="md" />
               <span className="max-w-[70px] truncate max-[340px]:hidden sm:max-w-[8.5rem]">{selectedRegion.name}</span>
               <ChevronDown aria-hidden="true" className="hidden h-3.5 w-3.5 shrink-0 sm:block" />
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               {regions.map((region) => (
                 <DropdownMenuItem key={region.code} onClick={() => changeRegion(region.code)}>
-                  <span aria-hidden="true" className="mr-2">{region.flag}</span>
+                  <span className="mr-2 inline-flex"><RegionFlag code={region.code} name={region.name} size="md" /></span>
                   {region.name}
                 </DropdownMenuItem>
               ))}
@@ -256,7 +273,8 @@ export default function Header() {
             <DropdownMenu>
               <DropdownMenuTrigger
                 className={cn(
-                  "flex items-center gap-1 text-[14px] font-medium transition-colors duration-300",
+                  "flex items-center gap-1 rounded-sm text-sm font-medium transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 data-[state=open]:text-primary",
+                  isServicesPath ? "text-primary" : "text-foreground",
                   transparent ? "text-white hover:text-white/80" : "hover:text-primary",
                 )}
               >
@@ -269,25 +287,25 @@ export default function Header() {
                   </DropdownMenuItem>
                 ) : (
                   <>
-                    <p className="px-2 pb-1 pt-1.5 text-[11px] font-semibold uppercase tracking-[0.1em] text-muted-foreground">
-                      CV Services
+                    <p className="px-2 pb-1 pt-1.5 text-xs font-semibold text-muted-foreground">
+                      CV Writing
                     </p>
                     <DropdownMenuItem asChild>
                       <Link to={regionPath("/services/cv-writing")}>Professional CV Writing</Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem asChild>
-                      <Link to={regionPath("/services/ats-cv")}>ATS CV Writing</Link>
+                      <Link to={regionPath("/services/ats-cv")}>ATS Friendly CV</Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem asChild>
-                      <Link to={regionPath("/services/gcc-cv")}>GCC Format CV</Link>
+                      <Link to={regionPath("/services/gcc-cv")}>GCC Standard CV</Link>
                     </DropdownMenuItem>
                     {isIndia && (
                       <DropdownMenuItem asChild>
                         <Link to={regionPath("/services/europass-cv")}>Europass CV</Link>
                       </DropdownMenuItem>
                     )}
-                    <p className="px-2 pb-1 pt-2 text-[11px] font-semibold uppercase tracking-[0.1em] text-muted-foreground">
-                      Career Services
+                    <p className="px-2 pb-1 pt-2 text-xs font-semibold text-muted-foreground">
+                      LinkedIn &amp; Career
                     </p>
                     <DropdownMenuItem asChild>
                       <Link to={regionPath("/services/linkedin-makeover")}>LinkedIn Makeover</Link>
@@ -303,18 +321,80 @@ export default function Header() {
               </DropdownMenuContent>
             </DropdownMenu>
 
-            {visibleNavLinks.map((link) => (
+            {visibleNavLinks.map((link) => {
+              const target = regionPath(link.to);
+              const isActive = location.pathname === target || location.pathname.startsWith(`${target}/`);
+              return (
+                <Link
+                  key={link.to}
+                  to={target}
+                  aria-current={isActive ? "page" : undefined}
+                  className={cn(
+                    "rounded-sm text-sm font-medium underline-offset-[10px] transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+                    isActive ? "text-primary underline decoration-2 decoration-primary" : "text-foreground",
+                    transparent ? "text-white hover:text-white/80" : "hover:text-primary",
+                  )}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
+
+            {isLimitedFootprint ? (
               <Link
-                key={link.to}
-                to={link.global ? link.to : regionPath(link.to)}
-                className={cn(
-                  "text-[14px] font-medium transition-colors duration-300",
-                  transparent ? "text-white hover:text-white/80" : "hover:text-primary",
-                )}
+                to="/blog"
+                aria-current={location.pathname === "/blog" ? "page" : undefined}
+                className="rounded-sm text-sm font-medium transition-colors duration-300 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
               >
-                {link.label}
+                Blog
               </Link>
-            ))}
+            ) : (
+              <DropdownMenu>
+                <DropdownMenuTrigger
+                  className={cn(
+                    "flex items-center gap-1 rounded-sm text-sm font-medium transition-colors duration-300 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 data-[state=open]:text-primary",
+                    isResourcesPath ? "text-primary" : "text-foreground",
+                  )}
+                >
+                  Resources <ChevronDown aria-hidden="true" className="h-4 w-4" />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                  {resourceLinks.map((link) => (
+                    <DropdownMenuItem key={link.to} asChild>
+                      <Link to={link.to}>{link.label}</Link>
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
+            )}
+
+            {isLimitedFootprint ? (
+              <Link
+                to={regionPath("/contact")}
+                aria-current={location.pathname === regionPath("/contact") ? "page" : undefined}
+                className="rounded-sm text-sm font-medium transition-colors duration-300 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+              >
+                Contact
+              </Link>
+            ) : (
+              <DropdownMenu>
+                <DropdownMenuTrigger
+                  className={cn(
+                    "flex items-center gap-1 rounded-sm text-sm font-medium transition-colors duration-300 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 data-[state=open]:text-primary",
+                    isAboutPath ? "text-primary" : "text-foreground",
+                  )}
+                >
+                  About <ChevronDown aria-hidden="true" className="h-4 w-4" />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                  {aboutLinks.map((link) => (
+                    <DropdownMenuItem key={link.to} asChild>
+                      <Link to={regionPath(link.to)}>{link.label}</Link>
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
+            )}
           </div>
 
           {/* Right: region selector + CTA (desktop) */}
@@ -324,13 +404,13 @@ export default function Header() {
                 data-region-selector
                 aria-label={`Change region. Current region: ${selectedRegion.name}`}
                 className={cn(
-                  "flex items-center gap-2 rounded-md border px-3 py-1.5 text-[14px] font-medium transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                  "flex items-center gap-2 rounded-md border px-3 py-1.5 text-sm font-medium transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
                   transparent
                     ? "border-white/40 text-white hover:bg-white/10"
                     : "border-border/80 text-foreground/80 hover:bg-secondary",
                 )}
               >
-                <span aria-hidden="true">{selectedRegion.flag}</span>
+                <RegionFlag code={selectedRegion.code} name={selectedRegion.name} size="md" />
                 <span>{selectedRegion.name}</span>
               </DropdownMenuTrigger>
               <DropdownMenuContent>
@@ -339,7 +419,7 @@ export default function Header() {
                     key={region.code}
                     onClick={() => changeRegion(region.code)}
                   >
-                    <span aria-hidden="true" className="mr-2">{region.flag}</span>
+                    <span className="mr-2 inline-flex"><RegionFlag code={region.code} name={region.name} size="md" /></span>
                     {region.name}
                   </DropdownMenuItem>
                 ))}
@@ -410,14 +490,14 @@ export default function Header() {
                 aria-label={`Change region. Current region: ${selectedRegion.name}`}
                 className="ml-auto flex h-9 shrink-0 items-center gap-1.5 rounded-[11px] border border-border/80 px-3 text-[13px] font-semibold transition-colors hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring max-[340px]:w-9 max-[340px]:justify-center max-[340px]:px-0"
               >
-                <span aria-hidden="true" className="text-sm leading-none">{selectedRegion.flag}</span>
+                <RegionFlag code={selectedRegion.code} name={selectedRegion.name} size="md" />
                 <span className="max-w-[70px] truncate max-[340px]:hidden">{selectedRegion.name}</span>
                 <ChevronDown aria-hidden="true" className="hidden h-3.5 w-3.5 shrink-0 sm:block" />
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 {regions.map((region) => (
                   <DropdownMenuItem key={region.code} onClick={() => changeRegion(region.code)}>
-                    <span aria-hidden="true" className="mr-2">{region.flag}</span>
+                    <span className="mr-2 inline-flex"><RegionFlag code={region.code} name={region.name} size="md" /></span>
                     {region.name}
                   </DropdownMenuItem>
                 ))}
@@ -435,7 +515,7 @@ export default function Header() {
 
           {/* Scrollable grouped navigation */}
           <nav aria-label="Mobile navigation" className="flex-1 overflow-y-auto px-2.5 pb-4 pt-2">
-            <MobileNavSectionLabel>CV Services</MobileNavSectionLabel>
+            <MobileNavSectionLabel>CV Writing</MobileNavSectionLabel>
             <div className="space-y-0.5">
               {mobileCvServices.map((item) => (
                 <MobileNavRow
@@ -450,7 +530,7 @@ export default function Header() {
 
             {mobileCareerServices.length > 0 && (
               <>
-                <MobileNavSectionLabel>Career Services</MobileNavSectionLabel>
+                <MobileNavSectionLabel>LinkedIn &amp; Career</MobileNavSectionLabel>
                 <div className="space-y-0.5">
                   {mobileCareerServices.map((item) => (
                     <MobileNavRow

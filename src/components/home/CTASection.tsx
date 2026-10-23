@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import { useLeadModal } from "@/components/lead/LeadModalContext";
 import { ArrowRight, Calendar, FileSearch } from "lucide-react";
 import Reveal from "@/components/motion/Reveal";
 import { useRegion } from "@/contexts/RegionContext";
@@ -9,6 +10,7 @@ import { getRegionContent } from "@/lib/data/regionContent";
 
 export default function CTASection() {
   const { selectedRegion } = useRegion();
+  const { openLeadModal } = useLeadModal();
   const content = getRegionContent(selectedRegion.code);
   // Bahrain/Oman have no /schedule page yet (Unit 3A) - fall back to Contact, matching
   // Header.tsx's existing bookConsultationPath pattern (Unit 9 broken-link fix).
@@ -18,7 +20,7 @@ export default function CTASection() {
   return (
     <section className="section-padding bg-gradient-to-br from-primary to-primary-hover text-primary-foreground">
       <Reveal className="section-container text-center">
-        <h2 className="mb-6 font-serif text-[2.25rem] leading-tight sm:text-[2.75rem] lg:text-[3.25rem]">
+        <h2 className="heading-section mb-6">
           Ready to Transform Your Career?
         </h2>
         <p className="mx-auto mb-10 max-w-2xl text-xl leading-relaxed text-primary-foreground/90">
@@ -30,14 +32,12 @@ export default function CTASection() {
             <Button
               variant="cta"
               size="xl"
-              asChild
+              onClick={() => openLeadModal({ trigger: "free_review_section" })}
               className="group min-h-14 w-full px-8 text-base sm:w-auto sm:text-lg"
             >
-              <Link to={`/${selectedRegion.code}/contact`}>
-                <FileSearch className="h-5 w-5" />
-                Get My Free CV Review
-                <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
-              </Link>
+              <FileSearch className="h-5 w-5" />
+              Get My Free CV Review
+              <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
             </Button>
           </motion.div>
           <motion.div whileHover={{ scale: 1.01, y: -2 }} whileTap={{ scale: 0.98 }}>

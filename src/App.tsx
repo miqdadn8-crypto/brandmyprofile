@@ -21,6 +21,8 @@ import Home from "./pages/Home";
 // fix, so lazy-loading it here would just force it back into the eager graph anyway
 // while adding an unnecessary Suspense boundary for a component this small.
 import NotFound from "./pages/NotFound";
+import AnalyticsEvents from "./components/AnalyticsEvents";
+import { LeadModalProvider } from "./components/lead/LeadModalContext";
 
 const CVWriting = lazy(() => import("./pages/CVWriting"));
 const ATSCV = lazy(() => import("./pages/ATSCV"));
@@ -67,6 +69,8 @@ const App = () => (
           <Toaster />
           <Sonner />
           <BrowserRouter>
+            <LeadModalProvider>
+            <AnalyticsEvents />
             <RegionBanner />
             <RouteErrorBoundary>
               <Suspense fallback={<RouteFallback />}>
@@ -154,6 +158,7 @@ const App = () => (
                 </Routes>
               </Suspense>
             </RouteErrorBoundary>
+            </LeadModalProvider>
           </BrowserRouter>
         </RegionProvider>
       </TooltipProvider>

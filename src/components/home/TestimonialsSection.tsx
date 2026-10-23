@@ -1,86 +1,141 @@
-import { Star, ExternalLink, UsersRound, UserRoundCheck, Globe2, ShieldCheck } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { ExternalLink, Star } from "lucide-react";
 import Reveal from "@/components/motion/Reveal";
-import ReviewCard, { type ReviewCardData } from "@/components/reviews/ReviewCard";
 import { useGoogleReviews } from "@/hooks/useGoogleReviews";
 import { GOOGLE_BUSINESS_PROFILE_URL } from "@/lib/seo/organization";
 
-// Shown only when the real Google Reviews feed isn't available (see useGoogleReviews) -
-// approved, factual trust points rather than invented testimonials or review counts
-// (SEO Unit 3A.2: the previous static fallback reused unverified mock testimonial data).
-const trustFacts = [
-  { title: "500+", label: "Professionals Supported", icon: UsersRound },
-  { title: "Human Writing", label: "& Review", icon: UserRoundCheck },
-  { title: "Kuwait & GCC", label: "Career Focus", icon: Globe2 },
-  { title: "Confidential", label: "Support", icon: ShieldCheck },
-];
+// Genuine Google review data only, from the existing integration (useGoogleReviews ->
+// googleReviewsService -> Supabase edge function "fetch-google-reviews"). Nothing is
+// invented, edited, truncated or hardcoded; if the feed is unavailable we show a plain
+// link to the Google profile instead of any review cards. Visual display only - no
+// Review/AggregateRating structured data is emitted from this data.
 
-export default function TestimonialsSection() {
-  const { isLive, rating, totalReviews, mapsUrl, reviews } = useGoogleReviews();
+// Defers the reviews request (and its render) until the section is near the viewport,
+// so it never competes with the hero for bandwidth or LCP.
+function useNearViewport<T extends Element>() {
+  const ref = useRef<T | null>(null);
+  const [near, setNear] = useState(false);
+  useEffect(() => {
+    const node = ref.current;
+    if (!node || near) return;
+    if (typeof IntersectionObserver === "undefined") {
+      setNear(true);
+      return;
+    }
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          setNear(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "400px 0px" },
+    );
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, [near]);
+  return { ref, near };
+}
 
-  const displayItems: ReviewCardData[] = isLive
-    ? reviews.slice(0, 3).map((r) => ({
-        name: r.author,
-        subtitle: r.relativeTime,
-        avatarUrl: r.avatar,
-        rating: r.rating,
-        quote: r.text,
-      }))
-    : [];
+function ReviewsContent() {
+  const { isLive, isLoading, rating, totalReviews, mapsUrl, reviews } = useGoogleReviews();
+  const googleUrl = mapsUrl || GOOGLE_BUSINESS_PROFILE_URL;
+
+  if (isLoading) {
+    return <div className="my-8 h-64 animate-pulse rounded-[var(--radius-bento)] bg-muted/60" aria-hidden="true" />;
+  }
+
+  if (!isLive) {
+    return (
+      <p className="py-2 text-center text-base text-muted-foreground">
+        See what clients say about BrandMyProfile.{" "}
+        <a
+          href={googleUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1.5 font-semibold text-primary hover:text-primary-hover hover:underline"
+        >
+          Read our reviews on Google <ExternalLink className="h-4 w-4" aria-hidden="true" />
+        </a>
+      </p>
+    );
+  }
 
   return (
-    <section className="section-padding">
-      <div className="section-container">
-        <Reveal className="text-center mb-12">
-          <h2 className="mb-4 font-serif">{isLive ? "Success Stories" : "What Clients Value About Our Support"}</h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            {isLive
-              ? "Join hundreds of professionals who've accelerated their careers with BrandMyProfile."
-              : "Practical, human-reviewed career support for professionals across Kuwait and the GCC."}
-          </p>
-          {isLive && rating ? (
-            <a
-              href={mapsUrl || undefined}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-accent transition-colors"
-            >
-              <Star className="h-4 w-4 fill-accent text-accent" />
-              {rating.toFixed(1)} on Google{totalReviews ? ` · ${totalReviews} reviews` : ""}
-              <ExternalLink className="h-3.5 w-3.5" />
-            </a>
-          ) : (
-            <a
-              href={GOOGLE_BUSINESS_PROFILE_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-accent transition-colors"
-            >
-              Read verified reviews on Google
-              <ExternalLink className="h-3.5 w-3.5" />
-            </a>
-          )}
-        </Reveal>
+    <div className="py-8 md:py-12">
+      <Reveal className="mb-8 text-center">
+        <h2 id="reviews-heading" className="heading-section mb-3">What Professionals Say About BrandMyProfile</h2>
+        <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
+          Feedback from Google reviews, shown exactly as posted.
+        </p>
+      </Reveal>
+      {rating ? (
+        <p className="mb-6 flex flex-wrap items-center justify-center gap-2 text-sm font-semibold text-foreground">
+          <span className="flex" aria-hidden="true">
+            {Array.from({ length: 5 }).map((_, i) => (
+              <Star key={i} className={`h-4 w-4 ${i < Math.round(rating) ? "fill-accent text-accent" : "text-border"}`} />
+            ))}
+          </span>
+          <span>{rating.toFixed(1)} on Google{totalReviews ? ` · ${totalReviews} reviews` : ""}</span>
+        </p>
+      ) : null}
 
-        {isLive ? (
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-            {displayItems.map((item, index) => (
-              <ReviewCard key={index} {...item} />
-            ))}
-          </div>
-        ) : (
-          <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
-            {trustFacts.map(({ title, label, icon: Icon }) => (
-              <div
-                key={label}
-                className="flex flex-col items-center gap-2 rounded-[var(--radius-bento)] border border-border/80 bg-card p-6 text-center shadow-[var(--shadow-card)]"
-              >
-                <Icon className="h-6 w-6 text-primary" aria-hidden="true" />
-                <p className="font-serif text-2xl font-semibold">{title}</p>
-                <p className="text-sm text-muted-foreground">{label}</p>
-              </div>
-            ))}
-          </div>
-        )}
+      {/* Scroll-snap row: swipe on mobile, 3 cards visible on desktop. No auto-scroll. */}
+      <ul
+        className="-mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-4 [scrollbar-width:thin] sm:mx-0 sm:px-0"
+        aria-label="Google reviews"
+      >
+        {reviews.slice(0, 6).map((review) => (
+          <li
+            key={`${review.author}-${review.time}`}
+            className="flex w-[86%] shrink-0 snap-start flex-col rounded-[var(--radius-bento)] border border-border/80 bg-card p-6 shadow-[var(--shadow-card)] sm:w-[48%] lg:w-[calc((100%-2rem)/3)]"
+          >
+            <div className="mb-3 flex items-center gap-1" aria-label={`${review.rating} out of 5 stars`}>
+              {Array.from({ length: 5 }).map((_, i) => (
+                <Star key={i} className={`h-4 w-4 ${i < review.rating ? "fill-accent text-accent" : "text-border"}`} aria-hidden="true" />
+              ))}
+            </div>
+            <blockquote className="flex-1 whitespace-pre-line text-base leading-7 text-foreground/90">{review.text}</blockquote>
+            <footer className="mt-5 flex items-center gap-3 border-t border-border/60 pt-4">
+              {review.avatar ? (
+                <img src={review.avatar} alt="" width={40} height={40} loading="lazy" referrerPolicy="no-referrer" className="h-10 w-10 rounded-full object-cover" />
+              ) : (
+                <span className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-sm font-bold text-primary" aria-hidden="true">
+                  {review.author.slice(0, 1).toUpperCase()}
+                </span>
+              )}
+              <span className="min-w-0">
+                <span className="block truncate text-sm font-semibold">{review.author}</span>
+                <span className="block text-xs text-muted-foreground">{review.relativeTime} · Posted on Google</span>
+              </span>
+            </footer>
+          </li>
+        ))}
+      </ul>
+
+      <div className="mt-6 text-center">
+        <a
+          href={googleUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-accent"
+        >
+          Read More Reviews on Google <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
+        </a>
+      </div>
+    </div>
+  );
+}
+
+export default function TestimonialsSection() {
+  const { ref, near } = useNearViewport<HTMLDivElement>();
+
+  return (
+    <section className="py-4" aria-label="Client reviews">
+      <div className="section-container">
+        <div ref={ref} className="min-h-[3rem]">
+          {near ? <ReviewsContent /> : null}
+        </div>
       </div>
     </section>
   );

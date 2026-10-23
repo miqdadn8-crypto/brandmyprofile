@@ -19,6 +19,7 @@ import {
   X,
 } from "lucide-react";
 import SEO from "@/components/SEO";
+import RelatedServiceLinks from "@/components/RelatedServiceLinks";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
@@ -298,6 +299,13 @@ export default function Pricing() {
   // the "how much does CV writing cost" direct-answer block and its matching FAQ from
   // the same loaded pricing data, never a separately hardcoded number.
   const essentialPrice = isLoading ? undefined : getTierPrice(pricingTiers[0]);
+  // Region override (regionSeo.json) - the starting price comes from the loaded pricing
+  // data above, never a separately hardcoded number; falls back to the default copy until
+  // pricing has loaded.
+  const pricingSeo = content.serviceSeo?.pricing;
+  const pricingSeoDescription = pricingSeo && essentialPrice
+    ? pricingSeo.metaDescriptionTemplate.replace("{startingPrice}", essentialPrice)
+    : undefined;
   const faqs = useMemo(
     () => [...getDynamicFaqs(selectedRegion.name, essentialPrice), ...staticFaqs],
     [selectedRegion.name, essentialPrice],
@@ -361,8 +369,8 @@ export default function Pricing() {
   return (
     <div className="min-h-screen overflow-x-hidden bg-background text-foreground">
       <SEO
-        title={`CV Writing & Career Service Pricing in ${selectedRegion.name}`}
-        description={`${content.pricingIntro} See CV writing, LinkedIn optimization, career coaching and masterclass pricing in ${selectedRegion.currency}.`}
+        title={pricingSeo?.metaTitle ?? `CV Writing & Career Service Pricing in ${selectedRegion.name}`}
+        description={pricingSeoDescription ?? `${content.pricingIntro} See CV writing, LinkedIn optimization, career coaching and masterclass pricing in ${selectedRegion.currency}.`}
         keywords="career services pricing, CV writing cost, LinkedIn optimization price, career coaching rates"
         structuredData={pricingSchema}
       />
@@ -428,7 +436,7 @@ export default function Pricing() {
                       ))}
                     </ul>
                     <Button variant={tier.isFeatured ? "cta" : "outline"} size="lg" className="mt-8 min-h-12 w-full" asChild>
-                      <a href={buildWhatsAppUrl(buildPackageEnquiryMessage({ packageName: tier.name, serviceName: "Career Services", regionName: selectedRegion.name, price }))} target="_blank" rel="noopener noreferrer">{tier.cta}</a>
+                      <a data-track="package_cta_click" data-track-package={tier.name} data-track-service="pricing" href={buildWhatsAppUrl(buildPackageEnquiryMessage({ packageName: tier.name, serviceName: "Career Services", regionName: selectedRegion.name, price }))} target="_blank" rel="noopener noreferrer">{tier.cta}</a>
                     </Button>
                     <a href={buildWhatsAppUrl(`Hello BrandMyProfile, I have a question about the ${tier.name} package for ${selectedRegion.name}. Please help me understand whether it fits my needs.`)} target="_blank" rel="noopener noreferrer" className="mt-3 inline-flex min-h-11 items-center justify-center gap-2 text-sm font-semibold text-primary hover:underline">
                       <MessageCircle className="h-4 w-4" />Ask about this package
@@ -563,6 +571,7 @@ export default function Pricing() {
           </div>
         </section>
       </main>
+      <RelatedServiceLinks region={selectedRegion.code} currentSuffix="/pricing" />
       <Footer />
       <WhatsAppButton />
     </div>

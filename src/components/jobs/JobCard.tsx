@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { BriefcaseBusiness, Clock3, ExternalLink, MapPin, MessageCircle, WalletCards } from "lucide-react";
+import { BriefcaseBusiness, Clock3, MapPin, MessageCircle, WalletCards } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { buildWhatsAppUrl } from "@/lib/whatsapp";
@@ -18,17 +18,6 @@ interface JobCardProps {
   regionName: string;
 }
 
-const hasRealApplicationUrl = (link: string) => {
-  try {
-    const url = new URL(link);
-    return ["http:", "https:"].includes(url.protocol)
-      && url.hostname.length > 0
-      && !url.pathname.toLowerCase().includes("/jobs/example");
-  } catch {
-    return false;
-  }
-};
-
 const displaySalary = (salary: string) => salary.replace(/\u00e2\u201a\u00b9/g, "₹");
 
 export default function JobCard({
@@ -40,12 +29,12 @@ export default function JobCard({
   type,
   experience,
   description,
-  link,
   region,
   regionName,
 }: JobCardProps) {
-  const canApplyExternally = hasRealApplicationUrl(link);
-  const roleEnquiry = buildWhatsAppUrl(`Hello BrandMyProfile, I would like to ask about the ${title} role at ${company} in ${regionName}. Please share any available application guidance.`);
+  // Listings are sample content, so there is no application link - the CTA routes to the
+  // CV-review flow for similar roles instead of implying a real vacancy.
+  const cvReview = buildWhatsAppUrl(`Hello BrandMyProfile, I'd like a free CV review to prepare for roles like ${title} in ${regionName}. Please let me know how to send my CV.`);
 
   return (
     <article className="group flex h-full flex-col rounded-[var(--radius-bento)] border border-border/80 bg-white p-5 shadow-[var(--shadow-card)] transition-[box-shadow,border-color] duration-200 hover:border-primary/30 hover:shadow-[var(--shadow-card-hover)] sm:p-6">
@@ -82,11 +71,7 @@ export default function JobCard({
           <Link to={`/${region}/jobs/${id}`}>View Details</Link>
         </Button>
         <Button variant="cta" className="min-h-11 w-full" asChild>
-          {canApplyExternally ? (
-            <a href={link} target="_blank" rel="noopener noreferrer">Apply <ExternalLink className="h-4 w-4" /></a>
-          ) : (
-            <a href={roleEnquiry} target="_blank" rel="noopener noreferrer">Ask About Role <MessageCircle className="h-4 w-4" /></a>
-          )}
+          <a href={cvReview} target="_blank" rel="noopener noreferrer">Improve My CV <MessageCircle className="h-4 w-4" /></a>
         </Button>
       </div>
 

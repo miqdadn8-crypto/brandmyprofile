@@ -71,6 +71,14 @@ export interface RegionContentEntry {
   // component, since there is no per-region variation to drive from shared data.
   gccJobsHub?: IntentHubMeta;
   europeJobsHub?: IntentHubMeta;
+  // Optional per-region title/description overrides for the money pages (sourced from
+  // regionSeo.json so scripts/generate-static-pages.js emits the identical text). Regions
+  // without an entry keep the shared services.json / pageSeo.json defaults.
+  serviceSeo?: {
+    "cv-writing"?: IntentHubMeta;
+    "linkedin-makeover"?: IntentHubMeta;
+    pricing?: { metaTitle: string; metaDescriptionTemplate: string };
+  };
 }
 
 export interface IntentHubMeta {

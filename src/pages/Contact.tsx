@@ -34,6 +34,7 @@ import {
 import { useToast } from "@/hooks/use-toast";
 import { useRegion } from "@/contexts/RegionContext";
 import { LIMITED_FOOTPRINT_REGIONS } from "@/contexts/regionAvailability";
+import { trackEvent } from "@/lib/analytics";
 import { buildWhatsAppUrl, joinMessageLines } from "@/lib/whatsapp";
 import { organizationSchema } from "@/lib/seo/organization";
 import { getTemplatedPageSeo } from "@/config/pageSeo";
@@ -164,6 +165,7 @@ export default function Contact() {
       return;
     }
 
+    trackEvent("contact_submit", { region: selectedRegion.code, page_type: "contact" });
     toast({
       title: "WhatsApp draft opened",
       description: "Review your enquiry and press Send in WhatsApp to complete it.",

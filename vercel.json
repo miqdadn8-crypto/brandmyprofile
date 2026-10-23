@@ -1,5 +1,19 @@
 {
+  "trailingSlash": false,
+  "redirects": [
+    { "source": "/jobs/:region(kuwait|uae|saudi|qatar|india)/:id", "destination": "/:region/jobs/:id", "permanent": true },
+
+    { "source": "/:page(services/europass-cv|gcc-jobs|europe-jobs)", "destination": "/india/:page", "permanent": true },
+
+    { "source": "/:page(pricing|about|success-stories|schedule|jobs|services/ats-cv|services/gcc-cv|services/linkedin-makeover|services/masterclass|services/career-guidance|contact|services/cv-writing)", "has": [{ "type": "header", "key": "x-vercel-ip-country", "value": "AE" }], "destination": "/uae/:page", "permanent": true },
+    { "source": "/:page(pricing|about|success-stories|schedule|jobs|services/ats-cv|services/gcc-cv|services/linkedin-makeover|services/masterclass|services/career-guidance|contact|services/cv-writing)", "has": [{ "type": "header", "key": "x-vercel-ip-country", "value": "SA" }], "destination": "/saudi/:page", "permanent": true },
+    { "source": "/:page(pricing|about|success-stories|schedule|jobs|services/ats-cv|services/gcc-cv|services/linkedin-makeover|services/masterclass|services/career-guidance|contact|services/cv-writing)", "has": [{ "type": "header", "key": "x-vercel-ip-country", "value": "QA" }], "destination": "/qatar/:page", "permanent": true },
+    { "source": "/:page(pricing|about|success-stories|schedule|jobs|services/ats-cv|services/gcc-cv|services/linkedin-makeover|services/masterclass|services/career-guidance|contact|services/cv-writing)", "has": [{ "type": "header", "key": "x-vercel-ip-country", "value": "IN" }], "destination": "/india/:page", "permanent": true },
+    { "source": "/:page(contact|services/cv-writing)", "has": [{ "type": "header", "key": "x-vercel-ip-country", "value": "BH" }], "destination": "/bahrain/:page", "permanent": true },
+    { "source": "/:page(contact|services/cv-writing)", "has": [{ "type": "header", "key": "x-vercel-ip-country", "value": "OM" }], "destination": "/oman/:page", "permanent": true },
+    { "source": "/:page(pricing|about|success-stories|schedule|jobs|services/ats-cv|services/gcc-cv|services/linkedin-makeover|services/masterclass|services/career-guidance|contact|services/cv-writing)", "destination": "/kuwait/:page", "permanent": true }
+  ],
   "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
+    { "source": "/:region(kuwait|uae|saudi|qatar|india)/jobs/:id", "destination": "/index.html" }
   ]
 }

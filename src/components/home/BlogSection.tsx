@@ -1,26 +1,40 @@
 import { Link } from "react-router-dom";
-import { Calendar, User, ArrowRight, BookOpen, Quote } from "lucide-react";
+import { Calendar, User, ArrowRight, Quote } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { useBlogData } from "@/hooks/useBlogData";
 import Reveal from "@/components/motion/Reveal";
+import { useRegion } from "@/contexts/RegionContext";
+
+// Best-fit existing guides per region (not simply the newest posts). Slugs must exist in
+// blogs/index.json; missing ones are skipped and the list is topped up with the newest posts.
+const PRIORITY_SLUGS: Record<string, string[]> = {
+  kuwait: ["kuwait-cv-format-guide", "ats-cv-guide-kuwait", "gcc-cv-format-guide"],
+  india: ["india-to-gcc-jobs-guide", "europass-cv-guide-india", "gcc-cv-format-guide"],
+  default: ["gcc-cv-format-guide", "how-ats-reads-your-cv", "gcc-interview-preparation"],
+};
+
+const getHeading = (regionCode: string, regionName: string) => {
+  if (regionCode === "kuwait") return "Career Resources for Kuwait & GCC Professionals";
+  if (regionCode === "india") return "Career Resources for India-to-GCC Job Seekers";
+  return `Career Resources for ${regionName} & GCC Professionals`;
+};
 
 export default function BlogSection() {
   const { blogs, isLoading } = useBlogData();
-  const recentBlogs = blogs.slice(0, 3);
+  const { selectedRegion } = useRegion();
+  const prioritySlugs = PRIORITY_SLUGS[selectedRegion.code] ?? PRIORITY_SLUGS.default;
+  const prioritised = prioritySlugs.map((slug) => blogs.find((post) => post.slug === slug)).filter((post): post is NonNullable<typeof post> => Boolean(post));
+  const recentBlogs = [...prioritised, ...blogs.filter((post) => !prioritised.includes(post))].slice(0, 3);
 
   return (
     <section className="section-padding">
       <div className="section-container">
         <Reveal className="text-center mb-12">
-          <div className="inline-flex items-center gap-2 bg-accent/10 text-accent px-4 py-2 rounded-full mb-4">
-            <BookOpen className="h-4 w-4" />
-            <span className="text-sm font-semibold">Career Insights</span>
-          </div>
-          <h2 className="mb-4 font-serif">Latest from Our Blog</h2>
+          <h2 className="heading-section mb-4">{getHeading(selectedRegion.code, selectedRegion.name)}</h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Expert career advice, industry insights, and practical tips to accelerate your professional growth.
+            Practical guides on CV format, ATS and job applications, written by the BrandMyProfile Editorial Team.
           </p>
         </Reveal>
 
@@ -54,7 +68,7 @@ export default function BlogSection() {
                   <CardHeader className="pb-3">
                     <div className="flex flex-wrap gap-2 mb-3">
                       {post.tags.slice(0, 2).map((tag) => (
-                        <Badge key={tag} variant="secondary" className="text-[13px]">
+                        <Badge key={tag} variant="secondary" className="text-xs">
                           {tag}
                         </Badge>
                       ))}
@@ -89,7 +103,7 @@ export default function BlogSection() {
             {recentBlogs[2] && (
               <Reveal delay={0.16} className="sm:col-span-2">
                 <Card className="group flex flex-col overflow-hidden rounded-[var(--radius-bento)] border-border/80 shadow-[var(--shadow-card)] transition-shadow duration-200 hover:shadow-[var(--shadow-card-hover)] sm:flex-row">
-                  <div className="relative flex h-40 shrink-0 flex-col justify-end overflow-hidden bg-gradient-to-br from-accent to-accent-hover p-5 sm:h-auto sm:w-64">
+                  <div className="relative flex h-40 shrink-0 flex-col justify-end overflow-hidden bg-gradient-to-br from-primary to-primary-hover p-5 sm:h-auto sm:w-64">
                     <Quote
                       className="absolute -right-3 -top-3 h-24 w-24 text-white/10"
                       aria-hidden="true"
@@ -103,7 +117,7 @@ export default function BlogSection() {
                     <div>
                       <div className="flex flex-wrap gap-2 mb-2">
                         {recentBlogs[2].tags.slice(0, 2).map((tag) => (
-                          <Badge key={tag} variant="secondary" className="text-[13px]">
+                          <Badge key={tag} variant="secondary" className="text-xs">
                             {tag}
                           </Badge>
                         ))}

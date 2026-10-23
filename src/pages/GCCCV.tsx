@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import SEO from "@/components/SEO";
+import { useLeadModal } from "@/components/lead/LeadModalContext";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
@@ -135,6 +136,7 @@ const sharedFaqs = [
 ];
 
 export default function GCCCV() {
+  const { openLeadModal } = useLeadModal();
   const { selectedRegion } = useRegion();
   const content = getRegionContent(selectedRegion.code);
   const gcc = content.gccCv;
@@ -207,14 +209,12 @@ export default function GCCCV() {
                 ))}
               </div>
               <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-                <Button variant="cta" size="xl" className="w-full whitespace-normal px-6 text-base sm:w-auto" asChild>
-                  <a href={getMyGccCvUrl} target="_blank" rel="noopener noreferrer">
-                    Get My GCC CV
+                <Button variant="cta" size="xl" className="w-full whitespace-normal px-6 text-base sm:w-auto" onClick={() => openLeadModal({ trigger: "service_page", service: "GCC CV" })}>
+                    Get My Free CV Review
                     <ArrowRight className="h-5 w-5" />
-                  </a>
-                </Button>
+                  </Button>
                 <Button variant="outline" size="xl" className="w-full bg-white/70 px-6 text-base sm:w-auto" asChild>
-                  <a href={`/${selectedRegion.code}/contact`}>Get a Free CV Review</a>
+                  <a href={`/${selectedRegion.code}/pricing`}>View CV Packages</a>
                 </Button>
               </div>
             </div>
@@ -618,7 +618,7 @@ export default function GCCCV() {
                 className="min-h-12 w-full border border-white/35 bg-transparent text-white hover:bg-white hover:text-primary sm:flex-1"
                 asChild
               >
-                <a href={`/${selectedRegion.code}/contact`}>Get a Free CV Review</a>
+                <a href={`/${selectedRegion.code}/contact`}>Get My Free CV Review</a>
               </Button>
             </div>
           </div>

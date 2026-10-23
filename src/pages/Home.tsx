@@ -4,15 +4,17 @@ import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import Hero from "@/components/home/Hero";
 import ServicesSection from "@/components/home/ServicesSection";
-import WhyChooseSection from "@/components/home/WhyChooseSection";
+import CvFormatsSection from "@/components/home/CvFormatsSection";
 import RegionsSection from "@/components/home/RegionsSection";
 import TestimonialsSection from "@/components/home/TestimonialsSection";
 import FAQSection from "@/components/home/FAQSection";
 import CTASection from "@/components/home/CTASection";
-import RecentJobsSection from "@/components/home/RecentJobsSection";
+import FreeCvReviewSection from "@/components/home/FreeCvReviewSection";
+import LeadPopupTriggers from "@/components/lead/LeadPopupTriggers";
 import BlogSection from "@/components/home/BlogSection";
 import { organizationSchema, professionalServiceSchema, websiteSchema } from "@/lib/seo/organization";
 import faqs from "@/lib/data/faqs.json";
+import { Link } from "react-router-dom";
 import { ArrowRight, Globe2, Plane } from "lucide-react";
 import { useRegion } from "@/contexts/RegionContext";
 import { getRegionContent, getFaqsForRegion } from "@/lib/data/regionContent";
@@ -69,13 +71,13 @@ export default function Home() {
         {selectedRegion.code === "india" && (
           <section className="border-y border-border bg-[hsl(var(--surface-warm))] py-10" aria-labelledby="target-market-heading">
             <div className="section-container">
-              <p id="target-market-heading" className="mb-6 text-center text-sm font-semibold uppercase tracking-[0.18em] text-accent">
+              <h2 id="target-market-heading" className="mb-6 text-center text-2xl md:text-3xl">
                 Where Are You Targeting?
-              </p>
+              </h2>
               <div className="mx-auto grid max-w-3xl gap-4 sm:grid-cols-2">
-                <a
-                  href="/india/gcc-jobs"
-                  className="group flex items-center gap-4 rounded-[1.25rem] border border-border bg-white p-6 shadow-sm transition-shadow hover:shadow-md"
+                <Link
+                  to="/india/gcc-jobs"
+                  className="group flex items-center gap-4 rounded-[var(--radius-lg)] border border-border bg-white p-6 shadow-sm transition-shadow hover:shadow-md"
                 >
                   <Globe2 className="h-8 w-8 shrink-0 text-primary" />
                   <span className="flex-1">
@@ -83,10 +85,10 @@ export default function Home() {
                     <span className="block text-sm text-muted-foreground">CV &amp; career guidance for Kuwait, UAE, Saudi Arabia and Qatar</span>
                   </span>
                   <ArrowRight className="h-5 w-5 shrink-0 text-primary transition-transform group-hover:translate-x-1" />
-                </a>
-                <a
-                  href="/india/europe-jobs"
-                  className="group flex items-center gap-4 rounded-[1.25rem] border border-border bg-white p-6 shadow-sm transition-shadow hover:shadow-md"
+                </Link>
+                <Link
+                  to="/india/europe-jobs"
+                  className="group flex items-center gap-4 rounded-[var(--radius-lg)] border border-border bg-white p-6 shadow-sm transition-shadow hover:shadow-md"
                 >
                   <Plane className="h-8 w-8 shrink-0 text-primary" />
                   <span className="flex-1">
@@ -94,22 +96,23 @@ export default function Home() {
                     <span className="block text-sm text-muted-foreground">CV, Europass and career guidance for international applications</span>
                   </span>
                   <ArrowRight className="h-5 w-5 shrink-0 text-primary transition-transform group-hover:translate-x-1" />
-                </a>
+                </Link>
               </div>
             </div>
           </section>
         )}
-        <ServicesSection />
-        <WhyChooseSection />
-        <RegionsSection />
-        <RecentJobsSection />
         <TestimonialsSection />
+        <ServicesSection />
+        <CvFormatsSection />
+        <FreeCvReviewSection />
+        <RegionsSection />
         <BlogSection />
         <FAQSection />
         <CTASection />
       </main>
       <Footer />
       <WhatsAppButton />
+      <LeadPopupTriggers />
     </div>
   );
 }

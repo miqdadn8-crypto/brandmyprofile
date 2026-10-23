@@ -73,6 +73,7 @@ export default function Footer() {
           <div>
             <h3 className="mb-4 text-[17px] font-bold tracking-normal">Quick Links</h3>
             <ul className="space-y-2.5 text-sm text-white/75 md:text-[15px]">
+              <li><Link to={regionPath("")} className={footerLinkClass}>Home</Link></li>
               {!isLimitedFootprint && (
                 <>
                   <li><Link to={regionPath("/pricing")} className={footerLinkClass}>Pricing</Link></li>

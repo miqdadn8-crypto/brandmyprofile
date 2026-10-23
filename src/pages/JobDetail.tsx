@@ -14,8 +14,8 @@ import { regions } from "@/contexts/RegionContext";
 import { buildWhatsAppUrl } from "@/lib/whatsapp";
 import { jobsConfig } from "@/config/jobs";
 
-// The live job source is currently sample/illustrative data (see src/config/jobs.ts),
-// not a real-time jobs feed. Structured data and indexing must not present it as real.
+// Job pages are never indexed and never emit job structured data: the listings are
+// sample/illustrative data (see src/config/jobs.ts), not verified live vacancies.
 const isIllustrativeJobSource = jobsConfig.source === "mock";
 
 interface Job {
@@ -30,18 +30,6 @@ interface Job {
   posted?: string;
   link?: string;
 }
-
-const hasRealApplicationUrl = (link?: string) => {
-  if (!link) return false;
-  try {
-    const url = new URL(link);
-    return ["http:", "https:"].includes(url.protocol)
-      && url.hostname.length > 0
-      && !url.pathname.toLowerCase().includes("/jobs/example");
-  } catch {
-    return false;
-  }
-};
 
 export default function JobDetail() {
   const { region, id } = useParams();
@@ -93,55 +81,16 @@ export default function JobDetail() {
   if (!job) return null;
 
   const regionName = regions.find((item) => item.code === region)?.name ?? "this region";
-  const canApplyExternally = hasRealApplicationUrl(job.link);
-  const roleEnquiryUrl = buildWhatsAppUrl(`Hello BrandMyProfile, I would like to ask about the ${job.title} role at ${job.company} in ${regionName}. Please share any available application guidance.`);
-
-  const datePosted = job.posted || new Date().toISOString();
-  const validThrough = new Date(datePosted);
-  validThrough.setDate(validThrough.getDate() + 30);
-
-  // Region currency comes from the single shared `regions` list (RegionContext) rather
-  // than a repeated per-page conditional, so it can't drift out of sync region-by-region.
-  const currency = regions.find((item) => item.code === region)?.currency ?? "KWD";
-
-  const structuredData = isIllustrativeJobSource ? undefined : {
-    "@context": "https://schema.org",
-    "@type": "JobPosting",
-    title: job.title,
-    description: job.description || `${job.title} position at ${job.company}`,
-    hiringOrganization: {
-      "@type": "Organization",
-      name: job.company,
-    },
-    jobLocation: {
-      "@type": "Place",
-      address: {
-        "@type": "PostalAddress",
-        addressLocality: job.location,
-        addressCountry: region?.toUpperCase() || "KW",
-      },
-    },
-    baseSalary: {
-      "@type": "MonetaryAmount",
-      currency,
-      value: {
-        "@type": "QuantitativeValue",
-        value: job.salary,
-      },
-    },
-    employmentType: job.type?.toUpperCase() || "FULL_TIME",
-    datePosted: datePosted,
-    validThrough: validThrough.toISOString(),
-  };
+  // Sample listing: no application link. The CTA routes to the CV-review flow instead.
+  const cvReviewUrl = buildWhatsAppUrl(`Hello BrandMyProfile, I'd like a free CV review to prepare for roles like ${job.title} in ${regionName}. Please let me know how to send my CV.`);
 
   return (
     <>
       <SEO
         title={`${job.title} at ${job.company} - ${regionName}`}
-        description={job.description || `Apply now for ${job.title} position at ${job.company} in ${job.location}. ${job.type} role with competitive salary.`}
+        description={`Sample listing: ${job.title} in ${job.location}. Shown for career exploration only.`}
         keywords={`${job.title}, ${job.company}, ${job.location}, ${region} jobs, ${job.type}`}
-        structuredData={structuredData}
-        noindex={isIllustrativeJobSource}
+        noindex
       />
       <Header />
       <Breadcrumbs
@@ -198,12 +147,12 @@ export default function JobDetail() {
               <div className="flex gap-4 pt-4">
                 <Button variant="cta" size="lg" asChild>
                   <a
-                    href={canApplyExternally ? job.link : roleEnquiryUrl}
+                    href={cvReviewUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2"
                   >
-                    {canApplyExternally ? "Apply Now" : "Ask About This Role"}
+                    Improve My CV for Similar Jobs
                     <ExternalLink className="h-4 w-4" />
                   </a>
                 </Button>
@@ -220,14 +169,16 @@ export default function JobDetail() {
           <div className="section-container max-w-4xl">
             {isIllustrativeJobSource && (
               <p className="mb-6 rounded-lg border border-border bg-muted/50 px-4 py-3 text-sm text-muted-foreground">
-                This listing is a sample shown for illustration while we connect a live jobs feed. For current openings, ask us directly via WhatsApp.
+                Sample job listings are shown for career exploration and demonstration purposes. Availability is not verified, and BrandMyProfile is not the employer or recruiter for this role.
               </p>
             )}
             <Card>
               <CardHeader>
                 <CardTitle>About This Role</CardTitle>
                 <CardDescription>
-                  {job.company} is looking for a talented {job.title} to join their team in {job.location}.
+                  {isIllustrativeJobSource
+                    ? `Sample role: ${job.title} in ${job.location}.`
+                    : `${job.company} is looking for a talented ${job.title} to join their team in ${job.location}.`}
                 </CardDescription>
               </CardHeader>
               <CardContent className="prose prose-slate max-w-none">
@@ -236,14 +187,6 @@ export default function JobDetail() {
                     `We are seeking an experienced ${job.title} to join our growing team. This is a ${job.type.toLowerCase()} position requiring ${job.experience.toLowerCase()} level experience. The ideal candidate will have a strong background in their field and be passionate about contributing to our company's success.`
                   }
                 </p>
-
-                <h3 className="text-xl font-semibold mt-6 mb-3">What We Offer</h3>
-                <ul className="space-y-2 text-muted-foreground">
-                  <li>Competitive salary package</li>
-                  <li>Professional development opportunities</li>
-                  <li>Collaborative work environment</li>
-                  <li>Career growth potential</li>
-                </ul>
 
                 <div className="mt-8 p-6 bg-primary/5 rounded-lg">
                   <p className="text-sm text-muted-foreground mb-4">

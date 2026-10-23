@@ -12,6 +12,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useRegion, regions } from "@/contexts/RegionContext";
 import { useToast } from "@/hooks/use-toast";
+import { trackEvent } from "@/lib/analytics";
 import { buildWhatsAppUrl, joinMessageLines } from "@/lib/whatsapp";
 import { getStaticPageSeo } from "@/config/pageSeo";
 
@@ -110,6 +111,7 @@ export default function Schedule() {
       return;
     }
 
+    trackEvent("contact_submit", { page_type: "schedule", cta_location: "schedule_form" });
     toast({
       title: "WhatsApp opened",
       description: "Please review the enquiry in WhatsApp and press Send to complete your request.",
@@ -133,7 +135,7 @@ export default function Schedule() {
               Let's Elevate Your Career
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Book a free consultation with our career experts. We'll discuss your goals and create a personalized plan to help you succeed.
+              Request a free online career consultation. Send your details and we'll continue the conversation on WhatsApp to confirm a time that suits you.
             </p>
           </div>
         </section>
@@ -142,7 +144,7 @@ export default function Schedule() {
         <section className="section-padding">
           <div className="section-container max-w-2xl">
             <div className="bg-card border border-border rounded-2xl p-8 shadow-lg">
-              <h2 className="text-2xl font-bold mb-6 text-center">Schedule Your Consultation</h2>
+              <h2 className="text-2xl font-bold mb-6 text-center">Request Your Consultation</h2>
               
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="space-y-2">
@@ -211,10 +213,10 @@ export default function Schedule() {
 
                 <div className="flex flex-col gap-4">
                   <Button type="submit" size="lg" className="w-full" disabled={isSubmitting}>
-                    {isSubmitting ? "Opening WhatsApp..." : "Submit Booking Request"}
+                    {isSubmitting ? "Opening WhatsApp..." : "Request Consultation"}
                   </Button>
                   <p className="text-xs text-muted-foreground text-center -mt-2">
-                    After submitting, WhatsApp will open with your details. Please review the message and press Send.
+                    This is a request, not an instant booking: no time is confirmed until we reply on WhatsApp. Consultations are held online. After submitting, WhatsApp will open with your details - please review the message and press Send.
                   </p>
 
                   <div className="relative">

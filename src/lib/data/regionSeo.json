@@ -7,11 +7,25 @@
     "pricingIntro": "Transparent pricing for professionals targeting Kuwait and GCC opportunities.",
     "atsCv": {
       "metaTitle": "ATS CV Writing in Kuwait",
-      "metaDescription": "Get an ATS-friendly CV tailored to Kuwait job applications, with role-specific keywords, clear structure and human review from BrandMyProfile."
+      "metaDescription": "ATS-friendly CV writing for Kuwait job applications with clear structure, role-relevant keywords and human review. Start with a free CV review."
     },
     "gccCv": {
-      "metaTitle": "GCC CV Format for Kuwait Jobs",
-      "metaDescription": "Get a professionally written GCC-format CV tailored for Kuwait job applications, with market-relevant positioning, clear experience and human review."
+      "metaTitle": "GCC CV Writing in Kuwait",
+      "metaDescription": "Prepare a GCC-focused CV for Kuwait and Gulf job applications with clear structure, relevant experience and ATS-readable formatting."
+    },
+    "serviceSeo": {
+      "cv-writing": {
+        "metaTitle": "Professional CV Writing Services in Kuwait",
+        "metaDescription": "Professional CV writing for Kuwait and GCC jobs. ATS-friendly, human-written CVs tailored to your target role. Start with a free CV review."
+      },
+      "linkedin-makeover": {
+        "metaTitle": "LinkedIn Profile Optimization in Kuwait",
+        "metaDescription": "Improve your LinkedIn headline, About section, experience and keyword positioning for professional opportunities in Kuwait and across the GCC."
+      },
+      "pricing": {
+        "metaTitle": "CV Writing Prices & Packages in Kuwait",
+        "metaDescriptionTemplate": "Compare CV writing packages in Kuwait, starting from {startingPrice}. See what each package includes, plus LinkedIn, career coaching and masterclass pricing in KWD."
+      }
     }
   },
   "uae": {

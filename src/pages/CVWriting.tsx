@@ -19,6 +19,8 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import SEO from "@/components/SEO";
+import { useLeadModal } from "@/components/lead/LeadModalContext";
+import RelatedServiceLinks from "@/components/RelatedServiceLinks";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
@@ -30,6 +32,7 @@ import { isRoutedPathAvailable } from "@/contexts/regionAvailability";
 import { getRegionContent } from "@/lib/data/regionContent";
 import { industryContent } from "@/lib/data/industryContent";
 import { organizationSchema } from "@/lib/seo/organization";
+import { getServiceSeoDescription } from "@/config/pageSeo";
 import { buildPackageEnquiryMessage, buildWhatsAppUrl } from "@/lib/whatsapp";
 import cvWritingProfessional from "@/assets/cv-writing-professional-v2.jpg";
 
@@ -271,7 +274,9 @@ export default function CVWriting() {
   const { pricing, formatPrice, isLoading: priceLoading } = useRegionPricing("cv-writing");
   const { serviceData: rawServiceData, isLoading: dataLoading } = useServiceData("cv-writing");
   const { selectedRegion } = useRegion();
+  const { openLeadModal } = useLeadModal();
   const regionCopy = getRegionContent(selectedRegion.code).servicePages["cv-writing"];
+  const seoOverride = getRegionContent(selectedRegion.code).serviceSeo?.["cv-writing"];
   const industriesForRegion = industryContent.filter((entry) => entry.region === selectedRegion.code);
   const leadCountry = getLeadCountry(selectedRegion.name);
   const reviewMessage = `Hello BrandMyProfile, I'd like a free CV review for ${selectedRegion.name}. Please let me know how to send my CV.`;
@@ -353,8 +358,8 @@ export default function CVWriting() {
   return (
     <>
       <SEO
-        title={`${serviceData.seo.title} in ${selectedRegion.name}`}
-        description={`${serviceData.seo.description} ${regionCopy.intro}`}
+        title={seoOverride?.metaTitle ?? `${serviceData.seo.title} in ${selectedRegion.name}`}
+        description={seoOverride?.metaDescription ?? getServiceSeoDescription("cv-writing", selectedRegion.name)}
         keywords={serviceData.seo.keywords}
         structuredData={structuredData}
       />
@@ -391,18 +396,16 @@ export default function CVWriting() {
                 ))}
               </div>
               <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-                <Button variant="cta" size="xl" className="w-full px-4 text-base sm:w-auto sm:px-10 sm:text-lg" asChild>
-                  <a href={buildWhatsAppUrl(reviewMessage)} target="_blank" rel="noopener noreferrer">
-                    Get My Free CV Review
-                    <ArrowRight className="h-5 w-5" />
-                  </a>
+                <Button variant="cta" size="xl" className="w-full px-4 text-base sm:w-auto sm:px-10 sm:text-lg" onClick={() => openLeadModal({ trigger: "service_page", service: "Professional CV Writing" })}>
+                  Get My Free CV Review
+                  <ArrowRight className="h-5 w-5" />
                 </Button>
                 <Button variant="outline" size="xl" className="w-full bg-white/70 px-4 text-base sm:w-auto sm:px-10 sm:text-lg" asChild>
                   <a href="#pricing">View CV Packages</a>
                 </Button>
               </div>
               <p className="mt-5 text-sm text-muted-foreground">
-                No obligation. Send your current CV and get professional feedback.
+                Opens a short request form where you can attach your current CV and get professional feedback. No obligation.
               </p>
             </div>
 
@@ -789,6 +792,9 @@ export default function CVWriting() {
                     </ul>
                     <Button variant={isFeatured ? "cta" : "outline"} size="lg" className="mt-8 w-full" asChild>
                       <a
+                        data-track="package_cta_click"
+                        data-track-package={tier.name}
+                        data-track-service="cv-writing"
                         href={buildWhatsAppUrl(
                           buildPackageEnquiryMessage({
                             packageName: tier.name,
@@ -866,6 +872,7 @@ export default function CVWriting() {
           </div>
         </section>
       </main>
+      <RelatedServiceLinks region={selectedRegion.code} currentSuffix="/services/cv-writing" />
       <Footer />
       <WhatsAppButton />
     </>

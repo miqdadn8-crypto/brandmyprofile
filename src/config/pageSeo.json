@@ -42,6 +42,7 @@
     }
   },
   "serviceDescriptionTemplates": {
+    "cv-writing": "Professional CV writing for {region} and GCC job applications, tailored to your target role with ATS-friendly structure and human review.",
     "linkedin-makeover": "Professional LinkedIn profile optimization for {region} and GCC opportunities, including headline, About, experience, skills and keyword positioning.",
     "career-guidance": "Personalized one-to-one career guidance for professionals targeting {region} and GCC opportunities, including career direction, job-search strategy, interviews and practical action planning.",
     "masterclass": "Live LinkedIn workshop for students, job seekers and professionals in {region}, covering profile headlines, About sections, experience, keywords, networking and recruiter visibility."
