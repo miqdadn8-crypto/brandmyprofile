@@ -30,6 +30,13 @@ const PAGE_SEO_PATH = path.join(__dirname, '../src/config/pageSeo.json');
 const INDUSTRY_PAGES_PATH = path.join(__dirname, '../src/lib/data/industryPages.json');
 // Same Organization entity src/lib/seo/organization.ts serves client-side.
 const ORGANIZATION_PATH = path.join(__dirname, '../src/lib/seo/organization.json');
+// Brand and price answers, shared word for word with src/lib/seo/brandFaqs.ts.
+const BRAND_FAQS_PATH = path.join(__dirname, '../src/lib/data/brandFaqs.json');
+// The pristine Vite shell every page is built from. dist/index.html itself is rewritten as
+// the brand homepage at the end of main(), so the shell is kept as dist/app-shell.html (also
+// the SPA fallback in vercel.json) and generation stays repeatable.
+const APP_SHELL_FILE = 'app-shell.html';
+let TEMPLATE_HTML = null;
 const SITE_URL = 'https://www.brandmyprofile.com';
 const DEFAULT_OG_IMAGE = `${SITE_URL}/brandmyprofile-og.png`;
 
@@ -317,7 +324,69 @@ function buildAlternates(urlPath, indexablePaths) {
 // Page-specific replacement for index.html's generic <noscript><main> block, so crawlers
 // that never run JavaScript (GPTBot, PerplexityBot, ...) see a distinct H1, summary and
 // links on every URL instead of one identical Kuwait-first text.
-function buildCrawlerFallback({ title, description, urlPath, indexablePaths, alternates, extraLinks = [], sections = [] }) {
+// Renders the blog body format (see parseBlogBody in src/pages/BlogPost.tsx) to static HTML
+// for crawlers that never run JavaScript. The leading "# Title" line is skipped because the
+// fallback already renders the title as its H1.
+function blogBodyToHtml(body) {
+    const out = [];
+    let list = null;
+    const flush = () => {
+        if (list) out.push(`<${list.type}>${list.items.map((item) => `<li>${htmlEscape(item)}</li>`).join('')}</${list.type}>`);
+        list = null;
+    };
+    body.split('\n').forEach((line) => {
+        const ordered = line.match(/^\d+\.\s+(.*)/);
+        if (line.startsWith('- ') || ordered) {
+            const type = ordered ? 'ol' : 'ul';
+            if (!list || list.type !== type) { flush(); list = { type, items: [] }; }
+            list.items.push(ordered ? ordered[1] : line.slice(2));
+            return;
+        }
+        flush();
+        if (line.startsWith('### ')) out.push(`<h3>${htmlEscape(line.slice(4))}</h3>`);
+        else if (line.startsWith('## ')) out.push(`<h2>${htmlEscape(line.slice(3))}</h2>`);
+        else if (line.startsWith('# ')) return;
+        else if (line.trim()) out.push(`<p>${htmlEscape(line)}</p>`);
+    });
+    flush();
+    return out.map((html) => `        ${html}`).join('\n');
+}
+
+// Question/answer pairs from a "## Frequently Asked Questions" section: each "### question"
+// followed by its first paragraph. Only real visible FAQs, so FAQPage markup mirrors the page.
+function extractBlogFaqs(body) {
+    const lines = body.split('\n');
+    const start = lines.findIndex((line) => /^## Frequently Asked Questions/i.test(line));
+    if (start === -1) return [];
+    const faqs = [];
+    for (let i = start + 1; i < lines.length; i++) {
+        if (lines[i].startsWith('## ')) break;
+        if (!lines[i].startsWith('### ')) continue;
+        const answer = lines.slice(i + 1).find((line) => line.trim() && !line.startsWith('#'));
+        if (answer) faqs.push({ question: lines[i].slice(4), answer });
+    }
+    return faqs;
+}
+
+// regionContent.ts holds the approved per-region page copy but is TypeScript, so bundle it
+// with esbuild (already installed as Vite's bundler) instead of keeping a second copy here.
+async function loadRegionContent() {
+    try {
+        const { build } = await import('esbuild');
+        const result = await build({
+            entryPoints: [path.join(__dirname, '../src/lib/data/regionContent.ts')],
+            bundle: true, format: 'esm', platform: 'node', write: false, logLevel: 'silent',
+        });
+        const code = result.outputFiles[0].text;
+        const mod = await import(`data:text/javascript;base64,${Buffer.from(code).toString('base64')}`);
+        return mod.regionContent;
+    } catch (err) {
+        console.warn('Warning: could not load regionContent.ts for crawler copy:', err.message);
+        return null;
+    }
+}
+
+function buildCrawlerFallback({ title, description, urlPath, indexablePaths, alternates, extraLinks = [], sections = [], bodyHtml = '' }) {
     const region = urlPath.split('/')[1];
     const regionName = REGION_NAMES[region];
     const links = regionName
@@ -344,6 +413,7 @@ function buildCrawlerFallback({ title, description, urlPath, indexablePaths, alt
         '        <p>BrandMyProfile is an online career-support service: CV writing, ATS and GCC-format CVs, LinkedIn optimization and career coaching. Services are delivered online; there is no walk-in office.</p>',
         ...sections.map(({ heading: sectionHeading, text }) => `        <h2>${htmlEscape(sectionHeading)}</h2>
         <p>${htmlEscape(text)}</p>`),
+        bodyHtml,
         allLinks.length ? `        <ul>${allLinks.map((link) => `<li><a href="${link.href}">${htmlEscape(link.label)}</a></li>`).join('')}</ul>` : '',
         regionLinks.length ? `        <h2>This page in other regions</h2>\n        <ul>${regionLinks.join('')}</ul>` : '',
         // Contact details match index.html's fallback and organization.json.
@@ -361,7 +431,7 @@ function generatePage(urlPath, title, description, image, options = {}) {
         return;
     }
 
-    let html = fs.readFileSync(templatePath, 'utf8');
+    let html = TEMPLATE_HTML ?? fs.readFileSync(templatePath, 'utf8');
 
     // Replace Meta Tags
     const replaceMeta = (name, content) => {
@@ -476,6 +546,16 @@ async function main() {
         process.exit(1);
     }
 
+    // Capture the untouched Vite shell before anything rewrites dist/index.html.
+    {
+        const indexPath = path.join(DIST_DIR, 'index.html');
+        const shellPath = path.join(DIST_DIR, APP_SHELL_FILE);
+        const indexHtml = fs.readFileSync(indexPath, 'utf8');
+        const indexIsBrandHome = indexHtml.includes(`<link rel="canonical" href="${SITE_URL}/" />`);
+        if (!indexIsBrandHome) fs.writeFileSync(shellPath, indexHtml);
+        TEMPLATE_HTML = fs.readFileSync(shellPath, 'utf8');
+    }
+
     // Load Data
     const jobsData = loadJSON(JOBS_PATH);
     const blogsData = loadJSON(BLOGS_PATH);
@@ -502,6 +582,9 @@ async function main() {
         seenLocs.add(entry.loc);
         sitemapEntries.push(entry);
     };
+
+    // The domain root is the brand's home page (see the brand homepage block in main()).
+    addSitemapEntry({ loc: `${SITE_URL}/`, changefreq: 'weekly', priority: '1.0' });
 
     // Region-scoped base/service routes: REGION_CODES x REGION_ROUTE_SUFFIXES
     REGION_CODES.forEach(region => {
@@ -551,7 +634,52 @@ async function main() {
 
     // Pre-render meaningful title/description/canonical/OG for priority pages so non-JS
     // crawlers see real content on first load, not just the generic index.html fallback.
-    const organization = loadJSON(ORGANIZATION_PATH)?.organization;
+    const organizationData = loadJSON(ORGANIZATION_PATH);
+    const organization = organizationData?.organization;
+    const siteAlternateName = organizationData?.siteAlternateName || [];
+    const brandFaqs = loadJSON(BRAND_FAQS_PATH);
+    const brandFaq = brandFaqs?.brand;
+
+    // "How much does CV writing cost in X?" filled from the region's live pricing.json, the
+    // same template and formatting as src/lib/seo/brandFaqs.ts's buildPriceFaq.
+    const priceFaq = (region) => {
+        const cv = loadJSON(path.join(__dirname, `../src/lib/data/${region}/pricing.json`))?.['cv-writing'];
+        if (!brandFaqs?.price || !cv?.basic || !cv?.pro || !cv?.elite) return null;
+        const fmt = ({ price, currency }) => (currency === 'INR' ? `₹${price.toLocaleString('en-IN')}` : `${price} ${currency}`);
+        const place = region === 'uae' ? 'the UAE' : REGION_NAMES[region];
+        const fill = (template) => template.replace('{place}', place).replace('{basic}', fmt(cv.basic)).replace('{pro}', fmt(cv.pro)).replace('{elite}', fmt(cv.elite));
+        return { question: fill(brandFaqs.price.question), answer: fill(brandFaqs.price.answer) };
+    };
+    const regionContent = await loadRegionContent();
+
+    // Approved per-region copy for service pages (regionContent.ts), so AI crawlers read the
+    // page's real substance. services.json's generic process/benefit text is deliberately not
+    // used: its turnaround and revision wording conflicts with the package terms.
+    const SERVICE_COPY_KEYS = { 'cv-writing': 'cv-writing', 'linkedin-makeover': 'linkedin-makeover', 'career-guidance': 'career-guidance', masterclass: 'masterclass' };
+    const serviceSections = (urlPath) => {
+        const match = urlPath.match(/^\/([a-z]+)(?:\/services\/([a-z-]+))?$/);
+        const rc = match && regionContent?.[match[1]];
+        if (!rc) return [];
+        const [, , service] = match;
+        if (!service) return rc.marketFaq ? [{ heading: rc.marketFaq.question, text: rc.marketFaq.answer }] : [];
+        if (SERVICE_COPY_KEYS[service] && rc.servicePages?.[service]) {
+            return [{ heading: rc.servicePages[service].heading, text: rc.servicePages[service].intro }];
+        }
+        if (service === 'ats-cv' && rc.atsCv) {
+            return [
+                { heading: rc.atsCv.marketContextHeading, text: `${rc.atsCv.marketContextParagraph} Industries covered: ${rc.atsCv.industries.join(', ')}.` },
+                { heading: rc.atsCv.faq.question, text: rc.atsCv.faq.answer },
+            ];
+        }
+        if (service === 'gcc-cv' && rc.gccCv) {
+            return [
+                { heading: rc.gccCv.heading, text: rc.gccCv.heroSubtext },
+                { heading: rc.gccCv.marketContextHeading, text: rc.gccCv.marketContextParagraph },
+                ...rc.gccCv.regionFaqs.map((faq) => ({ heading: faq.question, text: faq.answer })),
+            ];
+        }
+        return [];
+    };
     const priorityPages = buildPriorityPageMeta(servicesData, regionSeo, pageSeo, industryPages);
     // Sample job listing pages are noindex,follow with no canonical (see IS_MOCK_JOB_SOURCE).
     const isNoindexPage = (urlPath) => (IS_MOCK_JOB_SOURCE && /^\/[a-z]+\/jobs$/.test(urlPath))
@@ -560,19 +688,23 @@ async function main() {
 
     // Organization + WebSite share @ids with the client-side schema in organization.ts,
     // so Google merges them rather than seeing two entities.
-    const buildJsonLd = (urlPath, title, description) => {
+    const buildJsonLd = (urlPath, title, description, faqs = []) => {
         const url = `${SITE_URL}${urlPath}`;
         const region = urlPath.split('/')[1];
         return {
             '@context': 'https://schema.org',
             '@graph': [
                 ...(organization ? [organization] : []),
-                { '@type': 'WebSite', '@id': `${SITE_URL}/#website`, url: SITE_URL, name: 'BrandMyProfile', alternateName: ['Brand My Profile', 'BrandMyProfile.com'], publisher: { '@id': `${SITE_URL}/#organization` } },
+                { '@type': 'WebSite', '@id': `${SITE_URL}/#website`, url: SITE_URL, name: 'BrandMyProfile', alternateName: siteAlternateName, publisher: { '@id': `${SITE_URL}/#organization` } },
                 {
                     '@type': 'WebPage', '@id': `${url}#webpage`, url, name: headingFromTitle(title), description,
                     inLanguage: REGION_HREFLANG[region] || 'en',
                     isPartOf: { '@id': `${SITE_URL}/#website` }, publisher: { '@id': `${SITE_URL}/#organization` },
                 },
+                ...(faqs.length ? [{
+                    '@type': 'FAQPage', '@id': `${url}#faq`,
+                    mainEntity: faqs.map((faq) => ({ '@type': 'Question', name: faq.question, acceptedAnswer: { '@type': 'Answer', text: faq.answer } })),
+                }] : []),
             ],
         };
     };
@@ -581,10 +713,10 @@ async function main() {
     // Region homes and CV-writing pages also carry the "what's included" answer and the
     // cities served (regionSeo.json), the copy that targets "CV writing services in X".
     const localSections = (urlPath) => {
+        const sections = [...serviceSections(urlPath)];
         const match = urlPath.match(/^\/([a-z]+)(\/services\/cv-writing)?$/);
         const local = match && regionSeo[match[1]];
-        if (!local) return [];
-        const sections = [];
+        if (!local) return sections;
         if (local.aeoBlock) sections.push({ heading: local.aeoBlock.question, text: local.aeoBlock.answer });
         if (local.cities?.length) {
             const place = match[1] === 'uae' ? 'the UAE' : REGION_NAMES[match[1]];
@@ -596,24 +728,57 @@ async function main() {
         return sections;
     };
 
-    const generateIndexablePage = (urlPath, title, description, image = null, extraLinks = []) => {
+    const generateIndexablePage = (urlPath, title, description, image = null, extraLinks = [], { bodyHtml = '', faqs = [] } = {}) => {
         const alternates = buildAlternates(urlPath, indexablePaths);
         generatePage(urlPath, title, description, image, {
             alternates,
-            crawlerHtml: buildCrawlerFallback({ title, description, urlPath, indexablePaths, alternates, extraLinks, sections: localSections(urlPath) }),
-            jsonLd: buildJsonLd(urlPath, title, description),
+            crawlerHtml: buildCrawlerFallback({ title, description, urlPath, indexablePaths, alternates, extraLinks, sections: localSections(urlPath), bodyHtml }),
+            jsonLd: buildJsonLd(urlPath, title, description, faqs),
         });
     };
 
     const blogHubLinks = (blogHubsData || []).map((hub) => ({ href: `/blog/${hub.slug}`, label: hub.title }));
 
+    // Region homes carry the same FAQ list as the live homepage (src/hooks/useHomeFaqs.ts):
+    // brand answer, live-price answer, then the shared FAQs with the region's market FAQ second.
+    // Pre-rendered so AI crawlers that never run JavaScript still read and cite them.
+    const baseFaqs = loadJSON(path.join(__dirname, '../src/lib/data/faqs.json')) || [];
+    const homeFaqs = (region) => {
+        const [first, ...rest] = baseFaqs;
+        const marketFaq = regionContent?.[region]?.marketFaq;
+        const price = priceFaq(region);
+        return [brandFaq, price, first, marketFaq, ...rest].filter(Boolean);
+    };
+
     priorityPages.forEach(({ urlPath, title, description }) => {
         urls.push(urlPath);
+        const regionHome = urlPath.match(/^\/([a-z]+)$/)?.[1];
+        const pricingRegion = urlPath.match(/^\/([a-z]+)\/pricing$/)?.[1];
         if (isNoindexPage(urlPath)) {
             generatePage(urlPath, title, description, null, { noindex: true });
+        } else if (regionHome) {
+            const faqs = homeFaqs(regionHome);
+            // The market FAQ is already in this page's crawler sections (serviceSections).
+            const faqHtml = faqs.filter((faq) => faq !== regionContent?.[regionHome]?.marketFaq).map((faq) => `        <h2>${htmlEscape(faq.question)}</h2>\n        <p>${htmlEscape(faq.answer)}</p>`).join('\n');
+            generateIndexablePage(urlPath, title, description, null, [], { faqs, bodyHtml: faqHtml });
+        } else if (pricingRegion && priceFaq(pricingRegion)) {
+            const faq = priceFaq(pricingRegion);
+            generateIndexablePage(urlPath, title, description, null, [], {
+                bodyHtml: `        <h2>${htmlEscape(faq.question)}</h2>\n        <p>${htmlEscape(faq.answer)}</p>`,
+            });
         } else {
             generateIndexablePage(urlPath, title, description);
         }
+    });
+
+    // Paid-ads landing pages (src/pages/FreeCvReview.tsx): noindex and kept out of the sitemap,
+    // but pre-rendered so ad clicks get a fast first paint and a real 200.
+    [...REGION_CODES, ...LIMITED_FOOTPRINT_REGIONS].forEach((region) => {
+        const name = REGION_NAMES[region];
+        const place = region === 'uae' ? 'the UAE' : name;
+        const urlPath = `/${region}/free-cv-review`;
+        urls.push(urlPath);
+        generatePage(urlPath, `Free CV Review for ${name} Jobs | BrandMyProfile`, `Send your CV for a free review of structure, ATS readability and positioning for jobs in ${place}.`, null, { noindex: true });
     });
 
     // Blog index (global route). Copy matches src/pages/Blog.tsx's <SEO>.
@@ -721,12 +886,15 @@ async function main() {
                 console.warn(`Warning: blog cover image not found, using default OG image instead: ${blog.coverImage}`);
             }
 
+            const content = loadJSON(path.join(__dirname, `../src/lib/data/blogs/content/${blog.slug}.json`));
+            const relatedLinks = (content?.relatedLinks || []).map((link) => ({ href: link.path, label: link.label }));
             generateIndexablePage(
                 url,
                 blog.title,
                 blog.excerpt,
                 hasCoverImage ? `${SITE_URL}${blog.coverImage}` : null,
-                blogHubLinks
+                [...relatedLinks, ...blogHubLinks],
+                { bodyHtml: content?.body ? blogBodyToHtml(content.body) : '', faqs: content?.body ? extractBlogFaqs(content.body) : [] }
             );
 
             // blog.date is real, author-supplied publish-date data - a trustworthy lastmod.
@@ -746,6 +914,54 @@ async function main() {
         outputFile: '404.html',
         crawlerHtml: buildCrawlerFallback({ title: 'Page Not Found', description: 'The page you were looking for does not exist.', urlPath: '/404', indexablePaths, alternates: [], extraLinks: blogHubLinks }),
     });
+
+    // Brand homepage at the domain root. Searches for "brandmyprofile" resolve to this URL, so
+    // its static HTML carries the full brand entity (Organization + WebSite with every name
+    // variant), a self canonical, a brand-first title and a "What is BrandMyProfile?" answer.
+    // Visitors are still sent to their region by RootRedirect. Written last because it
+    // replaces dist/index.html; every other page is built from the app shell captured above.
+    {
+        const title = 'BrandMyProfile | CV & Resume Writing for GCC & India Jobs';
+        const description = 'BrandMyProfile writes human, ATS-friendly CVs and LinkedIn profiles for professionals in Kuwait, UAE, Saudi Arabia, Qatar, Bahrain, Oman and India. Free CV review.';
+        const regionLinks = [...REGION_CODES, ...LIMITED_FOOTPRINT_REGIONS].map((region) => ({ href: `/${region}`, label: `CV writing services in ${region === 'uae' ? 'the UAE' : REGION_NAMES[region]}` }));
+        const sections = [
+            ...(brandFaq ? [{ heading: brandFaq.question, text: brandFaq.answer }] : []),
+            ...REGION_CODES.map(priceFaq).filter(Boolean).map((faq) => ({ heading: faq.question, text: faq.answer })),
+        ];
+        generatePage('/', title, description, null, {
+            outputFile: 'index.html',
+            crawlerHtml: buildCrawlerFallback({ title, description, urlPath: '/', indexablePaths, alternates: [], extraLinks: [...regionLinks, { href: '/blog', label: 'Career guides' }], sections }),
+            jsonLd: buildJsonLd('/', title, description, brandFaq ? [brandFaq] : []),
+        });
+    }
+
+    // llms.txt = the hand-written public/llms.txt plus sections generated from live data, so
+    // prices and guide links can never drift from what the site shows.
+    {
+        const base = fs.existsSync(path.join(PUBLIC_DIR, 'llms.txt')) ? fs.readFileSync(path.join(PUBLIC_DIR, 'llms.txt'), 'utf8').trimEnd() : '# BrandMyProfile';
+        const tierNames = { basic: 'Essential', pro: 'Professional', elite: 'Executive' };
+        const priceLines = REGION_CODES.map((region) => {
+            const cv = loadJSON(path.join(__dirname, `../src/lib/data/${region}/pricing.json`))?.['cv-writing'];
+            if (!cv) return null;
+            const fmt = (t) => (t.currency === 'INR' ? `INR ${t.price.toLocaleString('en-US')}` : `${t.price} ${t.currency}`);
+            const tiers = Object.entries(tierNames).filter(([key]) => cv[key]).map(([key, name]) => `${name} ${fmt(cv[key])}`).join(', ');
+            return `- ${REGION_NAMES[region]}: ${tiers} (${SITE_URL}/${region}/pricing)`;
+        }).filter(Boolean);
+        const guideLines = (blogsData || []).map((blog) => `- [${blog.title}](${SITE_URL}/blog/${blog.slug}): ${blog.excerpt}`);
+        const llms = `${base}
+
+## CV writing package prices (generated from the live pricing data)
+
+${priceLines.join('\n')}
+- Bahrain and Oman: pricing confirmed after a free CV review (${SITE_URL}/bahrain/contact, ${SITE_URL}/oman/contact)
+
+## Guides (full list)
+
+${guideLines.join('\n')}
+`;
+        fs.writeFileSync(path.join(DIST_DIR, 'llms.txt'), llms);
+        console.log(`Generated llms.txt (${priceLines.length} price regions, ${guideLines.length} guides)`);
+    }
 
     // Generate Sitemap
     const sitemap = buildSitemapXml(sitemapEntries);

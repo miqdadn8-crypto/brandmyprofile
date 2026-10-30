@@ -5,7 +5,7 @@ import { useRegion } from "@/contexts/RegionContext";
 import { GA_MEASUREMENT_ID, resetConsent } from "@/lib/analyticsConsent";
 import { LIMITED_FOOTPRINT_REGIONS } from "@/contexts/regionAvailability";
 
-const footerLinkClass = "transition-colors hover:text-accent";
+const footerLinkClass = "transition-colors duration-200 hover:text-white hover:underline underline-offset-4";
 
 export default function Footer() {
   const { selectedRegion } = useRegion();
@@ -15,8 +15,8 @@ export default function Footer() {
   const isLimitedFootprint = LIMITED_FOOTPRINT_REGIONS.has(selectedRegion.code);
 
   return (
-    <footer className="border-t border-white/15 bg-[hsl(var(--surface-ink))] text-white">
-      <div className="section-container pb-24 pt-10 md:pb-8 md:pt-12">
+    <footer data-sticky-cta-stop className="border-t border-white/15 bg-[hsl(var(--surface-ink))] text-white">
+      <div className="section-container pb-8 pt-12 md:pt-16">
         <div className="mb-8 grid grid-cols-1 gap-x-8 gap-y-9 sm:grid-cols-2 lg:grid-cols-4">
           <div>
             <Link to={`/${selectedRegion.code}`} className="mb-4 flex items-center space-x-2">
@@ -32,7 +32,7 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="BrandMyProfile on LinkedIn"
-                className="flex h-11 w-11 items-center justify-center rounded-full border border-white/15 text-white/85 transition-colors hover:border-accent hover:text-accent"
+                className="flex h-11 w-11 items-center justify-center rounded-full border border-white/15 text-white/85 transition-colors duration-200 hover:border-white hover:bg-white/10 hover:text-white"
               >
                 <Linkedin className="h-5 w-5" />
               </a>
@@ -41,7 +41,7 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="BrandMyProfile on Instagram"
-                className="flex h-11 w-11 items-center justify-center rounded-full border border-white/15 text-white/85 transition-colors hover:border-accent hover:text-accent"
+                className="flex h-11 w-11 items-center justify-center rounded-full border border-white/15 text-white/85 transition-colors duration-200 hover:border-white hover:bg-white/10 hover:text-white"
               >
                 <Instagram className="h-5 w-5" />
               </a>
@@ -50,7 +50,7 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Read our reviews on Google"
-                className="flex h-11 w-11 items-center justify-center rounded-full border border-white/15 text-white/85 transition-colors hover:border-accent hover:text-accent"
+                className="flex h-11 w-11 items-center justify-center rounded-full border border-white/15 text-white/85 transition-colors duration-200 hover:border-white hover:bg-white/10 hover:text-white"
               >
                 <Star className="h-5 w-5" />
               </a>
@@ -91,13 +91,13 @@ export default function Footer() {
             <ul className="space-y-3 text-sm font-medium text-white md:text-[15px]">
               <li className="flex items-center gap-2.5">
                 <Mail className="h-5 w-5 shrink-0 text-white/65" />
-                <a href="mailto:info@brandmyprofile.com" className="min-w-0 break-words transition-colors hover:text-accent">
+                <a href="mailto:info@brandmyprofile.com" className="min-w-0 break-words transition-colors hover:underline underline-offset-4">
                   info@brandmyprofile.com
                 </a>
               </li>
               <li className="flex items-center gap-2.5">
                 <Phone className="h-5 w-5 shrink-0 text-white/65" />
-                <a href="tel:+96541103254" className="transition-colors hover:text-accent">
+                <a href="tel:+96541103254" className="transition-colors hover:underline underline-offset-4">
                   +965 41103254
                 </a>
               </li>
@@ -111,8 +111,7 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Bottom padding on phones so the last links scroll clear of the floating WhatsApp button. */}
-        <div className="border-t border-white/15 pb-20 pt-5 sm:pb-0">
+        <div className="border-t border-white/15 pt-5">
           <div className="flex flex-col items-center justify-between gap-3 text-center text-sm text-white/65 md:flex-row md:text-left">
             <p>&copy; {new Date().getFullYear()} BrandMyProfile. All rights reserved.</p>
             <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 md:justify-end">
@@ -124,6 +123,15 @@ export default function Footer() {
             </div>
           </div>
         </div>
+      </div>
+
+      {/* Closing wordmark, anchored flush to the bottom edge and bleeding off it on purpose.
+          Decorative (the linked logo above carries the name); it also gives the last links
+          clearance from the floating WhatsApp button on phones. */}
+      <div className="overflow-hidden" aria-hidden="true">
+        <p className="footer-wordmark section-container select-none whitespace-nowrap pt-6 text-white/90">
+          Brand<span className="italic text-white/45">MyProfile</span>
+        </p>
       </div>
     </footer>
   );

@@ -1,187 +1,183 @@
-import { Link } from "react-router-dom";
+import { useState, type CSSProperties } from "react";
 import {
   ArrowRight,
-  Award,
+  BadgeCheck,
+  Check,
   FileSearch,
-  MapPinned,
+  MessageCircle,
   ShieldCheck,
+  Star,
   UserRoundCheck,
   UsersRound,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLeadModal } from "@/components/lead/LeadModalContext";
 import { useRegion } from "@/contexts/RegionContext";
-import { LIMITED_FOOTPRINT_REGIONS } from "@/contexts/regionAvailability";
-import { getRegionContent } from "@/lib/data/regionContent";
+import { useRegionPricing } from "@/hooks/useRegionPricing";
+import { GOOGLE_BUSINESS_PROFILE_URL } from "@/lib/seo/organization";
+import { buildWhatsAppUrl } from "@/lib/whatsapp";
+import { REWRITE_EXAMPLES } from "@/lib/data/rewriteExamples";
 import heroImage from "@/assets/hero-gcc-professional.webp";
-import laurelArtwork from "../../../laurel.svg";
 
-const collageDocuments = [
-  { type: "ATS CV", tone: "mono", className: "hero-doc--ats" },
-  { type: "GCC FORMAT", tone: "teal", className: "hero-doc--gcc" },
-  { type: "EXECUTIVE CV", tone: "ink", className: "hero-doc--executive" },
-  { type: "EUROPASS", tone: "blue", className: "hero-doc--europass" },
-  { type: "COVER LETTER", tone: "rose", className: "hero-doc--cover" },
-];
+// The signature: a sheet of CV paper where the editor's red pen strikes a vague line and the
+// rewrite settles beneath it. "Next edit" replays it on another example. Both lines are fully
+// drawn at rest, so no-JS, reduced motion and screen readers get the finished edit.
+function RedlineSheet() {
+  const [index, setIndex] = useState(0);
+  const [replayed, setReplayed] = useState(false);
+  const example = REWRITE_EXAMPLES[index];
+  const timing = (first: string, again: string) => (replayed ? again : first);
 
-function DocumentMockup({ type, tone, className }: (typeof collageDocuments)[number]) {
   return (
-    <div className={`hero-doc hero-doc--${tone} ${className}`}>
-      <div className="hero-doc__topline" />
-      <div className="hero-doc__identity">
-        <span className="hero-doc__avatar" />
-        <span className="hero-doc__identity-lines"><i /><i /></span>
+    <figure
+      className="cv-sheet intro-rise overflow-hidden"
+      style={{ "--intro-delay": "150ms" } as CSSProperties}
+      aria-label="Example CV edit"
+    >
+      <div className="flex items-center justify-between gap-3 border-b border-border px-5 py-2">
+        <p className="text-sm font-semibold text-muted-foreground">
+          Example edit <span aria-hidden="true">·</span> {example.role}
+        </p>
+        <button
+          type="button"
+          onClick={() => {
+            setIndex((current) => (current + 1) % REWRITE_EXAMPLES.length);
+            setReplayed(true);
+          }}
+          className="-mr-2 inline-flex min-h-11 items-center gap-1.5 rounded-md px-2 text-sm font-semibold text-primary transition-colors duration-200 ease-micro hover:bg-primary/[0.06] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        >
+          Next edit
+          <ArrowRight className="h-4 w-4" aria-hidden="true" />
+        </button>
       </div>
-      <p>{type}</p>
-      <span className="hero-doc__rule" />
-      <div className="hero-doc__copy"><i /><i /><i /></div>
-      <div className="hero-doc__section"><b /><span><i /><i /></span></div>
-      <div className="hero-doc__skills"><i /><i /><i /></div>
-    </div>
+
+      <div key={index} className="px-5 pb-5 pt-4" aria-live="polite">
+        <p className="font-serif text-lg leading-7 text-muted-foreground">
+          <span className="sr-only">Before: </span>
+          <del className="redline redline--draw" style={{ "--redline-delay": timing("700ms", "0ms") } as CSSProperties}>
+            {example.before}
+          </del>
+        </p>
+        <p
+          className="rewrite-in mt-3 font-serif text-[1.1875rem] leading-[1.45] text-foreground"
+          style={{ "--rewrite-delay": timing("1000ms", "320ms") } as CSSProperties}
+        >
+          <span className="sr-only">After: </span>
+          <ins className="no-underline">{example.after}</ins>
+        </p>
+      </div>
+
+      {/* What the free review covers: ties the edit to the primary action. No scores or outcomes. */}
+      <figcaption className="flex gap-2.5 border-t border-border bg-secondary/70 px-5 py-3.5 text-sm leading-6 text-foreground/80">
+        <FileSearch className="mt-1 h-4 w-4 shrink-0 text-primary" aria-hidden="true" />
+        <p>
+          <span className="font-semibold text-foreground">Your free CV review covers</span> structure and clarity, ATS readability and fit with your target role.
+        </p>
+      </figcaption>
+    </figure>
   );
 }
 
-function TrustStrip({ market, className = "" }: { market: string; className?: string }) {
-  const items = [
-    { title: "Career Support", label: "Across GCC", icon: UsersRound },
-    { title: "Human Written", label: "& Reviewed", icon: UserRoundCheck },
-    { title: market, label: "Focus", icon: MapPinned },
-    { title: "Confidential", label: "Service", icon: ShieldCheck },
-  ];
-
+// Proof a stranger can check at a glance: real client count, how the work is done, the
+// starting price, and the Google reviews (linked, as the live feed is not set up yet).
+// A hairline row rather than boxes, so it supports the CTAs instead of competing with them.
+function ProofRow({ startingPrice }: { startingPrice: string | null }) {
+  const cell = "flex flex-col gap-0.5 py-4 pr-4";
   return (
-    <div className={`grid max-w-[720px] grid-cols-2 overflow-hidden rounded-[var(--radius-md)] border border-primary/10 bg-card/80 sm:grid-cols-4 ${className}`}>
-      {items.map(({ title, label, icon: Icon }, index) => (
-        <div key={title} className={`flex min-h-[90px] flex-col justify-center p-3 ${index % 2 !== 0 ? "border-l border-primary/10" : ""} ${index > 1 ? "border-t border-primary/10 sm:border-t-0" : ""} ${index > 0 ? "sm:border-l sm:border-primary/10" : ""}`}>
-          <Icon className="mb-1 h-4 w-4 shrink-0 text-primary/80" aria-hidden="true" />
-          <p className="text-sm font-bold leading-5 text-foreground">{title}</p>
-          <p className="text-sm font-medium leading-5 text-muted-foreground">{label}</p>
-        </div>
-      ))}
+    <div className="grid grid-cols-2 border-t border-foreground/15 sm:grid-cols-4 [&>*:nth-child(n+3)]:border-t [&>*:nth-child(n+3)]:border-foreground/10 sm:[&>*:nth-child(n+3)]:border-t-0">
+      <div className={cell}>
+        <UsersRound className="mb-1.5 h-4 w-4 text-primary" aria-hidden="true" />
+        <p className="text-sm font-bold leading-5">500+ professionals</p>
+        <p className="text-sm leading-5 text-muted-foreground">supported</p>
+      </div>
+      <div className={cell}>
+        <UserRoundCheck className="mb-1.5 h-4 w-4 text-primary" aria-hidden="true" />
+        <p className="text-sm font-bold leading-5">Human written</p>
+        <p className="text-sm leading-5 text-muted-foreground">&amp; reviewed</p>
+      </div>
+      <div className={cell}>
+        <BadgeCheck className="mb-1.5 h-4 w-4 text-primary" aria-hidden="true" />
+        <p className="text-sm font-bold leading-5 tabular-nums">{startingPrice ? `From ${startingPrice}` : "Free CV review"}</p>
+        <p className="text-sm leading-5 text-muted-foreground">{startingPrice ? "CV packages" : "no obligation"}</p>
+      </div>
+      <a href={GOOGLE_BUSINESS_PROFILE_URL} target="_blank" rel="noopener noreferrer" className={`${cell} group rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring`}>
+        <Star className="mb-1.5 h-4 w-4 text-primary" aria-hidden="true" />
+        <p className="text-sm font-bold leading-5">Google reviews</p>
+        <p className="text-sm leading-5 text-primary underline decoration-primary/40 underline-offset-4 transition-colors duration-200 group-hover:decoration-primary">Read them</p>
+      </a>
     </div>
   );
 }
 
 export default function Hero() {
   const { selectedRegion } = useRegion();
-  const content = getRegionContent(selectedRegion.code);
-  // Bahrain/Oman have no pricing page yet (Unit 3A) - linking there would leak into a
-  // dead NotFound page (Unit 9 orphan/broken-link audit finding). Point the secondary CTA
-  // at Contact instead, matching Header.tsx's existing bookConsultationPath fallback.
-  const isLimitedFootprint = LIMITED_FOOTPRINT_REGIONS.has(selectedRegion.code);
   const { openLeadModal } = useLeadModal();
-  const secondaryCtaPath = isLimitedFootprint ? `/${selectedRegion.code}/contact` : `/${selectedRegion.code}/pricing`;
-  const secondaryCtaLabel = isLimitedFootprint ? "Ask About Pricing" : "View CV Packages";
-  const marketLabel = selectedRegion.code === "india" ? "India & GCC" : `${selectedRegion.name} & GCC`;
-  const badgeMarketLabel = `${selectedRegion.name.toUpperCase()} · GCC CAREERS`;
+  const { pricing } = useRegionPricing("cv-writing");
+  const basic = pricing?.basic;
+  const startingPrice = basic ? (basic.currency === "INR" ? `₹${basic.price.toLocaleString("en-IN")}` : `${basic.price} ${basic.currency}`) : null;
+  const isIndia = selectedRegion.code === "india";
   const place = selectedRegion.code === "uae" ? "the UAE" : selectedRegion.name;
-  const mobileDescription = selectedRegion.code === "india"
-    ? "Professional CV and resume writing in India, plus LinkedIn and career support for GCC and international jobs."
-    : `Professional CV and resume writing in ${place}, plus LinkedIn and career support for GCC jobs.`;
+  const whatsappUrl = buildWhatsAppUrl(`Hello BrandMyProfile, I'd like help with my CV for jobs in ${isIndia ? "the GCC" : place}.`);
+
+  // Split screen: the left half holds the statement and actions, aligned to the site container's
+  // left edge (max-w-7xl + its padding) so it lines up with the header and every section below;
+  // the right half is the photo, full height and bleeding off the right edge of the viewport.
   return (
-    <section className="relative overflow-hidden border-b border-primary/10 bg-[hsl(var(--surface-warm))] pb-12 pt-[112px] sm:pb-14 sm:pt-[120px] lg:min-h-[720px] lg:pb-12 lg:pt-[112px]">
-      <div className="hero-background-wash absolute inset-0" aria-hidden="true" />
-      <div className="section-container relative z-10 grid items-center gap-7 lg:grid-cols-[1.28fr_1fr] lg:gap-10 xl:gap-14">
-        <div className="min-w-0 max-w-[760px]">
-          {/* Phones: one readable line (the laurel's inner gap is too narrow below 640px). */}
-          <p className="mb-3 flex items-center gap-2 text-sm font-semibold text-primary sm:hidden">
-            <Award className="h-4 w-4 shrink-0" aria-hidden="true" />
-            <span>500+ professionals supported</span>
-          </p>
-          <div
-            className="relative mb-2 hidden aspect-[2553/802] w-[340px] max-w-full sm:block"
-          >
-            <span className="sr-only">500+ Professionals Supported. {selectedRegion.name} and GCC careers.</span>
-            <span
-              className="absolute inset-0 bg-primary"
-              style={{
-                WebkitMaskImage: `url(${laurelArtwork})`,
-                maskImage: `url(${laurelArtwork})`,
-                WebkitMaskPosition: "center",
-                maskPosition: "center",
-                WebkitMaskRepeat: "no-repeat",
-                maskRepeat: "no-repeat",
-                WebkitMaskSize: "contain",
-                maskSize: "contain",
-              }}
-              aria-hidden="true"
-            />
-            <span className="absolute inset-0 flex items-center justify-center" aria-hidden="true">
-              <span className="min-w-0 -translate-y-0.5 text-center leading-none">
-                <span className="block whitespace-nowrap text-xs font-semibold uppercase tracking-[0.06em] text-foreground">500+ Professionals Supported</span>
-                <span className="mt-1.5 block whitespace-nowrap text-xs font-semibold uppercase tracking-[0.06em] text-primary/80">{badgeMarketLabel}</span>
-              </span>
-            </span>
-          </div>
+    <section className="relative border-b border-border bg-background lg:grid lg:min-h-[clamp(640px,calc(100svh-2rem),920px)] lg:grid-cols-[minmax(0,1.12fr)_minmax(0,1fr)]">
+      <div className="flex min-w-0 flex-col justify-center px-4 pb-12 pt-[104px] sm:px-6 sm:pt-[120px] lg:py-0 lg:pb-14 lg:pl-[max(2rem,calc((100vw-80rem)/2+2rem))] lg:pr-14 lg:pt-[112px] xl:pr-20">
+        {/* One statement owns the first screen; the region phrase is the single italic turn. */}
+        <h1 className="font-serif text-[clamp(2.5rem,1.5rem+3vw,4.5rem)] font-medium leading-[1] tracking-[-0.03em] text-balance">
+          Professional CV Writing{" "}
+          <span className="font-normal italic text-primary">{isIndia ? "for GCC & International Jobs" : `for ${selectedRegion.name} & GCC Jobs`}</span>
+        </h1>
 
-          <h1
-            className="max-w-full break-words font-serif text-[clamp(2.1rem,9.4vw,2.6rem)] font-bold leading-[1.08] tracking-[-0.035em] text-foreground sm:text-[3.35rem] sm:leading-[1.08] md:text-[3.7rem] lg:text-[2.75rem] xl:text-[3.5rem] 2xl:text-[3.5rem]"
-          >
-            <span className="block lg:hidden">
-              <span className="block ">Your Experience</span>
-              <span className="block ">Deserves a CV That</span>
-              <span className="block ">Gets Noticed</span>
-            </span>
-            <span className="hidden lg:block">
-              <span className="block">Your Experience Deserves</span>
-              <span className="block">a CV That Gets Noticed</span>
-            </span>
-          </h1>
+        <p className="mt-6 max-w-[34rem] text-lg leading-8 text-foreground/85 xl:text-xl xl:leading-9">
+          Human-written, ATS-friendly CVs for {isIndia ? "GCC and international employers" : `${place} and GCC employers`}.{" "}
+          <span className="text-muted-foreground">Start with a free CV review, or send your CV on WhatsApp.</span>
+        </p>
 
-          {/* Short version on phones keeps both CTAs in the first screen on small devices. */}
-          <p className="mt-4 text-lg font-medium leading-7 text-foreground/70 sm:hidden">
-            {mobileDescription}
-          </p>
-          <p
-            className="mt-5 hidden max-w-2xl text-xl font-medium leading-8 text-foreground/70 sm:block"
-          >
-            {content.hero.description}
-          </p>
-
-          <div
-            className="mt-5 flex flex-col gap-2.5 sm:mt-6 sm:flex-row sm:gap-3 lg:flex-col xl:flex-row"
-          >
-            <Button variant="cta" size="xl" onClick={() => openLeadModal({ trigger: "hero_cv_review" })} className="group min-h-14 w-full whitespace-normal px-4 text-base sm:w-auto sm:px-6 sm:text-lg lg:w-full lg:text-base xl:w-auto xl:text-lg">
-              <FileSearch className="h-5 w-5" aria-hidden="true" />
-              Get My Free CV Review
-              <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" aria-hidden="true" />
-            </Button>
-            <Button variant="outline" size="xl" asChild className="min-h-14 w-full whitespace-normal border-primary/55 bg-card/75 px-6 text-base font-medium text-primary shadow-none transition-all duration-200 hover:border-primary hover:bg-primary hover:text-primary-foreground hover:shadow-md focus-visible:bg-primary focus-visible:text-primary-foreground sm:w-auto sm:text-lg lg:w-full lg:text-base xl:w-auto xl:text-lg">
-              <Link to={secondaryCtaPath}>{secondaryCtaLabel}</Link>
-            </Button>
-          </div>
-
-          <p
-            className="mt-3 flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-center text-sm font-semibold text-muted-foreground sm:mt-3.5 sm:justify-start sm:text-left"
-          >
-            <span>No obligation</span><span className="text-primary/50" aria-hidden="true">·</span><span>Free CV review</span>
-          </p>
-
-          <div className="mt-5">
-            <TrustStrip market={marketLabel} />
-          </div>
+        <div id="hero-cta" className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+          <Button variant="cta" size="xl" onClick={() => openLeadModal({ trigger: "hero_cv_review" })} className="group min-h-14 w-full whitespace-normal px-7 text-base shadow-none hover:shadow-none sm:w-auto sm:text-lg">
+            <FileSearch className="h-5 w-5" aria-hidden="true" />
+            Get My Free CV Review
+            <ArrowRight className="h-5 w-5 transition-transform duration-200 ease-micro group-hover:translate-x-1 motion-reduce:transition-none" aria-hidden="true" />
+          </Button>
+          <Button variant="outline" size="xl" asChild className="min-h-14 w-full whitespace-normal border-2 border-primary/40 bg-transparent px-6 text-base font-semibold text-primary hover:border-primary hover:bg-primary hover:text-primary-foreground sm:w-auto sm:text-lg">
+            <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
+              <MessageCircle className="h-5 w-5" aria-hidden="true" />Chat on WhatsApp
+            </a>
+          </Button>
         </div>
 
-        <div
-          className="hero-visual relative mx-auto w-full max-w-[560px] lg:mx-0 lg:max-w-none"
-        >
-          <div className="hero-collage" aria-hidden="true">
-            {collageDocuments.map((document) => <DocumentMockup key={document.type} {...document} />)}
-          </div>
+        <ul className="mt-4 flex flex-wrap gap-x-5 gap-y-1.5 text-sm font-semibold text-muted-foreground" aria-label="What to expect">
+          <li className="inline-flex items-center gap-1.5"><Check className="h-4 w-4 text-primary" aria-hidden="true" />No obligation</li>
+          <li className="inline-flex items-center gap-1.5"><ShieldCheck className="h-4 w-4 text-primary" aria-hidden="true" />Confidential</li>
+        </ul>
 
-          <div className="hero-image-frame relative z-10 h-[390px] overflow-hidden rounded-[var(--radius-bento)] border border-white/80 bg-primary shadow-[0_24px_70px_-28px_hsl(var(--primary)/0.55)] sm:h-[470px] lg:h-[570px]">
-            <img
-              src={heroImage}
-              alt="Professional reviewing career opportunities and CV strategy for GCC jobs"
-              width="1823"
-              height="863"
-              loading="eager"
-              decoding="async"
-              fetchPriority="high"
-              className="h-full w-full object-cover object-[84%_center] sm:object-[78%_center] lg:object-[82%_center]"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-primary/45 via-transparent to-transparent" aria-hidden="true" />
-          </div>
+        <div className="mt-10 max-w-[40rem] xl:mt-12">
+          <ProofRow startingPrice={startingPrice} />
+        </div>
+      </div>
+
+      <div className="relative min-w-0 pb-10 lg:pb-0 lg:pt-16">
+        <div className="relative h-[360px] overflow-hidden bg-primary sm:h-[460px] lg:absolute lg:inset-0 lg:top-16 lg:h-auto">
+          <img
+            src={heroImage}
+            alt="Professional reviewing career opportunities and CV strategy for GCC jobs"
+            width="1823"
+            height="863"
+            loading="eager"
+            decoding="async"
+            fetchPriority="high"
+            className="hero-photo h-full w-full object-cover object-[80%_center] sm:object-[76%_center] lg:object-[80%_center]"
+          />
+          {/* One-hue grade so the photo sits in the teal palette and the card reads against it. */}
+          <div className="absolute inset-0 bg-gradient-to-t from-primary/50 via-primary/5 to-transparent" aria-hidden="true" />
+        </div>
+
+        {/* The redline card straddles the seam; its overhang stays inside the left column's right padding (pr-14 / pr-20) so it never covers the CTAs or proof. */}
+        <div className="relative z-10 -mt-24 mx-4 sm:mx-auto sm:w-[400px] lg:absolute lg:bottom-12 lg:-left-10 lg:mx-0 lg:mt-0 lg:w-[340px] xl:-left-14 xl:w-[370px]">
+          <RedlineSheet />
         </div>
       </div>
     </section>

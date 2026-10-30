@@ -1,62 +1,56 @@
-import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useLeadModal } from "@/components/lead/LeadModalContext";
-import { ArrowRight, Calendar, FileSearch } from "lucide-react";
+import { ArrowRight, FileSearch, MessageCircle } from "lucide-react";
 import Reveal from "@/components/motion/Reveal";
 import { useRegion } from "@/contexts/RegionContext";
-import { LIMITED_FOOTPRINT_REGIONS } from "@/contexts/regionAvailability";
-import { getRegionContent } from "@/lib/data/regionContent";
+import { buildWhatsAppUrl } from "@/lib/whatsapp";
 
 export default function CTASection() {
   const { selectedRegion } = useRegion();
   const { openLeadModal } = useLeadModal();
-  const content = getRegionContent(selectedRegion.code);
-  // Bahrain/Oman have no /schedule page yet (Unit 3A) - fall back to Contact, matching
-  // Header.tsx's existing bookConsultationPath pattern (Unit 9 broken-link fix).
-  const isLimitedFootprint = LIMITED_FOOTPRINT_REGIONS.has(selectedRegion.code);
-  const secondaryCtaPath = `/${selectedRegion.code}${isLimitedFootprint ? "/contact" : "/schedule"}`;
+  const place = selectedRegion.code === "uae" ? "the UAE" : selectedRegion.name;
+  const whatsappUrl = buildWhatsAppUrl(`Hello BrandMyProfile, I'd like help with my CV for jobs in ${place}.`);
 
   return (
-    <section className="section-padding bg-gradient-to-br from-primary to-primary-hover text-primary-foreground">
-      <Reveal className="section-container text-center">
-        <h2 className="heading-section mb-6">
-          Start with a clearer picture of your CV.
-        </h2>
-        <p className="mx-auto mb-10 max-w-2xl text-xl leading-relaxed text-primary-foreground/90">
-          {content.ctaSupportingText}
-        </p>
+    <section data-sticky-cta-stop className="section-padding bg-primary text-primary-foreground">
+      <Reveal className="section-container grid gap-10 lg:grid-cols-12 lg:items-end">
+        <div className="lg:col-span-7">
+          <h2 className="heading-section">
+            Send your CV today. <span className="font-normal italic">Get clear feedback, free.</span>
+          </h2>
+          <p className="mt-6 max-w-xl text-lg leading-8 text-primary-foreground/90 sm:text-xl sm:leading-9">
+            Use the short form or WhatsApp. A person reviews your CV for jobs in {place} and tells you what to improve.
+          </p>
+        </div>
 
-        <div className="flex flex-col justify-center gap-4 sm:flex-row sm:gap-5">
-          <div className="transition-transform duration-200 ease-out hover:-translate-y-0.5 hover:scale-[1.01] active:scale-[0.98] motion-reduce:transform-none motion-reduce:transition-none">
+        <div className="lg:col-span-5">
+          <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
             <Button
               variant="cta"
               size="xl"
               onClick={() => openLeadModal({ trigger: "free_review_section" })}
-              className="group min-h-14 w-full px-8 text-base sm:w-auto sm:text-lg"
+              className="group min-h-14 w-full px-8 text-base shadow-none hover:shadow-none sm:w-auto sm:text-lg lg:w-full"
             >
               <FileSearch className="h-5 w-5" />
               Get My Free CV Review
-              <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+              <ArrowRight className="h-5 w-5 transition-transform duration-200 ease-micro group-hover:translate-x-1 motion-reduce:transition-none" />
             </Button>
-          </div>
-          <div className="transition-transform duration-200 ease-out hover:-translate-y-0.5 hover:scale-[1.01] active:scale-[0.98] motion-reduce:transform-none motion-reduce:transition-none">
             <Button
               variant="outline"
               size="xl"
               asChild
-              className="min-h-14 w-full border-primary-foreground bg-primary-foreground/10 px-8 text-base text-primary-foreground hover:bg-primary-foreground hover:text-primary sm:w-auto sm:text-lg"
+              className="min-h-14 w-full border-primary-foreground/70 bg-transparent px-8 text-base text-primary-foreground hover:border-primary-foreground hover:bg-primary-foreground hover:text-primary focus-visible:ring-primary-foreground focus-visible:ring-offset-primary sm:w-auto sm:text-lg lg:w-full"
             >
-              <Link to={secondaryCtaPath}>
-                <Calendar className="h-5 w-5" />
-                Book Free Consultation
-              </Link>
+              <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
+                <MessageCircle className="h-5 w-5" aria-hidden="true" />
+                Chat on WhatsApp
+              </a>
             </Button>
           </div>
+          <p className="mt-6 text-base text-primary-foreground/85">
+            500+ professionals supported · Human written &amp; reviewed · Confidential
+          </p>
         </div>
-
-        <p className="mt-9 text-base text-primary-foreground/80">
-          No obligation • Human written &amp; reviewed • Confidential
-        </p>
       </Reveal>
     </section>
   );

@@ -55,11 +55,11 @@ export default function FreeCvReviewSection() {
               variant="cta"
               size="xl"
               onClick={() => openLeadModal({ trigger: "free_review_section" })}
-              className="group min-h-14 w-full px-6 text-base xl:w-auto xl:text-lg"
+              className="group min-h-14 w-full px-6 text-base shadow-none hover:shadow-none xl:w-auto xl:text-lg"
             >
               <FileSearch className="h-5 w-5" aria-hidden="true" />
               Get My Free CV Review
-              <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+              <ArrowRight className="h-5 w-5 transition-transform duration-200 ease-micro group-hover:translate-x-1 motion-reduce:transition-none" aria-hidden="true" />
             </Button>
             <Button variant="outline" size="xl" asChild className="min-h-14 w-full bg-card/70 px-6 text-base xl:w-auto xl:text-lg">
               <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
@@ -74,12 +74,12 @@ export default function FreeCvReviewSection() {
         </Reveal>
 
         <Reveal delay={0.1}>
-          <div className="rounded-[var(--radius-bento)] border border-primary/15 bg-card p-6 sm:p-8">
-            <h3 className="text-2xl">How the free review works</h3>
-            <ol className="mt-7 space-y-7">
+          <div className="cv-sheet p-6 sm:p-9">
+            <h3 className="font-serif text-2xl font-medium tracking-[-0.015em] sm:text-3xl">How the free review works</h3>
+            <ol className="mt-6">
               {steps.map((step, index) => (
-                <li key={step.title} className="flex gap-4">
-                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-teal-50 font-bold text-primary" aria-hidden="true">{index + 1}</span>
+                <li key={step.title} className="flex gap-5 border-t border-border py-6 last:pb-0">
+                  <span className="w-9 shrink-0 font-serif text-3xl leading-none tabular-nums text-primary" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
                   <div><h4 className="text-base font-bold">{step.title}</h4><p className="mt-2 text-base leading-7 text-muted-foreground">{step.detail}</p></div>
                 </li>
               ))}

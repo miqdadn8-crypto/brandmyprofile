@@ -1,0 +1,10 @@
+{
+  "brand": {
+    "question": "What is BrandMyProfile?",
+    "answer": "BrandMyProfile (brandmyprofile.com) is an online CV writing and career-support service for professionals targeting jobs in Kuwait, the UAE, Saudi Arabia, Qatar, Bahrain, Oman and India. A person rewrites your CV so it is clear and ATS-friendly, and BrandMyProfile also offers LinkedIn profile makeovers, career masterclasses and one-to-one career guidance. Everything is delivered online through WhatsApp, phone and email; there is no walk-in office."
+  },
+  "price": {
+    "question": "How much does CV writing cost in {place}?",
+    "answer": "At BrandMyProfile, professional CV writing for jobs in {place} costs {basic} for the Essential package, {pro} for Professional and {elite} for Executive. Every CV is written by a person and formatted to be ATS-friendly, and you can start with a free CV review before choosing a package."
+  }
+}

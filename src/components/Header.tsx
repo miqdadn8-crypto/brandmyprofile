@@ -1,11 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X, ChevronDown, ArrowRight, FileText, Globe2, GraduationCap, Linkedin, ScanSearch, Target, Languages, type LucideIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useRegion, regions } from "@/contexts/RegionContext";
@@ -43,6 +44,41 @@ interface MobileNavItem {
   label: string;
   global?: boolean;
 }
+
+// Desktop Services dropdown content: one factual line per service (no outcome claims).
+const serviceMenuGroups: {
+  label: string;
+  items: { to: string; title: string; description: string; icon: LucideIcon; indiaOnly?: boolean }[];
+}[] = [
+  {
+    label: "CV Writing",
+    items: [
+      { to: "/services/cv-writing", title: "Professional CV Writing", description: "A CV rewritten for your target role", icon: FileText },
+      { to: "/services/ats-cv", title: "ATS Friendly CV", description: "Clean structure that software can read", icon: ScanSearch },
+      { to: "/services/gcc-cv", title: "GCC Standard CV", description: "Format and positioning for Gulf employers", icon: Globe2 },
+      { to: "/services/europass-cv", title: "Europass CV", description: "Europass-format CV for Europe", icon: Languages, indiaOnly: true },
+    ],
+  },
+  {
+    label: "LinkedIn & Career",
+    items: [
+      { to: "/services/linkedin-makeover", title: "LinkedIn Makeover", description: "Headline, About section and keywords", icon: Linkedin },
+      { to: "/services/masterclass", title: "Masterclass", description: "Live LinkedIn workshop", icon: GraduationCap },
+      { to: "/services/career-guidance", title: "Career Guidance", description: "One-to-one career direction", icon: Target },
+    ],
+  },
+];
+
+// Desktop nav items share one treatment: hover is a quiet tonal fill inside a static box (the
+// box never moves, no animated underline); the current section carries a short red pen stroke,
+// the same red as the site's redline edits. 44px tall for comfortable targets.
+const navItemClass = (active: boolean) =>
+  cn(
+    "relative flex h-11 items-center gap-1 rounded-md px-3 text-[15px] font-medium transition-colors duration-200 ease-micro",
+    "hover:bg-foreground/[0.05] hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring data-[state=open]:bg-foreground/[0.05] data-[state=open]:text-foreground",
+    "after:pointer-events-none after:absolute after:bottom-1.5 after:left-3 after:h-[2px] after:w-5 after:rounded-full after:bg-accent after:content-['']",
+    active ? "text-foreground after:opacity-100" : "text-foreground/70 after:opacity-0",
+  );
 
 // Small, understated group label (11-12px, uppercase, muted teal) - deliberately a <p>, not a
 // real heading tag, matching the desktop Services dropdown's existing label convention so this
@@ -90,7 +126,13 @@ export default function Header() {
   // Drives the drawer's fade + slide-in transition - mounts closed/offset, then flips to
   // visible on the next frame so the transition actually plays instead of snapping open.
   const [drawerVisible, setDrawerVisible] = useState(false);
-  const [floating, setFloating] = useState(false);
+  // `scrolled` gives the bar its hairline and shadow once the page moves; `pastHero` flips the
+  // home CTA to the red primary once the hero's own red button is gone; `hidden` retracts the
+  // bar while scrolling down and brings it back on any scroll up.
+  const [scrolled, setScrolled] = useState(false);
+  const [pastHero, setPastHero] = useState(false);
+  const [hidden, setHidden] = useState(false);
+  const headerRef = useRef<HTMLElement>(null);
   const { selectedRegion } = useRegion();
   const changeRegion = useChangeRegion();
   const location = useLocation();
@@ -137,7 +179,21 @@ export default function Header() {
   const isAboutPath = aboutLinks.some((link) => location.pathname === regionPath(link.to));
 
   useEffect(() => {
-    const handleScroll = () => setFloating(window.scrollY > 60);
+    let lastY = window.scrollY;
+    const handleScroll = () => {
+      const y = window.scrollY;
+      setScrolled(y > 8);
+      setPastHero(y > 480);
+      const delta = y - lastY;
+      // Ignore small jitters; never hide near the top, while a menu is open or while keyboard
+      // focus is inside the bar (a focused link must stay visible).
+      if (Math.abs(delta) < 8) return;
+      const header = headerRef.current;
+      const focusInside = !!header && header.contains(document.activeElement) && document.activeElement !== document.body;
+      const menuOpen = !!header?.querySelector('[data-state="open"]');
+      setHidden(delta > 0 && y > 320 && !focusInside && !menuOpen);
+      lastY = y;
+    };
     handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
@@ -180,10 +236,14 @@ export default function Header() {
 
   return (
     <header
+      ref={headerRef}
       className={cn(
-        "sticky top-0 z-50 w-full transition-[padding] duration-300 ease-in-out",
+        "sticky top-0 z-50 w-full transition-transform duration-300 ease-enter motion-reduce:transition-none",
         isHome && "-mb-16",
-        floating ? "pt-3" : "pt-0",
+        // Transform only while retracted. Any transform (even translate 0) makes this header the
+        // containing block for the fixed mobile drawer below, pinning it under the region banner
+        // and pushing its bottom CTA off screen; at rest the header must have no transform.
+        hidden && !mobileMenuOpen && "-translate-y-full",
         // The mobile drawer below is a fixed z-[60] child of this header, but a sticky/
         // z-index element only stacks against siblings within its OWN parent's stacking
         // context - so the drawer's z-60 was capped by this header's z-50 and never
@@ -193,18 +253,15 @@ export default function Header() {
         mobileMenuOpen && "z-[60]",
       )}
     >
-      {/* Floating pill / top bar */}
+      {/* Opaque tonal plate (no glass over flat colour). Its content sits on the same container
+          as every section, so the logo lines up with the hero headline. */}
       <div
         className={cn(
-          "mx-auto flex items-center transition-all duration-300 ease-in-out",
-          floating
-            ? "h-[60px] w-[calc(100%-24px)] rounded-[17px] border border-border/70 bg-background/90 shadow-[var(--shadow-nav)] backdrop-blur-md supports-[backdrop-filter]:bg-background/75 sm:h-[52px] sm:w-[calc(100%-3rem)] sm:max-w-[1200px] sm:rounded-[18px]"
-            : cn(
-                "h-16 w-full rounded-none border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60",
-              ),
+          "flex h-16 w-full items-center border-b bg-background transition-[border-color,box-shadow] duration-200",
+          scrolled ? "border-border shadow-[var(--shadow-nav)]" : "border-border/60",
         )}
       >
-        <nav aria-label="Main navigation" className="mx-auto flex w-full max-w-[1200px] items-center px-3.5 sm:px-6 lg:px-8">
+        <nav aria-label="Main navigation" className="section-container flex w-full items-center">
           {/* Logo */}
           <Link
             to={`/${selectedRegion.code}`}
@@ -214,25 +271,15 @@ export default function Header() {
             <img
               src="/brandmyprofile (20).png"
               alt=""
-              className={cn(
-                "shrink-0 rounded-full object-cover ring-1 ring-black/5 transition-[height,width] duration-300 ease-in-out",
-                floating ? "h-9 w-9" : "h-9 w-9 sm:h-11 sm:w-11",
-              )}
+              className="h-9 w-9 shrink-0 rounded-full object-cover ring-1 ring-black/5 sm:h-10 sm:w-10"
             />
             <span
-              className={cn(
-                "truncate font-bold transition-[color,font-size] duration-300",
-                floating ? "text-base sm:text-lg" : "text-base sm:text-xl",
-                "text-primary",
-              )}
+              className="truncate text-base font-bold text-primary sm:text-xl"
             >
               Brand
             </span>
             <span
-              className={cn(
-                "font-bold text-accent transition-[font-size] duration-300",
-                floating ? "text-base sm:text-lg" : "text-base sm:text-xl",
-              )}
+              className="text-base font-bold text-accent sm:text-xl"
             >
               MyProfile
             </span>
@@ -264,52 +311,48 @@ export default function Header() {
           </DropdownMenu>
 
           {/* Center: desktop nav links, truly centered */}
-          <div className="hidden flex-1 items-center justify-center gap-5 xl:flex">
+          <div className="ml-8 hidden flex-1 items-center gap-0.5 xl:flex 2xl:ml-12">
             <DropdownMenu>
-              <DropdownMenuTrigger
-                className={cn(
-                  "flex items-center gap-1 rounded-sm text-sm font-medium transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 data-[state=open]:text-primary",
-                  isServicesPath ? "text-primary" : "text-foreground",
-                  "hover:text-primary",
-                )}
-              >
-                Services <ChevronDown className="h-4 w-4" />
+              <DropdownMenuTrigger className={navItemClass(isServicesPath)}>
+                Services <ChevronDown aria-hidden="true" className="h-4 w-4 opacity-60" />
               </DropdownMenuTrigger>
-              <DropdownMenuContent>
+              <DropdownMenuContent align="start" className="w-[22rem] rounded-xl p-2 shadow-lg">
                 {isLimitedFootprint ? (
                   <DropdownMenuItem asChild>
                     <Link to={regionPath("/services/cv-writing")}>CV Writing</Link>
                   </DropdownMenuItem>
                 ) : (
                   <>
-                    <p className="px-2 pb-1 pt-1.5 text-xs font-semibold text-muted-foreground">
-                      CV Writing
-                    </p>
-                    <DropdownMenuItem asChild>
-                      <Link to={regionPath("/services/cv-writing")}>Professional CV Writing</Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                      <Link to={regionPath("/services/ats-cv")}>ATS Friendly CV</Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                      <Link to={regionPath("/services/gcc-cv")}>GCC Standard CV</Link>
-                    </DropdownMenuItem>
-                    {isIndia && (
-                      <DropdownMenuItem asChild>
-                        <Link to={regionPath("/services/europass-cv")}>Europass CV</Link>
-                      </DropdownMenuItem>
-                    )}
-                    <p className="px-2 pb-1 pt-2 text-xs font-semibold text-muted-foreground">
-                      LinkedIn &amp; Career
-                    </p>
-                    <DropdownMenuItem asChild>
-                      <Link to={regionPath("/services/linkedin-makeover")}>LinkedIn Makeover</Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                      <Link to={regionPath("/services/masterclass")}>Masterclass</Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                      <Link to={regionPath("/services/career-guidance")}>Career Guidance</Link>
+                    {serviceMenuGroups.map((group, index) => (
+                      <div key={group.label} role="group" aria-label={group.label}>
+                        {index > 0 && <DropdownMenuSeparator className="my-1.5" />}
+                        <p className="px-3 pb-1 pt-2 text-xs font-semibold text-primary/70">{group.label}</p>
+                        {group.items
+                          .filter((item) => !item.indiaOnly || isIndia)
+                          .map(({ to, title, description, icon: Icon }) => {
+                            const target = regionPath(to);
+                            const active = location.pathname === target;
+                            return (
+                              <DropdownMenuItem key={to} asChild className="cursor-pointer rounded-lg p-0 focus:bg-primary/5">
+                                <Link to={target} aria-current={active ? "page" : undefined} className="flex items-start gap-3 px-3 py-2.5">
+                                  <span className={cn("mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-teal-50 text-primary ring-1 ring-primary/10", active && "bg-primary text-primary-foreground")}>
+                                    <Icon className="h-4 w-4" aria-hidden="true" />
+                                  </span>
+                                  <span className="min-w-0">
+                                    <span className={cn("block text-sm font-semibold leading-5", active && "text-primary")}>{title}</span>
+                                    <span className="block text-[13px] leading-5 text-muted-foreground">{description}</span>
+                                  </span>
+                                </Link>
+                              </DropdownMenuItem>
+                            );
+                          })}
+                      </div>
+                    ))}
+                    <DropdownMenuSeparator className="my-1.5" />
+                    <DropdownMenuItem asChild className="cursor-pointer rounded-lg p-0 focus:bg-primary/5">
+                      <Link to={regionPath("/pricing")} className="flex items-center justify-between px-3 py-2.5 text-sm font-semibold text-primary">
+                        Compare CV packages and pricing <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                      </Link>
                     </DropdownMenuItem>
                   </>
                 )}
@@ -324,11 +367,7 @@ export default function Header() {
                   key={link.to}
                   to={target}
                   aria-current={isActive ? "page" : undefined}
-                  className={cn(
-                    "rounded-sm text-sm font-medium underline-offset-[10px] transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
-                    isActive ? "text-primary underline decoration-2 decoration-primary" : "text-foreground",
-                    "hover:text-primary",
-                  )}
+                  className={navItemClass(isActive)}
                 >
                   {link.label}
                 </Link>
@@ -339,19 +378,14 @@ export default function Header() {
               <Link
                 to="/blog"
                 aria-current={location.pathname === "/blog" ? "page" : undefined}
-                className="rounded-sm text-sm font-medium transition-colors duration-300 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                className={navItemClass(location.pathname === "/blog")}
               >
                 Blog
               </Link>
             ) : (
               <DropdownMenu>
-                <DropdownMenuTrigger
-                  className={cn(
-                    "flex items-center gap-1 rounded-sm text-sm font-medium transition-colors duration-300 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 data-[state=open]:text-primary",
-                    isResourcesPath ? "text-primary" : "text-foreground",
-                  )}
-                >
-                  Resources <ChevronDown aria-hidden="true" className="h-4 w-4" />
+                <DropdownMenuTrigger className={navItemClass(isResourcesPath)}>
+                  Resources <ChevronDown aria-hidden="true" className="h-4 w-4 opacity-60" />
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
                   {resourceLinks.map((link) => (
@@ -367,19 +401,14 @@ export default function Header() {
               <Link
                 to={regionPath("/contact")}
                 aria-current={location.pathname === regionPath("/contact") ? "page" : undefined}
-                className="rounded-sm text-sm font-medium transition-colors duration-300 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                className={navItemClass(location.pathname === regionPath("/contact"))}
               >
                 Contact
               </Link>
             ) : (
               <DropdownMenu>
-                <DropdownMenuTrigger
-                  className={cn(
-                    "flex items-center gap-1 rounded-sm text-sm font-medium transition-colors duration-300 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 data-[state=open]:text-primary",
-                    isAboutPath ? "text-primary" : "text-foreground",
-                  )}
-                >
-                  About <ChevronDown aria-hidden="true" className="h-4 w-4" />
+                <DropdownMenuTrigger className={navItemClass(isAboutPath)}>
+                  About <ChevronDown aria-hidden="true" className="h-4 w-4 opacity-60" />
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
                   {aboutLinks.map((link) => (
@@ -393,18 +422,16 @@ export default function Header() {
           </div>
 
           {/* Right: region selector + CTA (desktop) */}
-          <div className="hidden shrink-0 items-center gap-4 xl:flex">
+          <div className="hidden shrink-0 items-center gap-3 xl:flex">
             <DropdownMenu>
               <DropdownMenuTrigger
                 data-region-selector
                 aria-label={`Change region. Current region: ${selectedRegion.name}`}
-                className={cn(
-                  "flex items-center gap-2 rounded-md border px-3 py-1.5 text-sm font-medium transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-                  "border-border/80 text-foreground/80 hover:bg-secondary",
-                )}
+                className="flex h-11 items-center gap-2 rounded-md px-3 text-[15px] font-medium text-foreground/75 transition-colors duration-200 ease-micro hover:bg-foreground/[0.05] hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring data-[state=open]:bg-foreground/[0.05]"
               >
                 <RegionFlag code={selectedRegion.code} name={selectedRegion.name} size="md" />
                 <span>{selectedRegion.name}</span>
+                <ChevronDown aria-hidden="true" className="h-4 w-4 opacity-60" />
               </DropdownMenuTrigger>
               <DropdownMenuContent>
                 {regions.map((region) => (
@@ -419,14 +446,20 @@ export default function Header() {
               </DropdownMenuContent>
             </DropdownMenu>
 
+            <span aria-hidden="true" className="h-6 w-px bg-border" />
+
             {isHome ? (
-              // Teal while the hero's own pink CTA is on screen; pink once the page scrolls.
-              <Button variant={floating ? "cta" : "default"} size="sm" className="h-10 px-5" onClick={() => openLeadModal({ trigger: "hero_cv_review" })}>
+              // Teal while the hero's own red CTA is on screen; red once the hero is scrolled past.
+              <Button variant={pastHero ? "cta" : "default"} className="group h-11 rounded-lg px-5 text-[15px] font-semibold shadow-none hover:shadow-none" onClick={() => openLeadModal({ trigger: "hero_cv_review" })}>
                 Get My Free CV Review
+                <ArrowRight aria-hidden="true" className="h-4 w-4 transition-transform duration-200 ease-micro group-hover:translate-x-0.5 motion-reduce:transition-none" />
               </Button>
             ) : (
-              <Button variant="cta" size="sm" className="h-10 px-5" asChild>
-                <Link to={bookConsultationPath}>Book Free Consultation</Link>
+              <Button variant="cta" className="group h-11 rounded-lg px-5 text-[15px] font-semibold shadow-none hover:shadow-none" asChild>
+                <Link to={bookConsultationPath}>
+                  Book Free Consultation
+                  <ArrowRight aria-hidden="true" className="h-4 w-4 transition-transform duration-200 ease-micro group-hover:translate-x-0.5 motion-reduce:transition-none" />
+                </Link>
               </Button>
             )}
           </div>

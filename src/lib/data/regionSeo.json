@@ -69,6 +69,10 @@
       "cv-writing": {
         "metaTitle": "CV & Resume Writing Services in Dubai & UAE",
         "metaDescription": "CV and resume writing services in Dubai and the UAE: human-written, ATS-friendly CVs tailored to your target role. Prices in AED, free CV review."
+      },
+      "pricing": {
+        "metaTitle": "CV Writing Prices & Packages in UAE",
+        "metaDescriptionTemplate": "Compare CV writing packages in UAE, starting from {startingPrice}. See what each package includes, plus LinkedIn and career coaching prices in AED."
       }
     }
   },
@@ -102,6 +106,10 @@
       "cv-writing": {
         "metaTitle": "CV & Resume Writing Services in Saudi Arabia",
         "metaDescription": "CV and resume writing services in Saudi Arabia: human-written, ATS-friendly CVs tailored to your target role. Prices in SAR, free CV review."
+      },
+      "pricing": {
+        "metaTitle": "CV Writing Prices & Packages in Saudi Arabia",
+        "metaDescriptionTemplate": "Compare CV writing packages in Saudi Arabia, starting from {startingPrice}. See what each package includes, plus LinkedIn and career coaching prices in SAR."
       }
     }
   },
@@ -133,6 +141,10 @@
       "cv-writing": {
         "metaTitle": "CV & Resume Writing Services in Doha, Qatar",
         "metaDescription": "CV and resume writing services in Doha and Qatar: human-written, ATS-friendly CVs tailored to your target role. Prices in QAR, free CV review."
+      },
+      "pricing": {
+        "metaTitle": "CV Writing Prices & Packages in Qatar",
+        "metaDescriptionTemplate": "Compare CV writing packages in Qatar, starting from {startingPrice}. See what each package includes, plus LinkedIn and career coaching prices in QAR."
       }
     }
   },
@@ -173,6 +185,12 @@
     "aeoBlock": {
       "question": "What does a CV writing service for Gulf jobs from India include?",
       "answer": "BrandMyProfile's CV writing service for India includes a human-written, ATS-friendly CV tailored to the GCC or international role you are targeting, an achievement-focused rewrite of your experience, role-specific keywords and revision support according to your package. Everything is handled online and over WhatsApp, so there is no office to visit. Professionals across India, from Kerala and Mumbai to Hyderabad, Chennai, Bengaluru and Delhi, can start with a free CV review, and prices are shown in INR."
+    },
+    "serviceSeo": {
+      "pricing": {
+        "metaTitle": "CV Writing Prices & Packages in India",
+        "metaDescriptionTemplate": "Compare CV writing packages in India, starting from {startingPrice}. See what each package includes, plus LinkedIn and career coaching prices in INR."
+      }
     }
   },
   "bahrain": {

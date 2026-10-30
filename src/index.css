@@ -2,21 +2,34 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here.
 All colors MUST be HSL.
 */
 
+/* Self-hosted type (Fontshare, ITF Free Font License). Sentient is the display voice: an
+   editorial serif with a true italic, used for h1/h2 and the redline signature. Switzer is
+   the neutral text face. index.html preloads Sentient 500 and Switzer 400. */
+@font-face { font-family: "Sentient"; src: url("/fonts/sentient-400-normal.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Sentient"; src: url("/fonts/sentient-400-italic.woff2") format("woff2"); font-weight: 400 700; font-style: italic; font-display: swap; }
+@font-face { font-family: "Sentient"; src: url("/fonts/sentient-500-normal.woff2") format("woff2"); font-weight: 500 600; font-style: normal; font-display: swap; }
+@font-face { font-family: "Sentient"; src: url("/fonts/sentient-700-normal.woff2") format("woff2"); font-weight: 700 800; font-style: normal; font-display: swap; }
+@font-face { font-family: "Switzer"; src: url("/fonts/switzer-400-normal.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Switzer"; src: url("/fonts/switzer-500-normal.woff2") format("woff2"); font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: "Switzer"; src: url("/fonts/switzer-600-normal.woff2") format("woff2"); font-weight: 600; font-style: normal; font-display: swap; }
+@font-face { font-family: "Switzer"; src: url("/fonts/switzer-700-normal.woff2") format("woff2"); font-weight: 700 800; font-style: normal; font-display: swap; }
+
 @layer base {
   :root {
-    /* BrandMyProfile Design System - Professional & Credible */
-    --background: 0 0% 98%;
-    --foreground: 0 0% 7%;
+    /* BrandMyProfile Design System - editorial: cool paper, teal-black ink, brand teal as
+       whole fields, and the brand red as the editor's pen (strikes and the primary CTA). */
+    --background: 190 20% 98%;
+    --foreground: 195 32% 8%;
 
     --card: 0 0% 100%;
-    --card-foreground: 0 0% 7%;
+    --card-foreground: 195 32% 8%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 7%;
+    --popover-foreground: 195 32% 8%;
 
     /* Deep Teal - Primary Brand Color */
     --primary: 192 100% 20%;
@@ -28,27 +41,27 @@ All colors MUST be HSL.
     --accent-foreground: 0 0% 100%;
     --accent-hover: 349 90% 41%;
 
-    --secondary: 210 20% 96%;
-    --secondary-foreground: 0 0% 7%;
+    --secondary: 192 18% 95%;
+    --secondary-foreground: 195 32% 8%;
 
-    --muted: 210 20% 96%;
-    /* >= 4.98:1 on paper, warm and teal-soft surfaces */
-    --muted-foreground: 215 18% 43%;
+    --muted: 192 18% 95%;
+    /* >= 5.5:1 on paper, fog and teal-soft surfaces */
+    --muted-foreground: 195 14% 36%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 214 32% 91%;
-    --input: 214 32% 91%;
+    --border: 192 16% 88%;
+    --input: 192 16% 86%;
     --ring: 192 100% 20%;
 
     --radius: 0.75rem;
 
     /* Custom Design Tokens */
-    --teal-50: 192 60% 95%;
-    --teal-100: 192 60% 90%;
-    --charcoal: 0 0% 7%;
-    --light-bg: 210 25% 97%;
+    --teal-50: 192 45% 95%;
+    --teal-100: 192 45% 90%;
+    --charcoal: 195 32% 8%;
+    --light-bg: 192 20% 97%;
 
     /* Shadows */
     --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
@@ -60,23 +73,37 @@ All colors MUST be HSL.
     --transition-base: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
-    /* ---- 2026 Bento/editorial design tokens ---- */
+    /* Motion: one ease family (power-curve fits) and one duration ladder.
+       Hover 200ms, cards/menus 600ms, one line or image reveal 1000ms, hero intro <= 1400ms. */
+    --ease-micro: cubic-bezier(.33, 1, .68, 1);
+    --ease-enter: cubic-bezier(.25, 1, .5, 1);
+    --ease-reveal: cubic-bezier(.16, 1, .3, 1);
+    --ease-exit: cubic-bezier(.32, 0, .67, 0);
+    --dur-2: 200ms;
+    --dur-3: 350ms;
+    --dur-4: 600ms;
+    --dur-5: 1000ms;
+    --dur-6: 1400ms;
 
-    /* Radii */
-    --radius-sm: 0.75rem;
-    --radius-md: 1rem;
-    --radius-lg: 1.25rem;
-    --radius-bento: 1.5rem;
+    /* ---- Editorial design tokens ---- */
+
+    /* Radii: tighter than the old bento set, so cards read as sheets of paper */
+    --radius-sm: 0.5rem;
+    --radius-md: 0.75rem;
+    --radius-lg: 1rem;
+    --radius-bento: 1.25rem;
 
     /* Card & nav shadows (soft, restrained) */
-    --shadow-card: 0 14px 40px -30px hsl(var(--primary) / 0.35);
-    --shadow-card-hover: 0 20px 50px -30px hsl(var(--primary) / 0.45);
+    --shadow-card: 0 1px 0 hsl(var(--foreground) / 0.04), 0 18px 40px -32px hsl(var(--primary) / 0.4);
+    --shadow-card-hover: 0 1px 0 hsl(var(--foreground) / 0.04), 0 22px 50px -32px hsl(var(--primary) / 0.5);
     --shadow-nav: 0 8px 24px -18px rgb(0 0 0 / 0.18);
+    --shadow-sheet: 0 1px 2px hsl(var(--foreground) / 0.06), 0 30px 60px -36px hsl(var(--foreground) / 0.45);
 
-    /* Surfaces */
+    /* Surfaces. --surface-warm keeps its name for the many pages that use it, but is now a
+       cool fog sampled from the teal, not a cream. */
     --surface-white: 0 0% 100%;
-    --surface-warm: 32 38% 96%;
-    --surface-teal-soft: 192 45% 95%;
+    --surface-warm: 192 22% 95%;
+    --surface-teal-soft: 192 45% 94%;
     --surface-teal-deep: 192 100% 20%;
     --surface-pink-soft: 349 85% 97%;
 
@@ -84,21 +111,21 @@ All colors MUST be HSL.
     --brand-teal: 192 100% 20%;
     --brand-pink: 349 90% 46%;
     /* Footer ink surface and WhatsApp brand colours */
-    --surface-ink: 193 72% 13%;
+    --surface-ink: 193 72% 11%;
     --brand-whatsapp: 142 70% 49%;
     --brand-whatsapp-dark: 173 77% 31%;
-    --text-primary: 0 0% 7%;
-    --text-secondary: 215 18% 43%;
+    --text-primary: 195 32% 8%;
+    --text-secondary: 195 14% 36%;
   }
 
   .dark {
-    --background: 0 0% 7%;
+    --background: 195 30% 7%;
     --foreground: 0 0% 98%;
 
-    --card: 0 0% 10%;
+    --card: 195 24% 10%;
     --card-foreground: 0 0% 98%;
 
-    --popover: 0 0% 10%;
+    --popover: 195 24% 10%;
     --popover-foreground: 0 0% 98%;
 
     --primary: 192 100% 35%;
@@ -109,17 +136,17 @@ All colors MUST be HSL.
     --accent-foreground: 0 0% 100%;
     --accent-hover: 349 95% 50%;
 
-    --secondary: 0 0% 15%;
+    --secondary: 195 18% 15%;
     --secondary-foreground: 0 0% 98%;
 
-    --muted: 0 0% 15%;
-    --muted-foreground: 215 20% 65%;
+    --muted: 195 18% 15%;
+    --muted-foreground: 192 14% 68%;
 
     --destructive: 0 63% 31%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 0 0% 20%;
-    --input: 0 0% 20%;
+    --border: 195 16% 20%;
+    --input: 195 16% 20%;
     --ring: 192 100% 35%;
   }
 }
@@ -129,24 +156,60 @@ All colors MUST be HSL.
     @apply border-border;
   }
 
-  body {
-    @apply bg-background text-foreground font-sans antialiased;
+  html {
+    -webkit-text-size-adjust: 100%;
   }
 
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-bold tracking-tight;
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-feature-settings: "kern", "liga";
+  }
+
+  /* Display voice: h1/h2 are set in Sentient everywhere, so every page shares the editorial
+     tone; h3 and below stay in the text face for scanning. */
+  h1, h2 {
+    @apply font-serif;
+    font-weight: 500;
+    letter-spacing: -0.022em;
+    text-wrap: balance;
+  }
+
+  h3, h4, h5, h6 {
+    @apply font-semibold;
+    letter-spacing: -0.008em;
   }
 
   h1 {
     @apply text-4xl md:text-5xl lg:text-6xl;
+    line-height: 1.04;
   }
 
   h2 {
     @apply text-3xl md:text-4xl lg:text-5xl;
+    line-height: 1.08;
   }
 
   h3 {
     @apply text-2xl md:text-3xl;
+  }
+
+  p, li, blockquote {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background: hsl(var(--primary) / 0.16);
+  }
+
+  /* Visible focus for anything that does not set its own ring. */
+  :focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 2px;
+  }
+
+  /* Anchors land below the sticky header. */
+  [id] {
+    scroll-margin-top: 96px;
   }
 }
 
@@ -156,122 +219,111 @@ All colors MUST be HSL.
   }
 
   .heading-section {
-    @apply font-serif font-bold;
-    font-size: clamp(2rem, 1.5rem + 1.8vw, 3rem);
-    line-height: 1.1;
-    letter-spacing: -0.02em;
+    @apply font-serif;
+    font-weight: 500;
+    font-size: clamp(2.125rem, 1.45rem + 2.4vw, 3.5rem);
+    line-height: 1.04;
+    letter-spacing: -0.026em;
+    text-wrap: balance;
+  }
+
+  /* Hero statement: 41px at 390, 82px at 1440 (max/min ratio 2.1, rem-anchored for zoom). */
+  .display-hero {
+    @apply font-serif;
+    font-weight: 500;
+    font-size: clamp(2.5rem, 1.6rem + 3.9vw, 5.25rem);
+    line-height: 0.98;
+    letter-spacing: -0.032em;
     text-wrap: balance;
   }
 
   .section-padding {
-    @apply py-16 md:py-24;
+    @apply py-16 md:py-28;
   }
 
-  .hero-background-wash {
-    background:
-      radial-gradient(circle at 74% 45%, hsl(var(--surface-pink-soft) / 0.42), transparent 32%),
-      linear-gradient(90deg, hsl(var(--surface-teal-soft) / 0.52) 0%, hsl(var(--surface-teal-soft) / 0.34) 40%, hsl(var(--surface-teal-soft) / 0.12) 57%, transparent 72%);
+  .skip-link {
+    @apply fixed left-3 top-3 z-[100] -translate-y-24 rounded-md bg-foreground px-4 py-3 text-sm font-semibold text-background;
+    transition: transform var(--dur-2) var(--ease-micro);
+  }
+  .skip-link:focus-visible {
+    @apply translate-y-0;
   }
 
-  .hero-visual::before {
-    content: "";
-    position: absolute;
-    inset: 7% -7% 2% -8%;
-    border-radius: 45%;
-    background: radial-gradient(circle, hsl(var(--surface-teal-soft) / 0.9) 0%, hsl(var(--surface-pink-soft) / 0.5) 47%, transparent 72%);
-    filter: blur(8px);
-    pointer-events: none;
+  /* ---- The redline: the signature. An editor's red pen strikes a vague CV line, and the
+     rewrite settles in beneath it. The strike is a background line (box-decoration-break:
+     slice), so on a wrapped line the pen travels line by line. At rest both lines are fully
+     drawn: no JS, reduced motion and print all show the finished edit. */
+  .redline {
+    background-image: linear-gradient(hsl(var(--accent)), hsl(var(--accent)));
+    background-repeat: no-repeat;
+    background-position: 0 58%;
+    background-size: 100% max(2px, 0.075em);
+    text-decoration: none;
   }
 
-  .hero-collage {
-    position: absolute;
-    inset: -22px -22px -20px -28px;
-    pointer-events: none;
+  .redline--draw {
+    animation: redline-draw var(--dur-4) var(--ease-enter) both;
+    animation-delay: var(--redline-delay, 0ms);
   }
 
-  .hero-doc {
-    --doc-accent: 192 100% 20%;
-    position: absolute;
-    width: 126px;
-    height: 166px;
-    overflow: hidden;
-    border: 1px solid hsl(var(--primary) / 0.13);
-    border-radius: 8px;
-    background: hsl(var(--surface-white));
-    padding: 10px;
-    color: hsl(var(--doc-accent));
-    box-shadow: 0 18px 45px -24px hsl(var(--primary) / 0.48);
-    transform-origin: center;
+  .rewrite-in {
+    animation: rewrite-in var(--dur-5) var(--ease-reveal) both;
+    animation-delay: var(--rewrite-delay, 0ms);
   }
 
-  .hero-doc__topline { height: 4px; margin: -10px -10px 9px; background: currentColor; opacity: .88; }
-  .hero-doc__identity { display: flex; align-items: center; gap: 6px; }
-  .hero-doc__avatar { width: 18px; height: 18px; flex: 0 0 auto; border-radius: 50%; background: currentColor; opacity: .16; }
-  .hero-doc__identity-lines { display: grid; width: 58%; gap: 3px; }
-  .hero-doc__identity-lines i, .hero-doc__copy i { display: block; height: 3px; border-radius: 999px; background: currentColor; opacity: .19; }
-  .hero-doc__identity-lines i:last-child { width: 65%; opacity: .11; }
-  .hero-doc > p { margin-top: 9px; font-size: 6px; font-weight: 800; letter-spacing: .14em; }
-  .hero-doc__rule { display: block; width: 22px; height: 1px; margin: 4px 0 6px; background: currentColor; opacity: .55; }
-  .hero-doc__copy { display: grid; gap: 4px; }
-  .hero-doc__copy i:nth-child(2) { width: 87%; }
-  .hero-doc__copy i:nth-child(3) { width: 73%; }
-  .hero-doc__section { display: grid; grid-template-columns: 25px 1fr; gap: 7px; margin-top: 10px; }
-  .hero-doc__section b { height: 27px; border-radius: 3px; background: currentColor; opacity: .1; }
-  .hero-doc__section span { display: grid; align-content: center; gap: 5px; }
-  .hero-doc__section i { display: block; height: 3px; border-radius: 999px; background: currentColor; opacity: .17; }
-  .hero-doc__section i:last-child { width: 72%; }
-  .hero-doc__skills { display: flex; gap: 3px; margin-top: 11px; }
-  .hero-doc__skills i { width: 27px; height: 8px; border-radius: 999px; background: currentColor; opacity: .1; }
+  /* Hero intro: one statement settles, chrome follows. Capped well under 1.4s. */
+  .intro-rise {
+    animation: intro-rise 900ms var(--ease-reveal) both;
+    animation-delay: var(--intro-delay, 0ms);
+  }
 
-  .hero-doc--mono { --doc-accent: 215 18% 28%; }
-  .hero-doc--teal { --doc-accent: 192 100% 20%; }
-  .hero-doc--ink { --doc-accent: 218 32% 18%; }
-  .hero-doc--blue { --doc-accent: 210 78% 42%; }
-  .hero-doc--rose { --doc-accent: 349 54% 42%; }
-  .hero-doc--sky { --doc-accent: 202 83% 40%; }
-  .hero-doc--sage { --doc-accent: 164 32% 34%; }
+  /* The photo moves first and alone: a transform-only settle, so it never delays LCP. */
+  .hero-photo {
+    animation: photo-settle var(--dur-6) var(--ease-reveal) both;
+  }
 
-  .hero-doc--ats { left: -8px; top: 3%; opacity: .46; transform: rotate(-7deg) scale(.88); animation: hero-doc-drift-a 16s ease-in-out infinite alternate; }
-  .hero-doc--gcc { right: -50px; top: 7%; z-index: 12; opacity: .56; transform: rotate(6deg) scale(.92); animation: hero-doc-drift-b 18s ease-in-out -4s infinite alternate; }
-  .hero-doc--executive { left: -36px; top: 39%; z-index: 12; opacity: .42; transform: rotate(-5deg) scale(.82); animation: hero-doc-drift-c 14s ease-in-out -7s infinite alternate; }
-  .hero-doc--europass { right: -44px; top: 38%; opacity: .3; filter: blur(.55px); transform: rotate(8deg) scale(.84); animation: hero-doc-drift-a 19s ease-in-out -5s infinite alternate; }
-  .hero-doc--cover { left: 14%; bottom: -29px; opacity: .24; filter: blur(.8px); transform: rotate(5deg) scale(.77); animation: hero-doc-drift-b 17s ease-in-out -9s infinite alternate; }
+  /* Editorial sheet: the CV-paper card used by the hero and the rewrite section. */
+  .cv-sheet {
+    @apply rounded-[var(--radius-md)] border border-foreground/10 bg-card;
+    box-shadow: var(--shadow-sheet);
+  }
+
+  /* While the phone sticky CTA bar is up it carries WhatsApp, so the floating bubble steps aside. */
+  @media (max-width: 639px) {
+    body[data-sticky-cta="on"] .whatsapp-float {
+      display: none;
+    }
+  }
+
+  /* Footer wordmark: anchored flush to the bottom edge, bleeding off it on purpose. */
+  .footer-wordmark {
+    @apply font-serif;
+    font-weight: 500;
+    font-size: clamp(2.75rem, 12vw, 11rem);
+    /* Full letterforms stay visible; only the descender of the "y" bleeds off the edge. */
+    line-height: 1;
+    letter-spacing: -0.045em;
+    margin-bottom: -0.13em;
+  }
 }
 
-@keyframes hero-doc-drift-a {
-  to { translate: -4px 7px; rotate: -.7deg; scale: 1.005; }
+@keyframes redline-draw {
+  from { background-size: 0% max(2px, 0.075em); }
 }
 
-@keyframes hero-doc-drift-b {
-  to { translate: 5px -5px; rotate: .65deg; scale: 1.008; }
+@keyframes rewrite-in {
+  from { opacity: 0; transform: translateY(0.45em); }
 }
 
-@keyframes hero-doc-drift-c {
-  to { translate: 3px 6px; rotate: -.55deg; scale: 1.006; }
+@keyframes intro-rise {
+  from { opacity: 0; transform: translateY(18px); }
 }
 
-@media (max-width: 1100px) {
-  .hero-doc--gcc { left: -8px; right: auto; top: 17%; }
-}
-
-@media (max-width: 1023px) {
-  .hero-collage { inset: -14px -12px -18px; }
-  .hero-doc--executive, .hero-doc--cover { display: none; }
-  .hero-doc--ats { left: -4px; }
-  .hero-doc--gcc { left: -8px; right: auto; }
-  .hero-doc--europass { right: -8px; }
-}
-
-@media (max-width: 639px) {
-  .hero-collage { inset: -10px -4px -15px; overflow: hidden; border-radius: 28px; }
-  .hero-doc { width: 104px; height: 138px; padding: 8px; opacity: .34; }
-  .hero-doc__topline { margin: -8px -8px 8px; }
-  .hero-doc--ats { left: -18px; top: 10%; display: block; }
-  .hero-doc--gcc { left: -18px; right: auto; top: 12%; display: block; }
-  .hero-doc--gcc { display: none; }
-  .hero-doc--executive, .hero-doc--europass, .hero-doc--cover { display: none; }
+@keyframes photo-settle {
+  from { transform: scale(1.06); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero-doc { animation: none !important; }
+  .redline--draw, .rewrite-in, .intro-rise, .hero-photo { animation: none !important; }
+  .skip-link { transition: none; }
 }

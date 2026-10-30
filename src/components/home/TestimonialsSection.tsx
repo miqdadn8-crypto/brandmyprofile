@@ -47,17 +47,17 @@ function ReviewsContent() {
 
   if (!isLive) {
     return (
-      <p className="py-2 text-center text-base text-muted-foreground">
-        See what clients say about BrandMyProfile.{" "}
+      <div className="flex flex-col gap-4 border-y border-foreground/15 py-8 sm:flex-row sm:items-center sm:justify-between">
+        <p className="font-serif text-2xl leading-tight tracking-[-0.015em] sm:text-3xl">See what clients say about BrandMyProfile.</p>
         <a
           href={googleUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-1.5 font-semibold text-primary hover:text-primary-hover hover:underline"
+          className="inline-flex min-h-12 w-fit shrink-0 items-center gap-2 rounded-lg border-2 border-primary/40 px-5 font-semibold text-primary transition-colors duration-200 ease-micro hover:border-primary hover:bg-primary hover:text-primary-foreground"
         >
           Read our reviews on Google <ExternalLink className="h-4 w-4" aria-hidden="true" />
         </a>
-      </p>
+      </div>
     );
   }
 
@@ -73,7 +73,7 @@ function ReviewsContent() {
         <p className="mb-6 flex flex-wrap items-center justify-center gap-2 text-sm font-semibold text-foreground">
           <span className="flex" aria-hidden="true">
             {Array.from({ length: 5 }).map((_, i) => (
-              <Star key={i} className={`h-4 w-4 ${i < Math.round(rating) ? "fill-accent text-accent" : "text-border"}`} />
+              <Star key={i} className={`h-4 w-4 ${i < Math.round(rating) ? "fill-foreground text-foreground" : "text-border"}`} />
             ))}
           </span>
           <span>{rating.toFixed(1)} on Google{totalReviews ? ` · ${totalReviews} reviews` : ""}</span>
@@ -92,7 +92,7 @@ function ReviewsContent() {
           >
             <div className="mb-3 flex items-center gap-1" aria-label={`${review.rating} out of 5 stars`}>
               {Array.from({ length: 5 }).map((_, i) => (
-                <Star key={i} className={`h-4 w-4 ${i < review.rating ? "fill-accent text-accent" : "text-border"}`} aria-hidden="true" />
+                <Star key={i} className={`h-4 w-4 ${i < review.rating ? "fill-foreground text-foreground" : "text-border"}`} aria-hidden="true" />
               ))}
             </div>
             <blockquote className="flex-1 whitespace-pre-line text-base leading-7 text-foreground/90">{review.text}</blockquote>
@@ -105,7 +105,14 @@ function ReviewsContent() {
                 </span>
               )}
               <span className="min-w-0">
-                <span className="block truncate text-sm font-semibold">{review.author}</span>
+                {/* Google requires reviewer attribution: the name links to their Google profile. */}
+                {review.authorUrl ? (
+                  <a href={review.authorUrl} target="_blank" rel="noopener noreferrer" className="block truncate text-sm font-semibold underline-offset-4 hover:underline">
+                    {review.author}
+                  </a>
+                ) : (
+                  <span className="block truncate text-sm font-semibold">{review.author}</span>
+                )}
                 <span className="block text-xs text-muted-foreground">{review.relativeTime} · Posted on Google</span>
               </span>
             </footer>
@@ -118,7 +125,7 @@ function ReviewsContent() {
           href={googleUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-accent"
+          className="inline-flex items-center gap-2 text-sm font-semibold text-primary underline-offset-4 hover:underline"
         >
           Read More Reviews on Google <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
         </a>
@@ -131,7 +138,7 @@ export default function TestimonialsSection() {
   const { ref, near } = useNearViewport<HTMLDivElement>();
 
   return (
-    <section className="py-4" aria-label="Client reviews">
+    <section className="py-10 md:py-14" aria-label="Client reviews">
       <div className="section-container">
         <div ref={ref} className="min-h-[3rem]">
           {near ? <ReviewsContent /> : null}

@@ -142,7 +142,7 @@ function ArticleMeta({ post }: { post: BlogPostMeta }) {
 function StandardArticleCard({ post, region, wide = false }: { post: BlogPostMeta; region: string; wide?: boolean }) {
   const service = getServiceLink(post, region);
   return (
-    <article className={`group grid overflow-hidden rounded-[22px] border border-border/80 bg-white p-3 shadow-[var(--shadow-card)] transition-[transform,box-shadow] duration-200 hover:-translate-y-1 hover:shadow-[var(--shadow-card-hover)] ${wide ? "lg:grid-cols-[0.9fr_1.1fr]" : ""}`}>
+    <article className={`group grid overflow-hidden rounded-[22px] border border-border/80 bg-white p-3 shadow-[var(--shadow-card)] transition-[box-shadow,border-color] duration-200 hover:border-primary/25 hover:shadow-[var(--shadow-card-hover)] ${wide ? "lg:grid-cols-[0.9fr_1.1fr]" : ""}`}>
       <EditorialCover post={post} />
       <div className="flex flex-col p-4 sm:p-5">
         <div className="mb-4 flex flex-wrap gap-2">

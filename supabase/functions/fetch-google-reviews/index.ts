@@ -3,14 +3,15 @@ import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 const GOOGLE_PLACES_API_KEY = Deno.env.get("GOOGLE_PLACES_API_KEY");
 const GOOGLE_PLACE_ID = Deno.env.get("GOOGLE_PLACE_ID");
 
-interface GoogleReview {
-  author_name: string;
-  author_url?: string;
-  profile_photo_url?: string;
-  rating: number;
-  relative_time_description: string;
-  text: string;
-  time: number;
+// Places API (New) review shape. The legacy Place Details endpoint cannot be enabled on new
+// Google Cloud projects, so this uses https://places.googleapis.com/v1/places/{id}.
+interface PlacesReview {
+  rating?: number;
+  relativePublishTimeDescription?: string;
+  publishTime?: string;
+  text?: { text?: string };
+  originalText?: { text?: string };
+  authorAttribution?: { displayName?: string; uri?: string; photoUri?: string };
 }
 
 serve(async (req) => {
@@ -31,39 +32,39 @@ serve(async (req) => {
   }
 
   try {
-    const url = new URL("https://maps.googleapis.com/maps/api/place/details/json");
-    url.searchParams.set("place_id", GOOGLE_PLACE_ID);
-    url.searchParams.set("fields", "name,rating,user_ratings_total,reviews,url");
-    url.searchParams.set("reviews_sort", "newest");
-    url.searchParams.set("key", GOOGLE_PLACES_API_KEY);
+    // The field mask decides the billing tier: requesting `reviews` makes this an Enterprise +
+    // Atmosphere call (covered by Google's free monthly allowance at this site's volume).
+    const response = await fetch(`https://places.googleapis.com/v1/places/${encodeURIComponent(GOOGLE_PLACE_ID)}`, {
+      headers: {
+        "X-Goog-Api-Key": GOOGLE_PLACES_API_KEY,
+        "X-Goog-FieldMask": "displayName,rating,userRatingCount,reviews,googleMapsUri",
+      },
+    });
 
-    const response = await fetch(url.toString());
+    const result = await response.json();
     if (!response.ok) {
-      throw new Error(`Google Places API error: ${response.statusText}`);
+      throw new Error(`Google Places API error ${response.status}: ${result?.error?.message ?? response.statusText}`);
     }
 
-    const data = await response.json();
-    if (data.status !== "OK") {
-      throw new Error(`Google Places API status: ${data.status}${data.error_message ? ` - ${data.error_message}` : ""}`);
-    }
-
-    const result = data.result ?? {};
-    const reviews: GoogleReview[] = result.reviews ?? [];
+    const reviews: PlacesReview[] = result.reviews ?? [];
 
     const payload = {
-      name: result.name ?? null,
+      name: result.displayName?.text ?? null,
       rating: result.rating ?? null,
-      totalReviews: result.user_ratings_total ?? null,
-      mapsUrl: result.url ?? null,
-      reviews: reviews.map((r) => ({
-        author: r.author_name,
-        authorUrl: r.author_url ?? null,
-        avatar: r.profile_photo_url ?? null,
-        rating: r.rating,
-        relativeTime: r.relative_time_description,
-        text: r.text,
-        time: r.time,
-      })),
+      totalReviews: result.userRatingCount ?? null,
+      mapsUrl: result.googleMapsUri ?? null,
+      reviews: reviews
+        .map((r) => ({
+          author: r.authorAttribution?.displayName ?? "Google user",
+          authorUrl: r.authorAttribution?.uri ?? null,
+          avatar: r.authorAttribution?.photoUri ?? null,
+          rating: r.rating ?? 0,
+          relativeTime: r.relativePublishTimeDescription ?? "",
+          text: r.text?.text ?? r.originalText?.text ?? "",
+          time: r.publishTime ? Math.floor(Date.parse(r.publishTime) / 1000) : 0,
+        }))
+        // Newest first, as the legacy `reviews_sort=newest` did.
+        .sort((a, b) => b.time - a.time),
       fetchedAt: new Date().toISOString(),
     };
 

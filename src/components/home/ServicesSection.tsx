@@ -50,8 +50,9 @@ const masterclass = {
 };
 
 const TILE_RADIUS = "rounded-[var(--radius-bento)]";
+// Hover never moves the box: only the border and shadow change tone.
 const TILE_TRANSITION =
-  "transition-[transform,box-shadow,border-color] duration-200 hover:-translate-y-[3px] motion-reduce:transition-none motion-reduce:hover:translate-y-0";
+  "transition-[box-shadow,border-color] duration-200 ease-micro motion-reduce:transition-none";
 
 export default function ServicesSection() {
   const { selectedRegion } = useRegion();
@@ -74,26 +75,17 @@ export default function ServicesSection() {
     <section
       id="services"
       aria-labelledby="services-heading"
-      className="relative overflow-hidden bg-[hsl(var(--surface-warm))] pb-16 pt-8 md:pb-24 md:pt-8"
+      className="section-padding relative bg-[hsl(var(--surface-warm))]"
     >
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -left-24 top-24 h-72 w-72 rounded-full bg-primary/[0.05] blur-3xl"
-      />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -right-24 bottom-16 h-72 w-72 rounded-full bg-primary/[0.05] blur-3xl"
-      />
-
-      <div className="section-container relative z-10 max-w-[1180px]">
-        <Reveal className="mx-auto mb-12 max-w-3xl text-center md:mb-14">
+      <div className="section-container relative">
+        <Reveal className="mb-12 grid gap-5 md:mb-14 lg:grid-cols-12 lg:items-end">
           <h2
             id="services-heading"
-            className="heading-section mb-5"
+            className="heading-section lg:col-span-7"
           >
             Career Services Built to Get You Noticed
           </h2>
-          <p className="mx-auto max-w-[760px] text-base leading-7 text-muted-foreground md:text-lg md:leading-8">
+          <p className="max-w-md text-base leading-7 text-muted-foreground md:text-lg md:leading-8 lg:col-span-5 lg:justify-self-end">
             {content.homeServicesIntro}
           </p>
         </Reveal>
@@ -122,7 +114,7 @@ export default function ServicesSection() {
                 </span>
               </div>
 
-              <h3 className="text-[1.875rem] font-bold leading-tight tracking-tight md:text-[2.125rem]">
+              <h3 className="font-serif text-[2rem] font-medium leading-[1.05] tracking-[-0.02em] md:text-[2.5rem]">
                 {featuredService.title}
               </h3>
               <p className="mt-3 text-base leading-7 text-muted-foreground md:text-lg">
@@ -177,7 +169,7 @@ export default function ServicesSection() {
                   </div>
                   <Link
                     to={"/" + selectedRegion.code + service.path}
-                    className="group mt-4 inline-flex w-fit items-center gap-1.5 text-base font-semibold text-primary transition-colors hover:text-accent"
+                    className="group mt-4 inline-flex w-fit items-center gap-1.5 text-base font-semibold text-primary transition-colors duration-200 hover:text-primary-hover hover:underline underline-offset-4"
                   >
                     {service.cta}
                     <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
@@ -204,7 +196,7 @@ export default function ServicesSection() {
                 </div>
                 <Link
                   to={"/" + selectedRegion.code + masterclass.path}
-                  className="group inline-flex shrink-0 items-center gap-1.5 text-base font-semibold text-primary transition-colors hover:text-accent"
+                  className="group inline-flex shrink-0 items-center gap-1.5 text-base font-semibold text-primary transition-colors duration-200 hover:text-primary-hover hover:underline underline-offset-4"
                 >
                   {masterclass.cta}
                   <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />

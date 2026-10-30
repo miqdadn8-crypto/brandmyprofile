@@ -6,30 +6,31 @@ import {
 } from "@/components/ui/accordion";
 import { Link } from "react-router-dom";
 import Reveal from "@/components/motion/Reveal";
-import faqs from "@/lib/data/faqs.json";
 import { useRegion } from "@/contexts/RegionContext";
-import { getFaqsForRegion } from "@/lib/data/regionContent";
+import { useHomeFaqs } from "@/hooks/useHomeFaqs";
 
 export default function FAQSection() {
   const { selectedRegion } = useRegion();
-  const regionFaqs = getFaqsForRegion(selectedRegion.code, faqs);
+  const regionFaqs = useHomeFaqs();
 
   return (
-    <section className="section-padding bg-secondary/30">
-      <div className="section-container">
-        <Reveal className="text-center mb-12">
-          <h2 className="heading-section mb-4">Frequently Asked Questions</h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Find out what to expect before you get started. Still unsure?{" "}
-            <Link to={`/${selectedRegion.code}/contact`} className="font-semibold text-primary underline underline-offset-4">Contact us</Link>.
-          </p>
+    <section className="section-padding bg-background">
+      <div className="section-container grid gap-10 lg:grid-cols-12 lg:gap-14">
+        <Reveal className="lg:col-span-4">
+          <div className="lg:sticky lg:top-28">
+            <h2 className="heading-section mb-5">Frequently Asked Questions</h2>
+            <p className="max-w-sm text-lg leading-8 text-muted-foreground">
+              Find out what to expect before you get started. Still unsure?{" "}
+              <Link to={`/${selectedRegion.code}/contact`} className="font-semibold text-primary underline underline-offset-4">Contact us</Link>.
+            </p>
+          </div>
         </Reveal>
 
-        <div className="max-w-[820px] mx-auto">
-          <Accordion type="single" collapsible className="w-full">
+        <div className="lg:col-span-8">
+          <Accordion type="single" collapsible defaultValue="item-0" className="w-full border-t border-foreground/15">
             {regionFaqs.map((faq, index) => (
-              <AccordionItem key={index} value={`item-${index}`} className="border-border/80">
-                <AccordionTrigger className="py-5 text-left text-lg font-semibold">
+              <AccordionItem key={index} value={`item-${index}`} className="border-foreground/15">
+                <AccordionTrigger className="py-6 text-left text-lg font-semibold hover:no-underline hover:text-primary [&[data-state=open]]:text-primary">
                   {faq.question}
                 </AccordionTrigger>
                 <AccordionContent className="text-base leading-7 text-muted-foreground">

@@ -9,11 +9,13 @@ import {
   FileCheck2,
   Layers,
   MapPin,
+  MessageCircle,
   Printer,
   RotateCcw,
   ScanSearch,
   ShieldAlert,
   Sparkles,
+  Upload,
   Wrench,
   XCircle,
 } from "lucide-react";
@@ -24,6 +26,8 @@ import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { useRegion } from "@/contexts/RegionContext";
+import { useLeadModal } from "@/components/lead/LeadModalContext";
+import { buildWhatsAppUrl } from "@/lib/whatsapp";
 import { organizationSchema, websiteSchema } from "@/lib/seo/organization";
 
 const CANONICAL_URL = "https://www.brandmyprofile.com/resources/gcc-cv-checklist";
@@ -182,6 +186,7 @@ const whatNotToInclude = [
 
 export default function GccCvChecklist() {
   const { selectedRegion } = useRegion();
+  const { openLeadModal } = useLeadModal();
   const [checked, setChecked] = useState<Record<string, boolean>>({});
   const [hydrated, setHydrated] = useState(false);
 
@@ -281,12 +286,36 @@ export default function GccCvChecklist() {
                 safety, experience writing and proofreading - work through it before you submit your next application.
               </p>
               <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-                <Button variant="cta" size="xl" className="w-full whitespace-normal px-6 text-base sm:w-auto" onClick={() => { trackEvent("resource_print", { page_type: "resource", service: "gcc-cv-checklist" }); window.print(); }}>
+                <Button size="xl" className="w-full whitespace-normal px-6 text-base sm:w-auto" onClick={() => { trackEvent("resource_print", { page_type: "resource", service: "gcc-cv-checklist" }); window.print(); }}>
                   <Printer className="h-5 w-5" />
                   Print or Save as PDF
                 </Button>
                 <Button variant="outline" size="xl" className="w-full bg-white/70 px-6 text-base sm:w-auto" asChild>
                   <a href="/blog/gcc-cv-format-guide">Read the GCC CV Format Guide</a>
+                </Button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Lead magnet: turns checklist readers into CV-review enquiries. Screen only. */}
+        <section className="border-b border-border bg-[hsl(var(--surface-warm))] py-8 print:hidden">
+          <div className="section-container">
+            <div className="flex flex-col gap-6 rounded-[var(--radius-bento)] border border-border bg-card p-6 shadow-[var(--shadow-card)] sm:p-8 lg:flex-row lg:items-center lg:justify-between">
+              <div className="max-w-2xl">
+                <h2 className="text-2xl font-bold tracking-tight">Get a free score for your CV against this checklist</h2>
+                <p className="mt-2 text-base leading-7 text-muted-foreground">
+                  Send us your CV and a writer scores it section by section against this checklist, then tells you what to fix first. Free, no obligation.
+                </p>
+              </div>
+              <div className="flex shrink-0 flex-col gap-3 sm:flex-row lg:flex-col xl:flex-row">
+                <Button variant="cta" size="lg" className="min-h-12 px-6 text-base" asChild>
+                  <a href={buildWhatsAppUrl(`Hello BrandMyProfile, I used the GCC CV checklist. Please score my CV against it - I'll send my CV here. I'm targeting jobs in ${selectedRegion.name}.`)} target="_blank" rel="noopener noreferrer">
+                    <MessageCircle className="h-5 w-5" aria-hidden="true" />Score my CV on WhatsApp
+                  </a>
+                </Button>
+                <Button variant="outline" size="lg" className="min-h-12 bg-card px-6 text-base" onClick={() => openLeadModal({ trigger: "checklist_magnet", service: "Professional CV Writing" })}>
+                  <Upload className="h-5 w-5" aria-hidden="true" />Upload my CV instead
                 </Button>
               </div>
             </div>

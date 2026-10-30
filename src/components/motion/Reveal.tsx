@@ -39,8 +39,8 @@ export default function Reveal({ delay = 0, className, children }: RevealProps) 
     <div
       ref={ref}
       className={cn(
-        state !== "static" && "transition-[opacity,transform] duration-500 ease-out",
-        state === "pending" && "translate-y-5 opacity-0",
+        state !== "static" && "transition-[opacity,transform] duration-700 ease-enter",
+        state === "pending" && "translate-y-4 opacity-0",
         className,
       )}
       style={state === "shown" && delay ? { transitionDelay: `${delay}s` } : undefined}

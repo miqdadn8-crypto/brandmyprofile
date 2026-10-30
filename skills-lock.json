@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "skills": {
+    "awwwards-web-design": {
+      "source": "owenisas/awwwards-web-design",
+      "sourceType": "github",
+      "skillPath": "skills/awwwards-web-design/SKILL.md",
+      "computedHash": "8f9b21e96d20e254f41c0d677df5b05bce539545ff313a182ad5a8df03316355"
+    }
+  }
+}

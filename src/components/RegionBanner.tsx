@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { X } from "lucide-react";
+import { useLocation } from "react-router-dom";
 import { useRegion } from "@/contexts/RegionContext";
 import { Button } from "@/components/ui/button";
 
@@ -19,7 +20,9 @@ export default function RegionBanner() {
     sessionStorage.setItem("region-banner-dismissed", "true");
   };
 
-  if (!isVisible) return null;
+  const { pathname } = useLocation();
+  // Ads landing pages show one offer only; no region switching links.
+  if (!isVisible || pathname.endsWith("/free-cv-review")) return null;
 
   return (
     <div className="relative bg-primary/95 px-4 py-1.5 pr-9 text-white">

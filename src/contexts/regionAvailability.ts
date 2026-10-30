@@ -6,7 +6,7 @@
 // RegionContext.tsx, which also exports the RegionProvider component) purely to avoid
 // growing that file's non-component export surface for react-refresh's sake.
 export const LIMITED_FOOTPRINT_REGIONS = new Set(["bahrain", "oman"]);
-export const LIMITED_FOOTPRINT_ALLOWED_SUFFIXES = ["", "/services/cv-writing", "/contact"];
+export const LIMITED_FOOTPRINT_ALLOWED_SUFFIXES = ["", "/services/cv-writing", "/contact", "/free-cv-review"];
 
 // Routes that only exist for one specific region regardless of footprint status - e.g.
 // Europass CV writing is only offered for India (Unit 3D), never for Kuwait/UAE/Saudi/

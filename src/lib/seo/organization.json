@@ -6,17 +6,55 @@
     "name": "BrandMyProfile",
     "alternateName": [
       "Brand My Profile",
+      "brandmyprofile",
+      "Brand MyProfile",
       "BrandMyProfile.com"
     ],
     "url": "https://www.brandmyprofile.com",
-    "logo": "https://www.brandmyprofile.com/brandmyprofile-og.png",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.brandmyprofile.com/brandmyprofile-logo.png",
+      "width": 256,
+      "height": 256
+    },
+    "image": "https://www.brandmyprofile.com/brandmyprofile-og.png",
     "description": "Professional CV writing, LinkedIn optimization and career coaching for professionals in Kuwait, UAE, Saudi Arabia, Qatar and India.",
     "telephone": "+965 41103254",
     "email": "info@brandmyprofile.com",
+    "contactPoint": [
+      {
+        "@type": "ContactPoint",
+        "contactType": "customer service",
+        "telephone": "+965 41103254",
+        "email": "info@brandmyprofile.com",
+        "availableLanguage": [
+          "English"
+        ],
+        "areaServed": [
+          "KW",
+          "AE",
+          "SA",
+          "QA",
+          "BH",
+          "OM",
+          "IN"
+        ]
+      }
+    ],
     "sameAs": [
       "https://www.linkedin.com/company/brandmyprofile",
       "https://www.instagram.com/brandmyprofile/",
       "https://share.google/2G466PLGfS085Dtiz"
+    ],
+    "knowsAbout": [
+      "CV writing",
+      "Resume writing",
+      "ATS-friendly CVs",
+      "GCC CV format",
+      "Europass CV",
+      "LinkedIn profile optimization",
+      "Career coaching",
+      "Interview preparation"
     ],
     "areaServed": [
       {
@@ -51,6 +89,8 @@
   },
   "siteAlternateName": [
     "Brand My Profile",
+    "brandmyprofile",
+    "Brand MyProfile",
     "BrandMyProfile.com"
   ]
 }

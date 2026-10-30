@@ -7,33 +7,15 @@
          that does not render <SEO>. src/components/SEO.tsx sets document.title on every
          public content page, so this is not a duplicate DOM node. -->
     <title>CV Writing Services for GCC Professionals | BrandMyProfile</title>
-    <meta name="theme-color" content="#0066cc" />
+    <meta name="theme-color" content="#005266" />
+    <!-- Bing Webmaster Tools ownership. Must stay in place after verification succeeds. -->
+    <meta name="msvalidate.01" content="4D58ACD9A11BC2B0D5AD3896508D3AC9" />
 
-    <!-- Preconnect for Performance -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
-
-    <!-- Fonts with Display Swap, loaded non-render-blocking (Unit 9: preload + swap-media
-         trick) - the stylesheet itself no longer blocks first paint; falls back to a normal
-         blocking <link> via <noscript> for the rare case JS never runs. -->
-    <link
-      rel="preload"
-      as="style"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
-      rel="stylesheet"
-      media="print"
-      onload="this.media='all'; this.onload=null;"
-    />
-    <noscript>
-      <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
-        rel="stylesheet"
-      />
-    </noscript>
+    <!-- Self-hosted fonts (public/fonts, @font-face in src/index.css): Sentient for display,
+         Switzer for text, both from Fontshare under the ITF Free Font License. Only the two
+         faces the first screen needs are preloaded; the rest load on demand with swap. -->
+    <link rel="preload" href="/fonts/sentient-500-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/switzer-400-normal.woff2" as="font" type="font/woff2" crossorigin />
 
     <!-- Global Twitter metadata not managed by SEO.tsx -->
     <meta name="twitter:site" content="@brandmyprofile" />

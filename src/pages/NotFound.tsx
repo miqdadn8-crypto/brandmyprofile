@@ -1,5 +1,5 @@
 import { useLocation } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, type CSSProperties } from "react";
 import { Helmet } from "react-helmet-async";
 import { useRegion } from "@/contexts/RegionContext";
 
@@ -12,7 +12,7 @@ const NotFound = () => {
   }, [location.pathname]);
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-primary/10 via-background to-accent/5 px-4">
+    <div className="flex min-h-screen items-center bg-background px-4 py-16 sm:px-6 lg:px-8">
       {/* Deliberately not using the shared <SEO> component: this page must never emit a
           canonical or og:url tag, since the hosting SPA fallback returns HTTP 200 for any
           nonexistent path and we don't want it treated as indexable or as a real page URL. */}
@@ -25,40 +25,43 @@ const NotFound = () => {
           content="The page you requested could not be found. Return to BrandMyProfile to explore professional career services."
         />
       </Helmet>
-      <div className="text-center max-w-2xl mx-auto">
-        <div className="mb-8 animate-fade-in">
-          <h1 className="text-[120px] md:text-[180px] font-bold text-primary leading-none mb-2">
-            404
-          </h1>
-          <div className="h-1 w-32 bg-gradient-to-r from-primary to-accent mx-auto mb-6 rounded-full" />
-        </div>
+      <main className="mx-auto w-full max-w-5xl">
+        <h1 className="font-serif text-[clamp(6rem,4rem+10vw,13rem)] font-medium leading-[0.85] tracking-[-0.05em] text-primary">
+          404
+        </h1>
 
-        <h2 className="text-3xl md:text-4xl font-bold mb-4 animate-fade-in">
+        {/* The redline again: the pen strikes the address that does not exist. */}
+        <p className="mt-8 max-w-full break-all font-serif text-xl text-muted-foreground sm:text-2xl">
+          <span className="sr-only">Requested address: </span>
+          <del className="redline redline--draw" style={{ "--redline-delay": "250ms" } as CSSProperties}>{location.pathname}</del>
+        </p>
+
+        <h2 className="mt-8 text-3xl md:text-5xl">
           Looks like you're lost!
         </h2>
-        <p className="text-lg text-muted-foreground mb-8 max-w-md mx-auto animate-fade-in">
+        <p className="mt-4 mb-10 max-w-md text-lg leading-8 text-muted-foreground">
           The page you're looking for doesn't exist or has been moved. Let's get you back on track.
         </p>
 
-        <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in">
+        <div className="flex flex-col gap-3 sm:flex-row">
           <a
             href={`/${selectedRegion.code}`}
-            className="inline-flex items-center justify-center rounded-lg bg-gradient-to-r from-primary to-primary-hover text-primary-foreground px-8 py-3 font-semibold hover:scale-105 transition-transform shadow-lg hover:shadow-xl"
+            className="inline-flex min-h-12 items-center justify-center rounded-lg bg-primary px-8 font-semibold text-primary-foreground transition-colors duration-200 hover:bg-primary-hover"
           >
             Back to Home
           </a>
           <a
             href={`/${selectedRegion.code}/jobs`}
-            className="inline-flex items-center justify-center rounded-lg border-2 border-primary text-primary px-8 py-3 font-semibold hover:bg-primary/5 hover:scale-105 transition-all"
+            className="inline-flex min-h-12 items-center justify-center rounded-lg border-2 border-primary/40 px-8 font-semibold text-primary transition-colors duration-200 hover:border-primary hover:bg-primary hover:text-primary-foreground"
           >
             Browse Jobs
           </a>
         </div>
 
-        <p className="mt-8 text-sm text-muted-foreground animate-fade-in">
-          Need help? <a href={`/${selectedRegion.code}/contact`} className="text-primary hover:underline font-medium">Contact our support team</a>
+        <p className="mt-8 text-sm text-muted-foreground">
+          Need help? <a href={`/${selectedRegion.code}/contact`} className="font-medium text-primary underline underline-offset-4">Contact our support team</a>
         </p>
-      </div>
+      </main>
     </div>
   );
 };

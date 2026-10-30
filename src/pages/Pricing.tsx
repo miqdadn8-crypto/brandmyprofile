@@ -25,6 +25,7 @@ import { Button } from "@/components/ui/button";
 import { useRegion } from "@/contexts/RegionContext";
 import { getRegionContent } from "@/lib/data/regionContent";
 import { organizationSchema } from "@/lib/seo/organization";
+import { CV_PACKAGES } from "@/lib/data/cvPackages";
 import { buildPackageEnquiryMessage, buildWhatsAppUrl } from "@/lib/whatsapp";
 
 interface PriceData {
@@ -44,10 +45,13 @@ interface PricingTier {
   cta: string;
 }
 
+// Names and "best for" come from the shared package list (also used on the homepage).
+const pkg = (tierKey: string) => CV_PACKAGES.find((p) => p.tierKey === tierKey)!;
+
 const pricingTiers: PricingTier[] = [
   {
-    name: "Essential",
-    bestFor: "Fresh graduates or professionals who need a strong CV foundation",
+    name: pkg("basic").name,
+    bestFor: pkg("basic").bestFor,
     features: [
       "Professional CV writing",
       "ATS-optimized format",
@@ -61,8 +65,8 @@ const pricingTiers: PricingTier[] = [
     cta: "Choose Essential",
   },
   {
-    name: "Professional",
-    bestFor: "Active job seekers who want stronger CV + LinkedIn positioning",
+    name: pkg("pro").name,
+    bestFor: pkg("pro").bestFor,
     features: [
       "Everything in Essential",
       "Full LinkedIn profile makeover",
@@ -77,8 +81,8 @@ const pricingTiers: PricingTier[] = [
     cta: "Choose Professional",
   },
   {
-    name: "Executive",
-    bestFor: "Managers and senior professionals targeting higher-level roles",
+    name: pkg("elite").name,
+    bestFor: pkg("elite").bestFor,
     features: [
       "Everything in Professional",
       "Executive CV format",

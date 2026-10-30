@@ -1,6 +1,8 @@
 {
   "trailingSlash": false,
   "redirects": [
+    { "source": "/blog/ats-friendly-cv-tips-2025", "destination": "/blog/how-ats-reads-your-cv", "permanent": true },
+
     { "source": "/jobs/:region(kuwait|uae|saudi|qatar|india)/:id", "destination": "/:region/jobs/:id", "permanent": true },
 
     { "source": "/:page(services/europass-cv|gcc-jobs|europe-jobs)", "destination": "/india/:page", "permanent": true },
@@ -14,6 +16,6 @@
     { "source": "/:page(pricing|about|success-stories|schedule|jobs|services/ats-cv|services/gcc-cv|services/linkedin-makeover|services/masterclass|services/career-guidance|contact|services/cv-writing)", "destination": "/kuwait/:page", "permanent": true }
   ],
   "rewrites": [
-    { "source": "/:region(kuwait|uae|saudi|qatar|india)/jobs/:id", "destination": "/index.html" }
+    { "source": "/:region(kuwait|uae|saudi|qatar|india)/jobs/:id", "destination": "/app-shell.html" }
   ]
 }

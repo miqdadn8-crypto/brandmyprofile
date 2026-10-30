@@ -68,7 +68,7 @@ reason for a third party to cite it.
 
 **B - Informational (genuine outreach candidates - answer a real question):**
 `gcc-cv-format-guide`, `kuwait-cv-format-guide`, `gcc-cv-mistakes`, `how-ats-reads-your-cv`,
-`ats-friendly-cv-tips-2025`, `ats-cv-guide-kuwait`, `india-to-gcc-jobs-guide`,
+`ats-cv-guide-kuwait`, `india-to-gcc-jobs-guide`,
 `engineering-cv-kuwait-guide`, `oil-gas-cv-gcc-guide`, `gcc-interview-preparation`,
 `cover-letter-gcc-jobs`, `europass-cv-guide-india`, `career-transition-gcc-job-market`,
 `linkedin-headline-gulf-jobs`, `optimize-linkedin-profile-visibility`,

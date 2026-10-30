@@ -24,14 +24,14 @@ export default function WhatsAppButton() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Contact us on WhatsApp"
-      className="group fixed bottom-5 right-5 z-50 sm:bottom-6 sm:right-6"
+      className="whatsapp-float group fixed bottom-5 right-5 z-50 sm:bottom-6 sm:right-6"
     >
       {/* Pulse rings */}
       <span className="absolute inset-0 rounded-full bg-[hsl(var(--brand-whatsapp))] opacity-30 motion-safe:animate-ping motion-safe:[animation-iteration-count:3]" />
       <span className="absolute inset-[-6px] rounded-full border-2 border-[hsl(var(--brand-whatsapp))] opacity-20 motion-safe:animate-pulse motion-safe:[animation-iteration-count:3]" />
 
       {/* Button */}
-      <span className="relative flex h-14 w-14 items-center justify-center rounded-full bg-[hsl(var(--brand-whatsapp))] shadow-lg shadow-[hsl(var(--brand-whatsapp)/0.4)] ring-2 ring-[hsl(var(--brand-whatsapp-dark))] transition-transform duration-200 motion-safe:group-hover:scale-110">
+      <span className="relative flex h-14 w-14 items-center justify-center rounded-full bg-[hsl(var(--brand-whatsapp))] shadow-lg shadow-[hsl(var(--brand-whatsapp)/0.4)] ring-2 ring-[hsl(var(--brand-whatsapp-dark))] transition-colors duration-200 group-hover:bg-[hsl(var(--brand-whatsapp-dark))]">
         {/* Official WhatsApp logo SVG */}
         <svg
           xmlns="http://www.w3.org/2000/svg"

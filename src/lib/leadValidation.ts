@@ -24,6 +24,8 @@ export const LEAD_TRIGGERS = [
   "contact",
   "footer",
   "whatsapp",
+  "landing_page",
+  "checklist_magnet",
 ] as const;
 
 export type LeadService = (typeof LEAD_SERVICES)[number];

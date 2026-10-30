@@ -33,7 +33,7 @@ export const blogHubs: BlogHubConfig[] = [
       "CV writing and ATS optimization are related but distinct: writing focuses on how your experience is presented and argued, while ATS optimization focuses on machine-readable structure. Regional adaptation - GCC formatting conventions, industry-specific positioning - sits on top of both.",
     ],
     cornerstoneSlug: "gcc-cv-format-guide",
-    supportingSlugs: ["best-cv-writing-service-kuwait", "best-cv-writing-service-uae", "best-cv-writing-service-saudi", "best-cv-writing-service-qatar", "best-cv-writing-service-bahrain", "best-cv-writing-service-oman", "kuwait-cv-format-guide", "gcc-cv-mistakes", "cover-letter-gcc-jobs", "engineering-cv-kuwait-guide", "oil-gas-cv-gcc-guide", "ats-friendly-cv-tips-2025"],
+    supportingSlugs: ["best-cv-writing-service-kuwait", "best-cv-writing-service-uae", "best-cv-writing-service-saudi", "best-cv-writing-service-qatar", "best-cv-writing-service-bahrain", "best-cv-writing-service-oman", "kuwait-cv-format-guide", "gcc-cv-mistakes", "cover-letter-gcc-jobs", "engineering-cv-kuwait-guide", "oil-gas-cv-gcc-guide"],
     serviceLinks: [
       { label: "Professional CV Writing in Kuwait", path: "/kuwait/services/cv-writing" },
       { label: "GCC CV Writing", path: "/kuwait/services/gcc-cv" },
@@ -54,7 +54,7 @@ export const blogHubs: BlogHubConfig[] = [
       "A common myth is that all ATS platforms work identically, or that every employer uses one - neither is accurate. Many different ATS providers exist, each with its own parsing logic, and plenty of employers, especially smaller ones, don't use one at all.",
     ],
     cornerstoneSlug: "how-ats-reads-your-cv",
-    supportingSlugs: ["ats-friendly-cv-tips-2025", "ats-cv-guide-kuwait"],
+    supportingSlugs: ["ats-cv-guide-kuwait"],
     serviceLinks: [{ label: "ATS CV Writing", path: "/kuwait/services/ats-cv" }],
     relatedHubs: [{ label: "CV Writing Hub", path: "/blog/cv-writing" }],
   },

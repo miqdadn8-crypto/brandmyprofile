@@ -2,9 +2,9 @@ import SEO from "@/components/SEO";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
-import Hero from "@/components/home/Hero";
+import Hero from "@/components/home/HeroCinematic";
 import ServicesSection from "@/components/home/ServicesSection";
-import CvFormatsSection from "@/components/home/CvFormatsSection";
+import PackagesPreview from "@/components/home/PackagesPreview";
 import RegionsSection from "@/components/home/RegionsSection";
 import TestimonialsSection from "@/components/home/TestimonialsSection";
 import FAQSection from "@/components/home/FAQSection";
@@ -12,17 +12,18 @@ import CTASection from "@/components/home/CTASection";
 import FreeCvReviewSection from "@/components/home/FreeCvReviewSection";
 import WritingExampleSection from "@/components/home/WritingExampleSection";
 import BlogSection from "@/components/home/BlogSection";
+import StickyMobileCta from "@/components/home/StickyMobileCta";
 import { organizationSchema, professionalServiceSchema, websiteSchema } from "@/lib/seo/organization";
-import faqs from "@/lib/data/faqs.json";
 import { Link } from "react-router-dom";
 import { ArrowRight, Globe2, Plane } from "lucide-react";
 import { useRegion } from "@/contexts/RegionContext";
-import { getRegionContent, getFaqsForRegion } from "@/lib/data/regionContent";
+import { getRegionContent } from "@/lib/data/regionContent";
+import { useHomeFaqs } from "@/hooks/useHomeFaqs";
 
 export default function Home() {
   const { selectedRegion } = useRegion();
   const content = getRegionContent(selectedRegion.code);
-  const regionFaqs = getFaqsForRegion(selectedRegion.code, faqs);
+  const regionFaqs = useHomeFaqs();
 
   const homePageSchema = {
     "@context": "https://schema.org",
@@ -32,7 +33,9 @@ export default function Home() {
       websiteSchema,
       {
         "@type": "FAQPage",
-        "@id": "https://www.brandmyprofile.com/#faq",
+        // Same @id as the pre-rendered page's FAQPage (scripts/generate-static-pages.js), so
+        // the two merge into one entity instead of reading as two FAQ blocks on the page.
+        "@id": `https://www.brandmyprofile.com/${selectedRegion.code}#faq`,
         mainEntity: regionFaqs.map((faq) => ({
           "@type": "Question",
           name: faq.question,
@@ -91,11 +94,11 @@ export default function Home() {
             </div>
           </section>
         )}
-        <TestimonialsSection />
         <WritingExampleSection />
-        <ServicesSection />
+        <PackagesPreview />
         <FreeCvReviewSection />
-        <CvFormatsSection />
+        <TestimonialsSection />
+        <ServicesSection />
         <FAQSection />
         <CTASection />
         <BlogSection />
@@ -103,6 +106,7 @@ export default function Home() {
       </main>
       <Footer />
       <WhatsAppButton />
+      <StickyMobileCta />
     </div>
   );
 }

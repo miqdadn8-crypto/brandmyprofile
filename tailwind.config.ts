@@ -14,8 +14,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
-        serif: ['"Playfair Display"', 'Georgia', 'serif'],
+        sans: ['Switzer', 'system-ui', '-apple-system', '"Segoe UI"', 'sans-serif'],
+        serif: ['Sentient', 'Georgia', '"Times New Roman"', 'serif'],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -84,6 +84,11 @@ export default {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+      },
+      transitionTimingFunction: {
+        micro: "var(--ease-micro)",
+        enter: "var(--ease-enter)",
+        reveal: "var(--ease-reveal)",
       },
     },
   },

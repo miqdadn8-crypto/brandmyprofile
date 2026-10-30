@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route, Navigate, useParams } from "react-router-
 import { HelmetProvider } from "react-helmet-async";
 import { RegionProvider } from "./contexts/RegionContext";
 import RegionBanner from "@/components/RegionBanner";
+import SkipLink from "@/components/SkipLink";
 import RegionLayout from "@/components/RegionLayout";
 import RootRedirect from "@/components/RootRedirect";
 import RouteErrorBoundary from "@/components/RouteErrorBoundary";
@@ -43,6 +44,7 @@ const Schedule = lazy(() => import("./pages/Schedule"));
 const Jobs = lazy(() => import("./pages/Jobs"));
 const JobDetail = lazy(() => import("./pages/JobDetail"));
 const Blog = lazy(() => import("./pages/Blog"));
+const FreeCvReview = lazy(() => import("./pages/FreeCvReview"));
 const BlogPost = lazy(() => import("./pages/BlogPost"));
 const BlogHub = lazy(() => import("./pages/BlogHub"));
 const GccCvChecklist = lazy(() => import("./pages/GccCvChecklist"));
@@ -72,6 +74,7 @@ const App = () => (
           <BrowserRouter>
             <LeadModalProvider>
             <AnalyticsEvents />
+            <SkipLink />
             <ConsentBanner />
             <RegionBanner />
             <RouteErrorBoundary>
@@ -153,6 +156,8 @@ const App = () => (
                     <Route path="services/linkedin-makeover" element={<LinkedInMakeover />} />
                     <Route path="services/masterclass" element={<Masterclass />} />
                     <Route path="services/career-guidance" element={<CareerGuidance />} />
+                    {/* Paid-ads landing page (noindex): one offer, no site navigation. */}
+                    <Route path="free-cv-review" element={<FreeCvReview />} />
                   </Route>
 
                   {/* 404 & Fallback */}

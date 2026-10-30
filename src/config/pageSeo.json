@@ -1,13 +1,13 @@
 {
   "static": {
     "about": {
-      "title": "About BrandMyProfile - Human Career Support for GCC & India",
+      "title": "About BrandMyProfile: Human CV & Career Support",
       "descriptions": {
-        "kuwait": "BrandMyProfile provides online CV writing, ATS CV, GCC CV, LinkedIn and career-support services for professionals across Kuwait's oil & gas, engineering, construction and finance sectors.",
-        "uae": "BrandMyProfile provides online CV writing, ATS optimization, GCC CV formatting, LinkedIn and career-support services for professionals applying to the UAE's international, multi-industry job market.",
-        "saudi": "BrandMyProfile provides online CV writing, ATS optimization, GCC CV formatting, LinkedIn and career-support services for professionals targeting Saudi Arabia's engineering, construction and technology sectors.",
-        "qatar": "BrandMyProfile provides online CV writing, ATS optimization, GCC CV formatting, LinkedIn and career-support services for professionals targeting Qatar's energy, construction and hospitality sectors.",
-        "india": "BrandMyProfile provides online CV writing, ATS CV, GCC CV, Europass CV, LinkedIn and career-support services for Indian professionals preparing for GCC and international opportunities."
+        "kuwait": "BrandMyProfile offers online CV writing, ATS and GCC CVs, LinkedIn and career support for Kuwait's oil & gas, engineering and finance professionals.",
+        "uae": "BrandMyProfile offers online CV writing, ATS and GCC CVs, LinkedIn and career support for professionals applying to the UAE's international job market.",
+        "saudi": "BrandMyProfile offers online CV writing, ATS and GCC CVs, LinkedIn and career support for Saudi Arabia's engineering, construction and technology roles.",
+        "qatar": "BrandMyProfile offers online CV writing, ATS and GCC CVs, LinkedIn and career support for Qatar's energy, construction and hospitality professionals.",
+        "india": "BrandMyProfile offers online CV writing, ATS, GCC and Europass CVs, LinkedIn and career support for Indian professionals targeting GCC and global jobs."
       }
     },
     "successStories": {
@@ -44,7 +44,7 @@
   "serviceDescriptionTemplates": {
     "cv-writing": "Professional CV writing for {region} and GCC job applications, tailored to your target role with ATS-friendly structure and human review.",
     "linkedin-makeover": "Professional LinkedIn profile optimization for {region} and GCC opportunities, including headline, About, experience, skills and keyword positioning.",
-    "career-guidance": "Personalized one-to-one career guidance for professionals targeting {region} and GCC opportunities, including career direction, job-search strategy, interviews and practical action planning.",
-    "masterclass": "Live LinkedIn workshop for students, job seekers and professionals in {region}, covering profile headlines, About sections, experience, keywords, networking and recruiter visibility."
+    "career-guidance": "One-to-one career guidance for {region} and GCC job seekers: career direction, job-search strategy and interview preparation.",
+    "masterclass": "Live LinkedIn workshop in {region}: headlines, About sections, keywords and networking so recruiters can find you."
   }
 }
