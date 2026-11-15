@@ -311,7 +311,7 @@ export default function LinkedInMakeover() {
           <div className="section-container grid min-h-[760px] items-center gap-12 py-16 lg:min-h-[800px] lg:grid-cols-[1fr_0.88fr] lg:py-20">
             <div className="min-w-0 max-w-3xl">
               <p className="mb-5 text-xs font-semibold uppercase tracking-[0.16em] text-accent sm:text-sm sm:tracking-[0.22em]">
-                LinkedIn Profile Makeover for {selectedRegion.name}
+                LinkedIn Profile Writing &amp; Optimization in {selectedRegion.name}
               </p>
               <h1 className="font-serif text-[clamp(2.65rem,10vw,5.8rem)] font-semibold leading-[0.98] tracking-normal">
                 Build a LinkedIn Profile
