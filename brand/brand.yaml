@@ -1,0 +1,33 @@
+brand:
+  name: BrandMyProfile
+  slug: brandmyprofile
+  url: https://www.brandmyprofile.com
+  category: career services (CV writing, LinkedIn optimization, career coaching, jobs board)
+  depth: lite
+  markets: [kuwait, uae, saudi, qatar, india]   # live URL slugs are full names: /kuwait, /uae ...
+  services: [CV writing, ATS CV, GCC CV, Europass CV, LinkedIn makeover, cover letter, career guidance, interview prep, masterclass, jobs board]
+  offer: Basic / Pro / Elite packages + free CV review (no obligation)
+  pricing:   # CV writing, live per-region files src/lib/data/<region>/pricing.json (top-level pricing.json regionalPricing is stale, unused)
+    kuwait: {essential: 4 KWD, professional: 7 KWD, executive: 10 KWD}
+    uae: {essential: 58 AED, professional: 101 AED, executive: 144 AED}
+    saudi: {essential: 41 SAR, professional: 72 SAR, executive: 102 SAR}
+    qatar: {essential: 55 QAR, professional: 97 QAR, executive: 138 QAR}
+    india: {essential: 499 INR, professional: 899 INR, executive: 1499 INR}
+  phone: "+965 41103254"
+  primary_contact: WhatsApp (plus lead form)
+  city: Kuwait City (base), serves GCC + India online
+  rating: "4.9 from 32 Google reviews (owner screenshot, 2026-11-17)"
+  gbp_primary_category: "Career guidance service (recommend: Resume service primary)"
+  updated: 2026-11-17
+
+files:
+  - {path: brand/voice-profile.md, depth: lite, updated: 2026-11-17}
+  - {path: brand/audience.md, depth: lite, updated: 2026-11-17}
+  - {path: brand/positioning.md, depth: lite, updated: 2026-11-17}
+  - {path: brand/competitors.md, depth: lite, updated: 2026-11-17}
+  - {path: brand/stack.md, updated: 2026-11-17}
+  - {path: brand/preferences.md, updated: 2026-11-17}
+  - {path: brand/assets.md, updated: 2026-11-17}
+  - {path: brand/learnings.md, updated: 2026-11-17}
+
+campaigns: []

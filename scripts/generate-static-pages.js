@@ -647,7 +647,9 @@ async function main() {
         if (!brandFaqs?.price || !cv?.basic || !cv?.pro || !cv?.elite) return null;
         const fmt = ({ price, currency }) => (currency === 'INR' ? `₹${price.toLocaleString('en-IN')}` : `${price} ${currency}`);
         const place = region === 'uae' ? 'the UAE' : REGION_NAMES[region];
-        const fill = (template) => template.replace('{place}', place).replace('{basic}', fmt(cv.basic)).replace('{pro}', fmt(cv.pro)).replace('{elite}', fmt(cv.elite));
+        // Same "as of" date as brandFaqs.ts: the build month, when pricing.json was read.
+        const asOf = new Date().toLocaleDateString('en-GB', { month: 'long', year: 'numeric' });
+        const fill = (template) => template.replace('{asof}', asOf).replace('{place}', place).replace('{basic}', fmt(cv.basic)).replace('{pro}', fmt(cv.pro)).replace('{elite}', fmt(cv.elite));
         return { question: fill(brandFaqs.price.question), answer: fill(brandFaqs.price.answer) };
     };
     const regionContent = await loadRegionContent();

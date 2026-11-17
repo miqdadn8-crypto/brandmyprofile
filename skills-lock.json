@@ -1,11 +1,235 @@
 {
-  "version": 1,
+  "version": 2,
   "skills": {
+    "ads-incrementality-check": {
+      "source": "boringmarketer/boring-marketing-skills",
+      "commit": "7c6678c857fe514f79396ea607aa2a56ea82e676",
+      "sourceType": "github",
+      "skillPath": "skills/ads-incrementality-check/SKILL.md",
+      "computedHash": "f53f5de62751e817849513229b653a7f31b932c00df5975101c41b32662c3697"
+    },
+    "ai-search": {
+      "source": "boringmarketer/boring-marketing-skills",
+      "commit": "7c6678c857fe514f79396ea607aa2a56ea82e676",
+      "sourceType": "github",
+      "skillPath": "skills/ai-search/SKILL.md",
+      "computedHash": "da192c1572152db02eb06bc5a16a62fdf324460da9706d123518a863beba792a"
+    },
+    "audience-research": {
+      "source": "boringmarketer/boring-marketing-skills",
+      "commit": "7c6678c857fe514f79396ea607aa2a56ea82e676",
+      "sourceType": "github",
+      "skillPath": "skills/audience-research/SKILL.md",
+      "computedHash": "c14c462b26a5abe07f7b918e536719aa06d50ec904ddc19b8eb21bd963e35ebf"
+    },
     "awwwards-web-design": {
       "source": "owenisas/awwwards-web-design",
       "sourceType": "github",
       "skillPath": "skills/awwwards-web-design/SKILL.md",
-      "computedHash": "8f9b21e96d20e254f41c0d677df5b05bce539545ff313a182ad5a8df03316355"
+      "computedHash": "1cfcee3c9830cc60173062677b46d7c69ecd2a3da6726be24b70e662e48b7684"
+    },
+    "brand-voice": {
+      "source": "boringmarketer/boring-marketing-skills",
+      "commit": "7c6678c857fe514f79396ea607aa2a56ea82e676",
+      "sourceType": "github",
+      "skillPath": "skills/brand-voice/SKILL.md",
+      "computedHash": "ca1d5d4bc6f67ff63deb8de6e2d422884dbba801af30d157c9c2c60664483c29"
+    },
+    "competitive-intel": {
+      "source": "boringmarketer/boring-marketing-skills",
+      "commit": "7c6678c857fe514f79396ea607aa2a56ea82e676",
+      "sourceType": "github",
+      "skillPath": "skills/competitive-intel/SKILL.md",
+      "computedHash": "64db93d8d980c870ba3399edf48472f207590785fd4b1c4f791be54fe465b209"
+    },
+    "content-atomizer": {
+      "source": "boringmarketer/boring-marketing-skills",
+      "commit": "7c6678c857fe514f79396ea607aa2a56ea82e676",
+      "sourceType": "github",
+      "skillPath": "skills/content-atomizer/SKILL.md",
+      "computedHash": "91dbbc1b384db3cba6ef81c93a48b052b873af3ebfb71fc4a0b9aa2f6832282f"
+    },
+    "creative": {
+      "source": "boringmarketer/boring-marketing-skills",
+      "commit": "7c6678c857fe514f79396ea607aa2a56ea82e676",
+      "sourceType": "github",
+      "skillPath": "skills/creative/SKILL.md",
+      "computedHash": "9c8aa30e6307afb017d5c95e85c153ab5a99a53268f9b0acdc097c3a974f656e"
+    },
+    "direct-response-copy": {
+      "source": "boringmarketer/boring-marketing-skills",
+      "commit": "7c6678c857fe514f79396ea607aa2a56ea82e676",
+      "sourceType": "github",
+      "skillPath": "skills/direct-response-copy/SKILL.md",
+      "computedHash": "410d27577388ca4fc0f6a8edbae50fd0f85f2c457eb4c8241c2ddd76890d7c31"
+    },
+    "email-sequences": {
+      "source": "boringmarketer/boring-marketing-skills",
+      "commit": "7c6678c857fe514f79396ea607aa2a56ea82e676",
+      "sourceType": "github",
+      "skillPath": "skills/email-sequences/SKILL.md",
+      "computedHash": "927d9b1e48a23eb7d730fb61424b48dc1af85778d464ee66705222a189cdf9a9"
+    },
+    "find-local-clients": {
+      "source": "boringmarketer/boring-marketing-skills",
+      "commit": "7c6678c857fe514f79396ea607aa2a56ea82e676",
+      "sourceType": "github",
+      "skillPath": "skills/find-local-clients/SKILL.md",
+      "computedHash": "d910678ebcf56330f5661170809137ff9cd814d18b0ae1bef61287751bb6d222"
+    },
+    "first-screen-check": {
+      "source": "boringmarketer/boring-marketing-skills",
+      "commit": "7c6678c857fe514f79396ea607aa2a56ea82e676",
+      "sourceType": "github",
+      "skillPath": "skills/first-screen-check/SKILL.md",
+      "computedHash": "2d841d3d43ac8228f97151ac6478d27683265f9fd487688b802972e492ebeffa"
+    },
+    "google-ads-tracking": {
+      "source": "boringmarketer/boring-marketing-skills",
+      "commit": "7c6678c857fe514f79396ea607aa2a56ea82e676",
+      "sourceType": "github",
+      "skillPath": "skills/google-ads-tracking/SKILL.md",
+      "computedHash": "b1695d149c7134fd352015e8b045c3ceeac778d69c477bb50b8d1c69d1e8935b"
+    },
+    "google-business-profile": {
+      "source": "boringmarketer/boring-marketing-skills",
+      "commit": "7c6678c857fe514f79396ea607aa2a56ea82e676",
+      "sourceType": "github",
+      "skillPath": "skills/google-business-profile/SKILL.md",
+      "computedHash": "ca0bd567c9e0ef214563a88b27f058c958b5862dc6f8e4190f3cc465521843ec"
+    },
+    "keyword-research": {
+      "source": "boringmarketer/boring-marketing-skills",
+      "commit": "7c6678c857fe514f79396ea607aa2a56ea82e676",
+      "sourceType": "github",
+      "skillPath": "skills/keyword-research/SKILL.md",
+      "computedHash": "233547f87e1ae8b2b337ca5a7a5641c3dac2d336120e3c6633b64cfbc37a3ef4"
+    },
+    "landing-page": {
+      "source": "boringmarketer/boring-marketing-skills",
+      "commit": "7c6678c857fe514f79396ea607aa2a56ea82e676",
+      "sourceType": "github",
+      "skillPath": "skills/landing-page/SKILL.md",
+      "computedHash": "97f9be3fc082361d59e6e2da157022e239dabcce5d2e5d9044ec95a39b9d1e16"
+    },
+    "lead-magnet": {
+      "source": "boringmarketer/boring-marketing-skills",
+      "commit": "7c6678c857fe514f79396ea607aa2a56ea82e676",
+      "sourceType": "github",
+      "skillPath": "skills/lead-magnet/SKILL.md",
+      "computedHash": "605b21af8bdc4706eaa680afa8fbfc6f7690ceefcc9fc97f89e7b77b07bff46f"
+    },
+    "local-seo-plan": {
+      "source": "boringmarketer/boring-marketing-skills",
+      "commit": "7c6678c857fe514f79396ea607aa2a56ea82e676",
+      "sourceType": "github",
+      "skillPath": "skills/local-seo-plan/SKILL.md",
+      "computedHash": "f65272caa0743d557440fdccff12d05e90e29fe11cf3acd1061ff0cad424613b"
+    },
+    "long-form-article": {
+      "source": "boringmarketer/boring-marketing-skills",
+      "commit": "7c6678c857fe514f79396ea607aa2a56ea82e676",
+      "sourceType": "github",
+      "skillPath": "skills/long-form-article/SKILL.md",
+      "computedHash": "1ea1ff4ff6ecce73e017f1eab974838b88280f4863ae3bdf422d8b4e5d3749a7"
+    },
+    "meta-ads": {
+      "source": "boringmarketer/boring-marketing-skills",
+      "commit": "7c6678c857fe514f79396ea607aa2a56ea82e676",
+      "sourceType": "github",
+      "skillPath": "skills/meta-ads/SKILL.md",
+      "computedHash": "9c93d5139def1d1294d49312596362beca93e02cf1a36f2b55d46f1c9b1aeb84"
+    },
+    "newsletter": {
+      "source": "boringmarketer/boring-marketing-skills",
+      "commit": "7c6678c857fe514f79396ea607aa2a56ea82e676",
+      "sourceType": "github",
+      "skillPath": "skills/newsletter/SKILL.md",
+      "computedHash": "c091ccca57f3519c510d0143e0d747be841aeaa56d71553e6397c11ddffa44c2"
+    },
+    "paid-ads": {
+      "source": "boringmarketer/boring-marketing-skills",
+      "commit": "7c6678c857fe514f79396ea607aa2a56ea82e676",
+      "sourceType": "github",
+      "skillPath": "skills/paid-ads/SKILL.md",
+      "computedHash": "c6506239bcd2179b4a11cf491deafd740123fcc5f16ded1bd873abe9c998a96b"
+    },
+    "performance-review": {
+      "source": "boringmarketer/boring-marketing-skills",
+      "commit": "7c6678c857fe514f79396ea607aa2a56ea82e676",
+      "sourceType": "github",
+      "skillPath": "skills/performance-review/SKILL.md",
+      "computedHash": "cfcd1395e726aad782fc776a1aed198613b50eba98ec5c4aacae6fdca304a5c4"
+    },
+    "pitch-the-fix": {
+      "source": "boringmarketer/boring-marketing-skills",
+      "commit": "7c6678c857fe514f79396ea607aa2a56ea82e676",
+      "sourceType": "github",
+      "skillPath": "skills/pitch-the-fix/SKILL.md",
+      "computedHash": "d41272b44519e9dfa14f76958463d4426212e58b24527f8e32b33316980f29da"
+    },
+    "positioning-angles": {
+      "source": "boringmarketer/boring-marketing-skills",
+      "commit": "7c6678c857fe514f79396ea607aa2a56ea82e676",
+      "sourceType": "github",
+      "skillPath": "skills/positioning-angles/SKILL.md",
+      "computedHash": "b4fd8d81a4b9a3f1fe5b60ebb5ae9fd8254acc88d9175b7c52abb8208294ecbf"
+    },
+    "programmatic-seo": {
+      "source": "boringmarketer/boring-marketing-skills",
+      "commit": "7c6678c857fe514f79396ea607aa2a56ea82e676",
+      "sourceType": "github",
+      "skillPath": "skills/programmatic-seo/SKILL.md",
+      "computedHash": "993f24d36453e82963ae4c19b40ac5b4e580ea19a5eeb02f82afb9731f280b72"
+    },
+    "reviews": {
+      "source": "boringmarketer/boring-marketing-skills",
+      "commit": "7c6678c857fe514f79396ea607aa2a56ea82e676",
+      "sourceType": "github",
+      "skillPath": "skills/reviews/SKILL.md",
+      "computedHash": "5e80b01aadba863c544b60d1a2cebd89fe9b351071a643344601f3ebf966252f"
+    },
+    "seo-content": {
+      "source": "boringmarketer/boring-marketing-skills",
+      "commit": "7c6678c857fe514f79396ea607aa2a56ea82e676",
+      "sourceType": "github",
+      "skillPath": "skills/seo-content/SKILL.md",
+      "computedHash": "1d7c52d7fcb2f96fb8cef83c96d0967fbc7c6f5988daa63d2ee2fc90454cf000"
+    },
+    "service-area-pages": {
+      "source": "boringmarketer/boring-marketing-skills",
+      "commit": "7c6678c857fe514f79396ea607aa2a56ea82e676",
+      "sourceType": "github",
+      "skillPath": "skills/service-area-pages/SKILL.md",
+      "computedHash": "371beacfa4bd43954657294e8b29b784e7cd4e998e570d4f9f4caa41aefebf98"
+    },
+    "site-audit": {
+      "source": "boringmarketer/boring-marketing-skills",
+      "commit": "7c6678c857fe514f79396ea607aa2a56ea82e676",
+      "sourceType": "github",
+      "skillPath": "skills/site-audit/SKILL.md",
+      "computedHash": "d124b5a20e919e5d901bb9e947164fc44707e762f5565bd674d688295276cc39"
+    },
+    "social-content": {
+      "source": "boringmarketer/boring-marketing-skills",
+      "commit": "7c6678c857fe514f79396ea607aa2a56ea82e676",
+      "sourceType": "github",
+      "skillPath": "skills/social-content/SKILL.md",
+      "computedHash": "8fd8cc1a956a0963b453c0d95d17a6d1bad01f7e16c085438235f2e8d4ba6aa6"
+    },
+    "speed-to-lead": {
+      "source": "boringmarketer/boring-marketing-skills",
+      "commit": "7c6678c857fe514f79396ea607aa2a56ea82e676",
+      "sourceType": "github",
+      "skillPath": "skills/speed-to-lead/SKILL.md",
+      "computedHash": "6bb72c1743358840f95cc011b38047297109e70089dae9cd1f2cacae66216c1e"
+    },
+    "start-here": {
+      "source": "boringmarketer/boring-marketing-skills",
+      "commit": "7c6678c857fe514f79396ea607aa2a56ea82e676",
+      "sourceType": "github",
+      "skillPath": "skills/start-here/SKILL.md",
+      "computedHash": "190256eed2ad01fbb4b57114a047727bc8a77683d8b52dd090cdcb644ea6b140"
     }
   }
 }

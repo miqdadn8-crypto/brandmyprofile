@@ -1,0 +1,1039 @@
+{
+  "tool": "site-audit crawl_audit.py 1.0.0",
+  "generated_at": "2026-11-16T22:41:15+00:00",
+  "mode": "full",
+  "target": "https://www.brandmyprofile.com/",
+  "final_url": "https://www.brandmyprofile.com/",
+  "user_agent": "Mozilla/5.0 (compatible; BoringSiteAudit/1.0.0; technical SEO audit; +https://github.com/boringmarketer/boring-marketing-skills)",
+  "limits": {
+    "max_pages": 200,
+    "concurrency": 4,
+    "delay_s": 0.25,
+    "max_minutes": 15.0
+  },
+  "crawl": {
+    "pages_fetched": 102,
+    "html_pages": 102,
+    "indexable_pages": 102,
+    "key_pages": [
+      "https://www.brandmyprofile.com/",
+      "https://www.brandmyprofile.com/bahrain/contact",
+      "https://www.brandmyprofile.com/bahrain/services/cv-writing",
+      "https://www.brandmyprofile.com/india/contact",
+      "https://www.brandmyprofile.com/india/pricing",
+      "https://www.brandmyprofile.com/india/services/ats-cv",
+      "https://www.brandmyprofile.com/india/services/career-guidance",
+      "https://www.brandmyprofile.com/india/services/cv-writing",
+      "https://www.brandmyprofile.com/india/services/europass-cv",
+      "https://www.brandmyprofile.com/india/services/gcc-cv",
+      "https://www.brandmyprofile.com/india/services/linkedin-makeover",
+      "https://www.brandmyprofile.com/india/services/masterclass",
+      "https://www.brandmyprofile.com/kuwait/contact",
+      "https://www.brandmyprofile.com/kuwait/pricing",
+      "https://www.brandmyprofile.com/kuwait/services/ats-cv",
+      "https://www.brandmyprofile.com/kuwait/services/career-guidance",
+      "https://www.brandmyprofile.com/kuwait/services/cv-writing",
+      "https://www.brandmyprofile.com/kuwait/services/gcc-cv",
+      "https://www.brandmyprofile.com/kuwait/services/linkedin-makeover",
+      "https://www.brandmyprofile.com/kuwait/services/masterclass",
+      "https://www.brandmyprofile.com/oman/contact",
+      "https://www.brandmyprofile.com/oman/services/cv-writing",
+      "https://www.brandmyprofile.com/qatar/contact",
+      "https://www.brandmyprofile.com/qatar/pricing",
+      "https://www.brandmyprofile.com/qatar/services/ats-cv",
+      "https://www.brandmyprofile.com/qatar/services/career-guidance",
+      "https://www.brandmyprofile.com/qatar/services/cv-writing",
+      "https://www.brandmyprofile.com/qatar/services/gcc-cv",
+      "https://www.brandmyprofile.com/qatar/services/linkedin-makeover",
+      "https://www.brandmyprofile.com/qatar/services/masterclass",
+      "https://www.brandmyprofile.com/saudi/contact",
+      "https://www.brandmyprofile.com/saudi/pricing",
+      "https://www.brandmyprofile.com/saudi/services/ats-cv",
+      "https://www.brandmyprofile.com/saudi/services/career-guidance",
+      "https://www.brandmyprofile.com/saudi/services/cv-writing",
+      "https://www.brandmyprofile.com/saudi/services/gcc-cv",
+      "https://www.brandmyprofile.com/saudi/services/linkedin-makeover",
+      "https://www.brandmyprofile.com/saudi/services/masterclass",
+      "https://www.brandmyprofile.com/uae/contact",
+      "https://www.brandmyprofile.com/uae/pricing"
+    ],
+    "statuses": {
+      "200": 102
+    },
+    "depths": {
+      "0": 1,
+      "1": 8,
+      "2": 73,
+      "None": 12,
+      "3": 7,
+      "4": 1
+    },
+    "truncated": false,
+    "frontier_left": 0,
+    "skipped_by_robots": 0,
+    "link_checks": 0,
+    "requests": 128,
+    "duration_s": 36.9
+  },
+  "site": {
+    "robots": {
+      "url": "https://www.brandmyprofile.com/robots.txt",
+      "status": 200,
+      "final_url": "https://www.brandmyprofile.com/robots.txt",
+      "error": null,
+      "bytes": 94,
+      "state": "present",
+      "over_google_limit": false,
+      "sitemaps_declared": [
+        "https://www.brandmyprofile.com/sitemap.xml"
+      ],
+      "groups": 1,
+      "invalid_lines": 0,
+      "content_signals": [],
+      "cloudflare_managed_block": false,
+      "text": "User-agent: *\nAllow: /\nDisallow: /admin/\n\nSitemap: https://www.brandmyprofile.com/sitemap.xml\n"
+    },
+    "start_url": "https://www.brandmyprofile.com/",
+    "final_url": "https://www.brandmyprofile.com/",
+    "server_hints": [
+      "Vercel"
+    ],
+    "sitemap": {
+      "state": "present",
+      "declared_in_robots": true,
+      "files": [
+        {
+          "url": "https://www.brandmyprofile.com/sitemap.xml",
+          "status": 200,
+          "declared": true,
+          "error": null,
+          "kind": "urlset",
+          "url_count": 108,
+          "lastmod_share": 0.21,
+          "errors": [],
+          "truncated_body": false
+        }
+      ],
+      "files_not_read": 0,
+      "url_count": 108,
+      "urls_stored": 108,
+      "truncated": false,
+      "lastmod_share": 0.21,
+      "future_lastmod": 0,
+      "other_host_urls": 0,
+      "http_urls_on_https": 0
+    },
+    "host_variants": [
+      {
+        "url": "http://brandmyprofile.com/",
+        "status": 200,
+        "final_url": "https://www.brandmyprofile.com/",
+        "hops": 2,
+        "reaches_main": true,
+        "error": null
+      },
+      {
+        "url": "https://brandmyprofile.com/",
+        "status": 200,
+        "final_url": "https://www.brandmyprofile.com/",
+        "hops": 1,
+        "reaches_main": true,
+        "error": null
+      },
+      {
+        "url": "http://www.brandmyprofile.com/",
+        "status": 200,
+        "final_url": "https://www.brandmyprofile.com/",
+        "hops": 1,
+        "reaches_main": true,
+        "error": null
+      }
+    ],
+    "soft_404": {
+      "status": 404,
+      "final_url": "https://www.brandmyprofile.com/mvp2roz0v8v3-page-that-should-not-exist",
+      "soft_404": false
+    },
+    "ai_files": {
+      "llms.txt": {
+        "state": "present",
+        "status": 200,
+        "has_h1": true,
+        "links": 0
+      },
+      "llms-full.txt": {
+        "state": "absent",
+        "status": 404
+      },
+      "ai.txt": {
+        "state": "absent",
+        "status": 404
+      }
+    },
+    "ai_crawlers": {
+      "Googlebot": {
+        "state": "allowed",
+        "named_group": false,
+        "follows": "*",
+        "root_rule": "Allow: /",
+        "blocked_examples": [],
+        "blocked_count": 0,
+        "sample_size": 103,
+        "disallowed_paths": [
+          "/admin/"
+        ],
+        "role": "search-engine",
+        "vendor": "Google",
+        "blocking_costs": "Google Search, including AI Overviews and AI Mode, which draw on the same index."
+      },
+      "Bingbot": {
+        "state": "allowed",
+        "named_group": false,
+        "follows": "*",
+        "root_rule": "Allow: /",
+        "blocked_examples": [],
+        "blocked_count": 0,
+        "sample_size": 103,
+        "disallowed_paths": [
+          "/admin/"
+        ],
+        "role": "search-engine",
+        "vendor": "Microsoft",
+        "blocking_costs": "Bing and the Copilot answers built on it."
+      },
+      "OAI-SearchBot": {
+        "state": "allowed",
+        "named_group": false,
+        "follows": "*",
+        "root_rule": "Allow: /",
+        "blocked_examples": [],
+        "blocked_count": 0,
+        "sample_size": 103,
+        "disallowed_paths": [
+          "/admin/"
+        ],
+        "role": "search",
+        "vendor": "OpenAI",
+        "blocking_costs": "Pages can't be shown as sources in ChatGPT search answers (OpenAI: they may still appear as navigational links)."
+      },
+      "ChatGPT-User": {
+        "state": "allowed",
+        "named_group": false,
+        "follows": "*",
+        "root_rule": "Allow: /",
+        "blocked_examples": [],
+        "blocked_count": 0,
+        "sample_size": 103,
+        "disallowed_paths": [
+          "/admin/"
+        ],
+        "role": "user-fetch",
+        "vendor": "OpenAI",
+        "blocking_costs": "ChatGPT can't open the page when a person asks it to. OpenAI says robots.txt may not apply to these user-initiated visits, so an edge block matters more than a robots rule."
+      },
+      "GPTBot": {
+        "state": "allowed",
+        "named_group": false,
+        "follows": "*",
+        "root_rule": "Allow: /",
+        "blocked_examples": [],
+        "blocked_count": 0,
+        "sample_size": 103,
+        "disallowed_paths": [
+          "/admin/"
+        ],
+        "role": "training",
+        "vendor": "OpenAI",
+        "blocking_costs": "Content is left out of OpenAI model training. It does not remove the site from ChatGPT search."
+      },
+      "Claude-SearchBot": {
+        "state": "allowed",
+        "named_group": false,
+        "follows": "*",
+        "root_rule": "Allow: /",
+        "blocked_examples": [],
+        "blocked_count": 0,
+        "sample_size": 103,
+        "disallowed_paths": [
+          "/admin/"
+        ],
+        "role": "search",
+        "vendor": "Anthropic",
+        "blocking_costs": "Anthropic says blocking it may reduce the site's visibility and accuracy in Claude's search results."
+      },
+      "Claude-User": {
+        "state": "allowed",
+        "named_group": false,
+        "follows": "*",
+        "root_rule": "Allow: /",
+        "blocked_examples": [],
+        "blocked_count": 0,
+        "sample_size": 103,
+        "disallowed_paths": [
+          "/admin/"
+        ],
+        "role": "user-fetch",
+        "vendor": "Anthropic",
+        "blocking_costs": "Claude can't fetch the page when a person asks about it."
+      },
+      "ClaudeBot": {
+        "state": "allowed",
+        "named_group": false,
+        "follows": "*",
+        "root_rule": "Allow: /",
+        "blocked_examples": [],
+        "blocked_count": 0,
+        "sample_size": 103,
+        "disallowed_paths": [
+          "/admin/"
+        ],
+        "role": "training",
+        "vendor": "Anthropic",
+        "blocking_costs": "Content is left out of Anthropic model training. It does not stop Claude-SearchBot or Claude-User."
+      },
+      "PerplexityBot": {
+        "state": "allowed",
+        "named_group": false,
+        "follows": "*",
+        "root_rule": "Allow: /",
+        "blocked_examples": [],
+        "blocked_count": 0,
+        "sample_size": 103,
+        "disallowed_paths": [
+          "/admin/"
+        ],
+        "role": "search",
+        "vendor": "Perplexity",
+        "blocking_costs": "Pages can't be surfaced and linked in Perplexity's answers."
+      },
+      "Perplexity-User": {
+        "state": "allowed",
+        "named_group": false,
+        "follows": "*",
+        "root_rule": "Allow: /",
+        "blocked_examples": [],
+        "blocked_count": 0,
+        "sample_size": 103,
+        "disallowed_paths": [
+          "/admin/"
+        ],
+        "role": "user-fetch",
+        "vendor": "Perplexity",
+        "blocking_costs": "Perplexity can't fetch the page for a person's question. Perplexity says this fetcher generally ignores robots.txt, so only an edge block stops it."
+      },
+      "Google-Extended": {
+        "state": "allowed",
+        "named_group": false,
+        "follows": "*",
+        "root_rule": "Allow: /",
+        "blocked_examples": [],
+        "blocked_count": 0,
+        "sample_size": 103,
+        "disallowed_paths": [
+          "/admin/"
+        ],
+        "role": "training",
+        "vendor": "Google",
+        "blocking_costs": "Content is not used for Gemini training or for grounding in Gemini Apps. Google says it does not affect Google Search."
+      },
+      "Applebot-Extended": {
+        "state": "allowed",
+        "named_group": false,
+        "follows": "*",
+        "root_rule": "Allow: /",
+        "blocked_examples": [],
+        "blocked_count": 0,
+        "sample_size": 103,
+        "disallowed_paths": [
+          "/admin/"
+        ],
+        "role": "training",
+        "vendor": "Apple",
+        "blocking_costs": "Apple's control token for AI training; blocking it opts the site out of that use."
+      },
+      "CCBot": {
+        "state": "allowed",
+        "named_group": false,
+        "follows": "*",
+        "root_rule": "Allow: /",
+        "blocked_examples": [],
+        "blocked_count": 0,
+        "sample_size": 103,
+        "disallowed_paths": [
+          "/admin/"
+        ],
+        "role": "training",
+        "vendor": "Common Crawl",
+        "blocking_costs": "The site is left out of the Common Crawl dataset."
+      },
+      "meta-externalagent": {
+        "state": "allowed",
+        "named_group": false,
+        "follows": "*",
+        "root_rule": "Allow: /",
+        "blocked_examples": [],
+        "blocked_count": 0,
+        "sample_size": 103,
+        "disallowed_paths": [
+          "/admin/"
+        ],
+        "role": "training",
+        "vendor": "Meta",
+        "blocking_costs": "Meta's AI crawler can't read the site."
+      },
+      "Bytespider": {
+        "state": "allowed",
+        "named_group": false,
+        "follows": "*",
+        "root_rule": "Allow: /",
+        "blocked_examples": [],
+        "blocked_count": 0,
+        "sample_size": 103,
+        "disallowed_paths": [
+          "/admin/"
+        ],
+        "role": "training",
+        "vendor": "ByteDance",
+        "blocking_costs": "ByteDance's crawler can't read the site."
+      },
+      "Amazonbot": {
+        "state": "allowed",
+        "named_group": false,
+        "follows": "*",
+        "root_rule": "Allow: /",
+        "blocked_examples": [],
+        "blocked_count": 0,
+        "sample_size": 103,
+        "disallowed_paths": [
+          "/admin/"
+        ],
+        "role": "mixed",
+        "vendor": "Amazon",
+        "blocking_costs": "Amazon's crawler can't read the site."
+      },
+      "cohere-ai": {
+        "state": "allowed",
+        "named_group": false,
+        "follows": "*",
+        "root_rule": "Allow: /",
+        "blocked_examples": [],
+        "blocked_count": 0,
+        "sample_size": 103,
+        "disallowed_paths": [
+          "/admin/"
+        ],
+        "role": "training",
+        "vendor": "Cohere",
+        "blocking_costs": "Cohere's crawler token is opted out."
+      },
+      "AI2Bot": {
+        "state": "allowed",
+        "named_group": false,
+        "follows": "*",
+        "root_rule": "Allow: /",
+        "blocked_examples": [],
+        "blocked_count": 0,
+        "sample_size": 103,
+        "disallowed_paths": [
+          "/admin/"
+        ],
+        "role": "training",
+        "vendor": "Allen Institute for AI",
+        "blocking_costs": "AI2's crawler can't read the site."
+      },
+      "Timpibot": {
+        "state": "allowed",
+        "named_group": false,
+        "follows": "*",
+        "root_rule": "Allow: /",
+        "blocked_examples": [],
+        "blocked_count": 0,
+        "sample_size": 103,
+        "disallowed_paths": [
+          "/admin/"
+        ],
+        "role": "training",
+        "vendor": "Timpi",
+        "blocking_costs": "Timpi's crawler can't read the site."
+      },
+      "FacebookBot": {
+        "state": "allowed",
+        "named_group": false,
+        "follows": "*",
+        "root_rule": "Allow: /",
+        "blocked_examples": [],
+        "blocked_count": 0,
+        "sample_size": 103,
+        "disallowed_paths": [
+          "/admin/"
+        ],
+        "role": "training",
+        "vendor": "Meta",
+        "blocking_costs": "This older Meta crawler can't read the site."
+      }
+    },
+    "edge_check": {
+      "url": "https://www.brandmyprofile.com/",
+      "browser": {
+        "status": 200,
+        "challenge": null,
+        "bytes": 9643,
+        "error": null
+      },
+      "bots": {
+        "OAI-SearchBot": {
+          "status": 200,
+          "verdict": "allowed",
+          "challenge": null,
+          "bytes": 9643,
+          "x_robots_tag": null,
+          "error": null
+        },
+        "ChatGPT-User": {
+          "status": 200,
+          "verdict": "allowed",
+          "challenge": null,
+          "bytes": 9643,
+          "x_robots_tag": null,
+          "error": null
+        },
+        "GPTBot": {
+          "status": 200,
+          "verdict": "allowed",
+          "challenge": null,
+          "bytes": 9643,
+          "x_robots_tag": null,
+          "error": null
+        },
+        "Claude-SearchBot": {
+          "status": 200,
+          "verdict": "allowed",
+          "challenge": null,
+          "bytes": 9643,
+          "x_robots_tag": null,
+          "error": null
+        },
+        "Claude-User": {
+          "status": 200,
+          "verdict": "allowed",
+          "challenge": null,
+          "bytes": 9643,
+          "x_robots_tag": null,
+          "error": null
+        },
+        "ClaudeBot": {
+          "status": 200,
+          "verdict": "allowed",
+          "challenge": null,
+          "bytes": 9643,
+          "x_robots_tag": null,
+          "error": null
+        },
+        "PerplexityBot": {
+          "status": 200,
+          "verdict": "allowed",
+          "challenge": null,
+          "bytes": 9643,
+          "x_robots_tag": null,
+          "error": null
+        },
+        "Perplexity-User": {
+          "status": 200,
+          "verdict": "allowed",
+          "challenge": null,
+          "bytes": 9643,
+          "x_robots_tag": null,
+          "error": null
+        },
+        "CCBot": {
+          "status": 200,
+          "verdict": "allowed",
+          "challenge": null,
+          "bytes": 9643,
+          "x_robots_tag": null,
+          "error": null
+        },
+        "meta-externalagent": {
+          "status": 200,
+          "verdict": "allowed",
+          "challenge": null,
+          "bytes": 9643,
+          "x_robots_tag": null,
+          "error": null
+        },
+        "Bytespider": {
+          "status": 200,
+          "verdict": "allowed",
+          "challenge": null,
+          "bytes": 9643,
+          "x_robots_tag": null,
+          "error": null
+        },
+        "Amazonbot": {
+          "status": 200,
+          "verdict": "allowed",
+          "challenge": null,
+          "bytes": 9643,
+          "x_robots_tag": null,
+          "error": null
+        }
+      },
+      "verdict": "done"
+    },
+    "js_rendering": {
+      "shell_pages": 102,
+      "rendered_pages": 0
+    },
+    "content_signals": {
+      "articles": 12,
+      "with_visible_date": 0,
+      "with_machine_date": 0,
+      "median_age_days": null,
+      "with_author": 0,
+      "median_stats_per_100_words": 0.0,
+      "with_quotations": 8,
+      "with_outside_sources": 0,
+      "with_question_headings": 12,
+      "with_answer_capsules": 12
+    }
+  },
+  "cwv": {
+    "source": null,
+    "pages": [
+      {
+        "url": "https://www.brandmyprofile.com/",
+        "error": "HTTP 429: Quota exceeded for quota metric 'Queries' and limit 'Queries per day' of service 'pagespeedonline.googleapis.com' for consumer 'project_number:583797351490'."
+      }
+    ],
+    "notes": []
+  },
+  "findings": [
+    {
+      "id": "js_rendered_content",
+      "category": "indexing",
+      "severity": "high",
+      "title": "Pages build their text with JavaScript",
+      "count": 102,
+      "key_pages_affected": 46,
+      "examples": [
+        {
+          "url": "https://www.brandmyprofile.com/kuwait/services/cv-writing",
+          "detail": "0 words in the HTML, 1 scripts"
+        },
+        {
+          "url": "https://www.brandmyprofile.com/india/services/cv-writing",
+          "detail": "0 words in the HTML, 1 scripts"
+        },
+        {
+          "url": "https://www.brandmyprofile.com/india/contact",
+          "detail": "0 words in the HTML, 1 scripts"
+        }
+      ],
+      "urls": [
+        "https://www.brandmyprofile.com/",
+        "https://www.brandmyprofile.com/kuwait",
+        "https://www.brandmyprofile.com/blog",
+        "https://www.brandmyprofile.com/uae",
+        "https://www.brandmyprofile.com/saudi",
+        "https://www.brandmyprofile.com/qatar",
+        "https://www.brandmyprofile.com/india",
+        "https://www.brandmyprofile.com/bahrain",
+        "https://www.brandmyprofile.com/oman",
+        "https://www.brandmyprofile.com/kuwait/about",
+        "https://www.brandmyprofile.com/kuwait/pricing",
+        "https://www.brandmyprofile.com/kuwait/contact",
+        "https://www.brandmyprofile.com/kuwait/services/cv-writing",
+        "https://www.brandmyprofile.com/india/gcc-jobs",
+        "https://www.brandmyprofile.com/india/europe-jobs",
+        "https://www.brandmyprofile.com/kuwait/cv-writing/oil-gas",
+        "https://www.brandmyprofile.com/kuwait/cv-writing/engineering",
+        "https://www.brandmyprofile.com/uae/cv-writing/finance",
+        "https://www.brandmyprofile.com/uae/cv-writing/technology",
+        "https://www.brandmyprofile.com/saudi/cv-writing/engineering",
+        "https://www.brandmyprofile.com/saudi/cv-writing/construction",
+        "https://www.brandmyprofile.com/qatar/cv-writing/energy",
+        "https://www.brandmyprofile.com/india/cv-writing/engineering-gcc",
+        "https://www.brandmyprofile.com/kuwait/cv-writing/construction",
+        "https://www.brandmyprofile.com/kuwait/cv-writing/finance",
+        "https://www.brandmyprofile.com/uae/cv-writing/hospitality",
+        "https://www.brandmyprofile.com/saudi/cv-writing/healthcare",
+        "https://www.brandmyprofile.com/qatar/cv-writing/hospitality",
+        "https://www.brandmyprofile.com/india/cv-writing/technology-gcc",
+        "https://www.brandmyprofile.com/india/cv-writing/finance-gcc",
+        "https://www.brandmyprofile.com/resources/gcc-cv-checklist",
+        "https://www.brandmyprofile.com/blog/salary-negotiation-gcc-professionals",
+        "https://www.brandmyprofile.com/blog/gcc-cv-format-guide",
+        "https://www.brandmyprofile.com/blog/ats-cv-guide-kuwait",
+        "https://www.brandmyprofile.com/blog/india-to-gcc-jobs-guide",
+        "https://www.brandmyprofile.com/blog/europass-cv-guide-india",
+        "https://www.brandmyprofile.com/kuwait/services/ats-cv",
+        "https://www.brandmyprofile.com/kuwait/services/gcc-cv",
+        "https://www.brandmyprofile.com/kuwait/services/linkedin-makeover",
+        "https://www.brandmyprofile.com/kuwait/services/masterclass",
+        "https://www.brandmyprofile.com/kuwait/services/career-guidance",
+        "https://www.brandmyprofile.com/uae/about",
+        "https://www.brandmyprofile.com/uae/pricing",
+        "https://www.brandmyprofile.com/uae/contact",
+        "https://www.brandmyprofile.com/uae/services/cv-writing",
+        "https://www.brandmyprofile.com/uae/services/ats-cv",
+        "https://www.brandmyprofile.com/uae/services/gcc-cv",
+        "https://www.brandmyprofile.com/uae/services/linkedin-makeover",
+        "https://www.brandmyprofile.com/uae/services/masterclass",
+        "https://www.brandmyprofile.com/uae/services/career-guidance"
+      ],
+      "observation": "102 of 102 pages send almost no text in their HTML (0 word(s) on https://www.brandmyprofile.com/); the content is built by JavaScript in the browser. Word counts, headings and content checks on those pages are left out rather than reported as thin.",
+      "fix": "Serve the main text in the HTML (server-side rendering or pre-rendering). Google renders JavaScript later than HTML, and AI crawlers may read only the HTML they are sent.",
+      "effort": "developer, days",
+      "confidence": "observed",
+      "rank_score": 180.5,
+      "share": 1.0,
+      "key_shells": 46
+    },
+    {
+      "id": "orphan_pages",
+      "category": "links",
+      "severity": "medium",
+      "title": "Pages no other page links to",
+      "count": 12,
+      "key_pages_affected": 0,
+      "examples": [
+        {
+          "url": "https://www.brandmyprofile.com/india/gcc-jobs"
+        },
+        {
+          "url": "https://www.brandmyprofile.com/india/europe-jobs"
+        },
+        {
+          "url": "https://www.brandmyprofile.com/kuwait/cv-writing/oil-gas"
+        }
+      ],
+      "urls": [
+        "https://www.brandmyprofile.com/india/gcc-jobs",
+        "https://www.brandmyprofile.com/india/europe-jobs",
+        "https://www.brandmyprofile.com/kuwait/cv-writing/oil-gas",
+        "https://www.brandmyprofile.com/qatar/cv-writing/energy",
+        "https://www.brandmyprofile.com/india/cv-writing/engineering-gcc",
+        "https://www.brandmyprofile.com/saudi/cv-writing/healthcare",
+        "https://www.brandmyprofile.com/india/cv-writing/technology-gcc",
+        "https://www.brandmyprofile.com/india/cv-writing/finance-gcc",
+        "https://www.brandmyprofile.com/resources/gcc-cv-checklist",
+        "https://www.brandmyprofile.com/blog/salary-negotiation-gcc-professionals",
+        "https://www.brandmyprofile.com/blog/india-to-gcc-jobs-guide",
+        "https://www.brandmyprofile.com/blog/europass-cv-guide-india"
+      ],
+      "observation": "12 page(s) in the sitemap had no link from any of the 102 pages crawled.",
+      "fix": "Link each page from a relevant service, hub or menu page, or retire it if nobody needs it.",
+      "effort": "an hour",
+      "confidence": "observed",
+      "rank_score": 25.0
+    },
+    {
+      "id": "title_length",
+      "category": "on-page",
+      "severity": "low",
+      "title": "Titles too long or too short",
+      "count": 20,
+      "key_pages_affected": 5,
+      "examples": [
+        {
+          "url": "https://www.brandmyprofile.com/saudi/services/cv-writing",
+          "detail": "61 characters"
+        },
+        {
+          "url": "https://www.brandmyprofile.com/saudi/pricing",
+          "detail": "61 characters"
+        },
+        {
+          "url": "https://www.brandmyprofile.com/saudi/services/ats-cv",
+          "detail": "65 characters"
+        }
+      ],
+      "urls": [
+        "https://www.brandmyprofile.com/blog",
+        "https://www.brandmyprofile.com/blog/india-to-gcc-jobs-guide",
+        "https://www.brandmyprofile.com/kuwait/services/linkedin-makeover",
+        "https://www.brandmyprofile.com/saudi/about",
+        "https://www.brandmyprofile.com/saudi/pricing",
+        "https://www.brandmyprofile.com/saudi/services/cv-writing",
+        "https://www.brandmyprofile.com/saudi/services/ats-cv",
+        "https://www.brandmyprofile.com/saudi/services/masterclass",
+        "https://www.brandmyprofile.com/blog/best-cv-writing-service-oman",
+        "https://www.brandmyprofile.com/blog/best-cv-writing-service-bahrain",
+        "https://www.brandmyprofile.com/blog/best-cv-writing-service-qatar",
+        "https://www.brandmyprofile.com/blog/best-cv-writing-service-saudi",
+        "https://www.brandmyprofile.com/blog/best-cv-writing-service-uae",
+        "https://www.brandmyprofile.com/blog/best-cv-writing-service-kuwait",
+        "https://www.brandmyprofile.com/blog/kuwait-cv-format-guide",
+        "https://www.brandmyprofile.com/blog/cv-writing",
+        "https://www.brandmyprofile.com/blog/ats",
+        "https://www.brandmyprofile.com/blog/gcc-careers",
+        "https://www.brandmyprofile.com/blog/career-guidance",
+        "https://www.brandmyprofile.com/blog/india-gcc"
+      ],
+      "observation": "15 title(s) run past 60 characters, where Google cuts them off in results; 5 title(s) are under 30 characters (for example \"CV Writing Guides\").",
+      "fix": "Keep titles roughly 30 to 60 characters with the important words first.",
+      "effort": "minutes per page",
+      "confidence": "observed",
+      "rank_score": 10.4
+    },
+    {
+      "id": "deep_pages",
+      "category": "links",
+      "severity": "low",
+      "title": "Pages buried more than 3 clicks deep",
+      "count": 1,
+      "key_pages_affected": 0,
+      "examples": [
+        {
+          "url": "https://www.brandmyprofile.com/blog/cover-letter-gcc-jobs",
+          "detail": "4 clicks from the homepage"
+        }
+      ],
+      "urls": [
+        "https://www.brandmyprofile.com/blog/cover-letter-gcc-jobs"
+      ],
+      "observation": "1 indexable page(s) sit more than 3 clicks from the homepage.",
+      "fix": "Link important pages from the menu, the homepage or a hub page.",
+      "effort": "an hour",
+      "confidence": "observed",
+      "rank_score": 3.0
+    },
+    {
+      "id": "host_variants",
+      "category": "indexing",
+      "severity": "low",
+      "title": "Other versions of the domain don't redirect to the main one",
+      "count": 1,
+      "key_pages_affected": 0,
+      "examples": [
+        {
+          "url": "http://brandmyprofile.com/",
+          "detail": "2 hops"
+        }
+      ],
+      "urls": [
+        "http://brandmyprofile.com/"
+      ],
+      "observation": "1 other address(es) reach the homepage through more than one redirect.",
+      "fix": "Pick one address (https, with or without www) and 301-redirect the other three versions to it in one hop.",
+      "effort": "under an hour",
+      "confidence": "observed",
+      "rank_score": 3.0
+    }
+  ],
+  "checked_and_fine": [
+    {
+      "id": "homepage_unreachable",
+      "what": "homepage answered 200 with HTML"
+    },
+    {
+      "id": "not_https",
+      "what": "the site is served over HTTPS"
+    },
+    {
+      "id": "robots_unreachable",
+      "what": "robots.txt loads as plain text"
+    },
+    {
+      "id": "robots_blocks_google",
+      "what": "Googlebot may crawl the homepage"
+    },
+    {
+      "id": "robots_blocks_pages",
+      "what": "no linked or sitemap-listed page is blocked for Googlebot"
+    },
+    {
+      "id": "robots_blocks_resources",
+      "what": "CSS and JavaScript files are crawlable"
+    },
+    {
+      "id": "search_engine_blocked",
+      "what": "Bingbot may crawl the site"
+    },
+    {
+      "id": "ai_search_blocked",
+      "what": "OAI-SearchBot, Claude-SearchBot and PerplexityBot may crawl the site"
+    },
+    {
+      "id": "ai_user_fetch_blocked",
+      "what": "ChatGPT-User, Claude-User and Perplexity-User are not blocked in robots.txt"
+    },
+    {
+      "id": "ai_blocked_at_edge",
+      "what": "the homepage answered 12 AI crawler requests the same way it answered a browser"
+    },
+    {
+      "id": "llms_txt_missing",
+      "what": "llms.txt is present"
+    },
+    {
+      "id": "sitemap_missing",
+      "what": "sitemap parsed: 108 URLs in 1 file(s)"
+    },
+    {
+      "id": "noindex_in_sitemap",
+      "what": "no noindex page among 102 sitemap URLs fetched"
+    },
+    {
+      "id": "sitemap_non_200",
+      "what": "all 102 sitemap URLs fetched returned 200"
+    },
+    {
+      "id": "sitemap_blocked_by_robots",
+      "what": "no sitemap URL is blocked by robots.txt"
+    },
+    {
+      "id": "noindex_key_pages",
+      "what": "no key page carries noindex"
+    },
+    {
+      "id": "canonical_conflict",
+      "what": "no page declares conflicting canonicals"
+    },
+    {
+      "id": "canonical_to_bad_target",
+      "what": "canonical targets that were checked return 200"
+    },
+    {
+      "id": "canonical_missing",
+      "what": "every indexable page declares a canonical"
+    },
+    {
+      "id": "soft_404",
+      "what": "a made-up address answered 404"
+    },
+    {
+      "id": "broken_internal_links",
+      "what": "89 internal link targets checked, none broken"
+    },
+    {
+      "id": "server_errors",
+      "what": "no server errors"
+    },
+    {
+      "id": "redirect_chains",
+      "what": "no multi-hop redirects among internal URLs"
+    },
+    {
+      "id": "title_missing",
+      "what": "all 102 indexable pages have a title"
+    },
+    {
+      "id": "title_duplicate",
+      "what": "titles are unique"
+    },
+    {
+      "id": "description_missing",
+      "what": "every indexable page has a meta description"
+    },
+    {
+      "id": "h1_missing",
+      "what": "every page with text has an H1"
+    },
+    {
+      "id": "viewport_missing",
+      "what": "every page sets a mobile viewport"
+    },
+    {
+      "id": "images_missing_alt",
+      "what": "images carry alt attributes"
+    },
+    {
+      "id": "anchor_text",
+      "what": "internal links have descriptive text"
+    },
+    {
+      "id": "thin_content",
+      "what": "0 pages with text all have 300+ words"
+    },
+    {
+      "id": "duplicate_content",
+      "what": "no two indexable pages have identical main text"
+    },
+    {
+      "id": "near_duplicate_content",
+      "what": "no near-copy page pairs"
+    },
+    {
+      "id": "schema_parse_errors",
+      "what": "structured data parses"
+    },
+    {
+      "id": "org_schema_missing",
+      "what": "the homepage names the business in Organization or LocalBusiness markup"
+    },
+    {
+      "id": "mixed_content",
+      "what": "no http:// resources on https pages"
+    },
+    {
+      "id": "slow_server",
+      "what": "median server response 504 ms from where this audit ran"
+    },
+    {
+      "id": "social_tags_missing",
+      "what": "key pages carry Open Graph tags"
+    },
+    {
+      "id": "hreflang_issues",
+      "what": "hreflang annotations are consistent"
+    }
+  ],
+  "not_checked": [
+    {
+      "what": "Core Web Vitals",
+      "why": "Google's keyless quota was used up; set PAGESPEED_API_KEY (a free Google Cloud key) and re-run"
+    }
+  ],
+  "checks_run": [
+    "ai_blocked_at_edge",
+    "ai_search_blocked",
+    "ai_user_fetch_blocked",
+    "anchor_text",
+    "broken_internal_links",
+    "canonical_conflict",
+    "canonical_elsewhere",
+    "canonical_missing",
+    "canonical_to_bad_target",
+    "deep_pages",
+    "description_missing",
+    "duplicate_content",
+    "h1_missing",
+    "homepage_unreachable",
+    "host_variants",
+    "hreflang_issues",
+    "hsts_missing",
+    "images_missing_alt",
+    "indexable_not_in_sitemap",
+    "js_rendered_content",
+    "llms_txt_missing",
+    "mixed_content",
+    "near_duplicate_content",
+    "noindex_in_sitemap",
+    "noindex_key_pages",
+    "noindex_pages",
+    "not_https",
+    "org_schema_missing",
+    "orphan_pages",
+    "redirect_chains",
+    "robots_blocks_google",
+    "robots_blocks_pages",
+    "robots_blocks_resources",
+    "robots_unreachable",
+    "schema_parse_errors",
+    "search_engine_blocked",
+    "server_errors",
+    "sitemap_blocked_by_robots",
+    "sitemap_missing",
+    "sitemap_non_200",
+    "slow_server",
+    "social_tags_missing",
+    "soft_404",
+    "thin_content",
+    "title_duplicate",
+    "title_length",
+    "title_missing",
+    "viewport_missing"
+  ],
+  "notes": []
+}

@@ -15,8 +15,12 @@ export function buildPriceFaq(regionCode: string, regionName: string, pricing: S
   const { basic, pro, elite } = pricing ?? {};
   if (!basic || !pro || !elite) return null;
   const place = regionCode === "uae" ? "the UAE" : regionName;
+  // A visible "as of" date on the price answer: AI answers favour dated, current facts.
+  // Prices are read live from pricing.json, so the current month is always truthful.
+  const asOf = new Date().toLocaleDateString("en-GB", { month: "long", year: "numeric" });
   const fill = (template: string) =>
     template
+      .replace("{asof}", asOf)
       .replace("{place}", place)
       .replace("{basic}", formatTier(basic))
       .replace("{pro}", formatTier(pro))

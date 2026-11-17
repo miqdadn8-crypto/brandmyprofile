@@ -5,6 +5,6 @@
   },
   "price": {
     "question": "How much does CV writing cost in {place}?",
-    "answer": "At BrandMyProfile, professional CV writing for jobs in {place} costs {basic} for the Essential package, {pro} for Professional and {elite} for Executive. Every CV is written by a person and formatted to be ATS-friendly, and you can start with a free CV review before choosing a package."
+    "answer": "As of {asof}, professional CV writing for jobs in {place} at BrandMyProfile costs {basic} for the Essential package, {pro} for Professional and {elite} for Executive. Every CV is written by a person and formatted to be ATS-friendly, and you can start with a free CV review before choosing a package."
   }
 }
