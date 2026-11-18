@@ -12,6 +12,7 @@ export type AnalyticsEventName =
   | "consultation_click"
   | "contact_submit"
   | "resource_print"
+  | "resource_download"
   | "outbound_social_click"
   | "lead_popup_open"
   | "lead_popup_step_complete"

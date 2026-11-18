@@ -848,6 +848,20 @@ async function main() {
         addSitemapEntry({ loc: `${SITE_URL}${url}`, changefreq: 'monthly', priority: '0.8' });
     }
 
+    // Lead magnet: the free Kuwait CV Template Pack (files in public/resources/kuwait-cv-template/).
+    {
+        const url = '/resources/kuwait-cv-template';
+        urls.push(url);
+        generateIndexablePage(
+            url,
+            'Free Kuwait CV Template (Word & PDF)',
+            'Free Kuwait CV templates in Word, with a filled PDF example for each: general, fresher, nurse and driver. ATS-friendly single-column layout, no sign-up.',
+            null,
+            blogHubLinks
+        );
+        addSitemapEntry({ loc: `${SITE_URL}${url}`, changefreq: 'monthly', priority: '0.8' });
+    }
+
     // Unit 9: global legal utility pages. Footer.tsx has linked to /privacy and /terms on
     // every page since it was written, but the routes never existed - a real sitewide
     // broken-link defect found in this unit's crawl audit, fixed by adding the 2 pages.

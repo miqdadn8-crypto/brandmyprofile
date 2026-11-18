@@ -48,6 +48,7 @@ const FreeCvReview = lazy(() => import("./pages/FreeCvReview"));
 const BlogPost = lazy(() => import("./pages/BlogPost"));
 const BlogHub = lazy(() => import("./pages/BlogHub"));
 const GccCvChecklist = lazy(() => import("./pages/GccCvChecklist"));
+const KuwaitCvTemplate = lazy(() => import("./pages/KuwaitCvTemplate"));
 const Privacy = lazy(() => import("./pages/Privacy"));
 const Terms = lazy(() => import("./pages/Terms"));
 
@@ -121,6 +122,7 @@ const App = () => (
                       so any other /resources/* URL falls through to the catch-all 404 below
                       instead of being auto-accepted. */}
                   <Route path="/resources/gcc-cv-checklist" element={<GccCvChecklist />} />
+                  <Route path="/resources/kuwait-cv-template" element={<KuwaitCvTemplate />} />
 
                   {/* Unit 9: global legal utility pages - Footer.tsx has linked to these on
                       every page since it was written, but the routes never existed (a real

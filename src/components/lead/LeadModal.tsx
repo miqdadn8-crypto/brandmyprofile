@@ -114,10 +114,19 @@ export default function LeadModal({ open, trigger, initialService, onOpenChange,
     }
   };
 
-  // The WhatsApp message never includes anything the visitor typed into the form.
+  // WhatsApp is where every lead is handled, so the post-submit message carries what the
+  // owner needs to start the conversation without opening the Sheet: the reference, service,
+  // target role and country. Name, email and phone are never included (WhatsApp already shows
+  // the sender's number and name).
   const whatsappHref = buildWhatsAppUrl(
     step === 3 && leadId
-      ? `Hello BrandMyProfile, I just sent a free CV review request (reference ${leadId}).`
+      ? [
+          `Hello BrandMyProfile, I just requested a free CV review (reference ${leadId}).`,
+          service ? `Service: ${service}` : null,
+          targetRole.trim() ? `Target role: ${targetRole.trim().slice(0, 120)}` : null,
+          targetCountry ? `Target country: ${targetCountry}` : null,
+          cvFile ? "I uploaded my CV with the form." : "I'll send my CV here.",
+        ].filter(Boolean).join("\n")
       : `Hello BrandMyProfile, I'd like a free CV review${service ? ` for ${service}` : ""}. Please let me know how to send my CV.`,
   );
 
@@ -237,16 +246,18 @@ export default function LeadModal({ open, trigger, initialService, onOpenChange,
         {step === 3 && (
           <div className="py-4 text-center">
             <CheckCircle2 className="mx-auto h-12 w-12 text-primary" aria-hidden="true" />
-            <DialogTitle className="mt-4 font-serif text-2xl font-semibold sm:text-3xl">Request received</DialogTitle>
+            <DialogTitle className="mt-4 font-serif text-2xl font-semibold sm:text-3xl">One last step: send it on WhatsApp</DialogTitle>
             <DialogDescription className="mt-3 text-base leading-7 text-muted-foreground">
-              Thank you. We&apos;ve received your enquiry. Our team will contact you.
+              We reply to every request on WhatsApp. Tap below to send your request{cvFile ? "" : ", then attach your CV in the chat"}.
             </DialogDescription>
             <p className="mt-2 text-xs text-muted-foreground">Reference: {leadId}</p>
-            <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-center">
-              <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>Close</Button>
-              <Button asChild variant="cta">
-                <a href={whatsappHref} target="_blank" rel="noopener noreferrer"><MessageCircle className="h-4 w-4" aria-hidden="true" /> Continue on WhatsApp</a>
+            <div className="mt-6 flex flex-col gap-3">
+              <Button asChild variant="cta" size="lg" className="min-h-12 w-full text-base">
+                <a href={whatsappHref} target="_blank" rel="noopener noreferrer"><MessageCircle className="h-5 w-5" aria-hidden="true" /> Send my request on WhatsApp</a>
               </Button>
+              <button type="button" onClick={() => onOpenChange(false)} className="text-sm font-semibold text-muted-foreground underline">
+                Close
+              </button>
             </div>
           </div>
         )}
