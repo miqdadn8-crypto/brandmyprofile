@@ -18,3 +18,4 @@
 | 2026-11-19 | programmatic-seo | Role-CV pattern: NO (thin Kuwait spread, no dataset, indexing unconfirmed); 3 editorial spokes + fix industry library | campaigns/pseo-role-cv/validation.md |
 | 2026-11-19 | seo-content | Kuwait CV format for freshers (spoke, draft, not applied) | campaigns/content/kuwait-cv-format-freshers.md |
 | 2026-11-19 | local-seo-plan | 90-day plan: fix-first GBP category/address/area; 13-page list; profile checklist; dated calendar | campaigns/local-seo/plan.md |
+| 2026-11-19 | ai-search | Quick position check: site absent from 6 of 6 queries incl. own brand name | campaigns/ai-search/notes-2026-11-19-quickcheck.md |

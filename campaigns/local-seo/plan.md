@@ -1,6 +1,14 @@
 ## 90-DAY LOCAL SEO PLAN for BrandMyProfile
 Plan date 19 Nov 2026 · Depth: Quick (CV writing, one map check from the owner's phone, AI questions from the 17 Nov audit) · Data: LIVE (web, owner screenshots and Business Profile editor paste; no Search Console, call log or job records)
 
+### ⚠ Update 19 Nov 2026: this plan no longer relies on Google Maps
+The owner confirmed BrandMyProfile **never meets clients in person** (online only). Google Business Profiles are only for businesses that meet customers in person, at a location or at the customer's, and Google's guidelines name online-only businesses as ineligible. After the profile edits, Google asked for video re-verification of a physical location. **Decision: don't record a video ("Verify later"), make no further profile edits, and treat the Google profile as an at-risk asset that may be removed.** What changes:
+- **Fix first is now the website pass** (week 2 below moves to week 1): the noscript fix so crawlers can read every page, the /kuwait first screen with the rating and price, the template pack and both articles. Search and AI answers are now the main way people find you.
+- **Reviews move to an owned home:** open a free Trustpilot business account, switch the `/review` WhatsApp quick reply to the Trustpilot link, and invite *every* finished client, not selected ones. Quote your existing Google reviews on the site (first name + date), so the proof survives if the profile goes.
+- **The Google profile checklist, the post drafts and the map re-checks below are suspended.** If the profile stays live, leave it as it is and keep replying to reviews (replies don't trigger verification).
+- **Bing Places and Apple Business Connect are dropped too**, since both are for businesses customers can visit or that visit customers.
+The page list, calendar weeks 2–13 and measurement below still stand; read "Maps re-check" items as "Search Console + AI-answer re-check".
+
 ### The headline
 When someone in Kuwait searches "cv writing" on Google Maps, Google opens straight onto **Abdullah Haris – Professional Resume Service** (5.0★, 17 reviews, an unclaimed listing), and BrandMyProfile, with 4.9★ from 32 reviews, isn't shown (owner's phone, 17 Nov 2026).
 

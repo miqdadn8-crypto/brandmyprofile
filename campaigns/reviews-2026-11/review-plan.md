@@ -58,7 +58,7 @@ For the other 30: paste them in (stars, date, text) and I'll write one for each,
 
 **When:** at final delivery (files sent and last revision signed off), in the same WhatsApp chat. One reminder 3–5 days later, then stop. If a revision is still open, finish it first.
 
-**Channel:** WhatsApp in the open chat. A message sent while the client is still active in the chat (inside WhatsApp's 24-hour window) needs no template. Use email for clients who only used the form. The link comes from Business Profile → "Ask for reviews".
+**Channel (updated 2026-11-19):** the review link is now Trustpilot (online-only business, Google profile at risk). WhatsApp in the open chat. A message sent while the client is still active in the chat (inside WhatsApp's 24-hour window) needs no template. Use email for clients who only used the form. The link comes from Business Profile → "Ask for reviews".
 
 **Scripts** (put in the writer's real name):
 
