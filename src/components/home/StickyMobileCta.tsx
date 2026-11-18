@@ -26,6 +26,10 @@ export default function StickyMobileCta() {
 
     const heroObserver = new IntersectionObserver(([entry]) => {
       setPastHero(!entry.isIntersecting && entry.boundingClientRect.top < 0);
+      // While the hero buttons are on screen, mark <body data-hero-cta="visible"> so the
+      // floating WhatsApp bubble (redundant with the hero's own WhatsApp button) hides on phones.
+      if (entry.isIntersecting) document.body.dataset.heroCta = "visible";
+      else delete document.body.dataset.heroCta;
     });
     const stopObserver = new IntersectionObserver((entries) => {
       entries.forEach((entry) => (entry.isIntersecting ? inStop.add(entry.target) : inStop.delete(entry.target)));
@@ -37,6 +41,7 @@ export default function StickyMobileCta() {
     return () => {
       heroObserver.disconnect();
       stopObserver.disconnect();
+      delete document.body.dataset.heroCta;
     };
   }, []);
 

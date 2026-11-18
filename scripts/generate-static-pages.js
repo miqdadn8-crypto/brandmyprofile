@@ -50,7 +50,7 @@ const CRAWLER_LINK_SUFFIXES = [
     { suffix: '/services/gcc-cv', label: 'GCC Standard CV' },
     { suffix: '/services/ats-cv', label: 'ATS Friendly CV' },
     { suffix: '/services/europass-cv', label: 'Europass CV' },
-    { suffix: '/services/linkedin-makeover', label: 'LinkedIn Makeover' },
+    { suffix: '/services/linkedin-makeover', label: 'LinkedIn Profile Writing' },
     { suffix: '/services/masterclass', label: 'Masterclass' },
     { suffix: '/services/career-guidance', label: 'Career Guidance' },
     { suffix: '/pricing', label: 'Pricing' },
@@ -321,17 +321,26 @@ function buildAlternates(urlPath, indexablePaths) {
     return [...alternates, { hreflang: 'x-default', href: xDefault }];
 }
 
-// Page-specific replacement for index.html's generic <noscript><main> block, so crawlers
-// that never run JavaScript (GPTBot, PerplexityBot, ...) see a distinct H1, summary and
-// links on every URL instead of one identical Kuwait-first text.
+// Page-specific replacement for index.html's generic <main data-prerender> block inside #root,
+// so crawlers that never run JavaScript (GPTBot, PerplexityBot, ...) see a distinct H1,
+// summary and links on every URL. It is real HTML (not <noscript>, which many HTML-to-text
+// readers discard); React's createRoot().render() replaces it when the app mounts.
 // Renders the blog body format (see parseBlogBody in src/pages/BlogPost.tsx) to static HTML
 // for crawlers that never run JavaScript. The leading "# Title" line is skipped because the
 // fallback already renders the title as its H1.
+// Inline markdown for blog bodies: **bold** and [text](/path or https://url). Runs on
+// already-escaped text, so only these two patterns ever become HTML.
+function inlineMd(escaped) {
+    return escaped
+        .replace(/\[([^\]]+)\]\(((?:\/|https:\/\/)[^)\s]+)\)/g, (m, text, url) => `<a href="${url}">${text}</a>`)
+        .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+}
+
 function blogBodyToHtml(body) {
     const out = [];
     let list = null;
     const flush = () => {
-        if (list) out.push(`<${list.type}>${list.items.map((item) => `<li>${htmlEscape(item)}</li>`).join('')}</${list.type}>`);
+        if (list) out.push(`<${list.type}>${list.items.map((item) => `<li>${inlineMd(htmlEscape(item))}</li>`).join('')}</${list.type}>`);
         list = null;
     };
     body.split('\n').forEach((line) => {
@@ -346,7 +355,7 @@ function blogBodyToHtml(body) {
         if (line.startsWith('### ')) out.push(`<h3>${htmlEscape(line.slice(4))}</h3>`);
         else if (line.startsWith('## ')) out.push(`<h2>${htmlEscape(line.slice(3))}</h2>`);
         else if (line.startsWith('# ')) return;
-        else if (line.trim()) out.push(`<p>${htmlEscape(line)}</p>`);
+        else if (line.trim()) out.push(`<p>${inlineMd(htmlEscape(line))}</p>`);
     });
     flush();
     return out.map((html) => `        ${html}`).join('\n');
@@ -395,7 +404,18 @@ function buildCrawlerFallback({ title, description, urlPath, indexablePaths, alt
                 .filter(({ suffix }) => indexablePaths.has(`/${region}${suffix}`) && `/${region}${suffix}` !== urlPath)
                 .map(({ suffix, label }) => ({ href: `/${region}${suffix}`, label: `${label} - ${regionName}` }))]
         : [{ href: '/kuwait', label: 'BrandMyProfile Kuwait' }, { href: '/blog', label: 'Career guides' }];
-    const allLinks = [...links, ...extraLinks].filter((link) => link.href !== urlPath);
+    // Targeted links that were missing from every crawler-readable page (site audit 2026-11-17:
+    // the Kuwait industry pages and the LinkedIn headline guide had 0-1 internal links).
+    const targeted = [];
+    if (urlPath.endsWith('/services/linkedin-makeover')) targeted.push({ href: '/blog/linkedin-headline-gulf-jobs', label: 'LinkedIn headline guide for Gulf jobs' });
+    if (region === 'kuwait') targeted.push({ href: '/blog/kuwait-cv-format-guide', label: 'Kuwait CV format guide' }, { href: '/resources/kuwait-cv-template', label: 'Free Kuwait CV template (Word & PDF)' });
+    if (urlPath === '/kuwait/services/cv-writing') {
+        ['oil-gas', 'engineering', 'construction', 'finance'].forEach((industry) => {
+            if (indexablePaths.has(`/kuwait/cv-writing/${industry}`)) targeted.push({ href: `/kuwait/cv-writing/${industry}`, label: `${industry === 'oil-gas' ? 'Oil & gas' : industry[0].toUpperCase() + industry.slice(1)} CV writing - Kuwait` });
+        });
+    }
+    const seen = new Set();
+    const allLinks = [...links, ...extraLinks, ...targeted].filter((link) => link.href !== urlPath && !seen.has(link.href) && seen.add(link.href));
     // Region variants of one page share a base title (e.g. About), so name the region in the H1.
     const baseHeading = headingFromTitle(title);
     const heading = regionName && !baseHeading.toLowerCase().includes(regionName.toLowerCase()) ? `${baseHeading} - ${regionName}` : baseHeading;
@@ -406,8 +426,7 @@ function buildCrawlerFallback({ title, description, urlPath, indexablePaths, alt
             return `<li><a href="${alt.href.replace(SITE_URL, '')}">${htmlEscape(REGION_NAMES[code])}</a></li>`;
         });
     return [
-        '<noscript>',
-        '      <main>',
+        '<main data-prerender>',
         `        <h1>${htmlEscape(heading)}</h1>`,
         `        <p>${htmlEscape(description)}</p>`,
         '        <p>BrandMyProfile is an online career-support service: CV writing, ATS and GCC-format CVs, LinkedIn optimization and career coaching. Services are delivered online; there is no walk-in office.</p>',
@@ -418,8 +437,7 @@ function buildCrawlerFallback({ title, description, urlPath, indexablePaths, alt
         regionLinks.length ? `        <h2>This page in other regions</h2>\n        <ul>${regionLinks.join('')}</ul>` : '',
         // Contact details match index.html's fallback and organization.json.
         '        <p>Phone/WhatsApp: +965 41103254 &middot; Email: <a href="mailto:info@brandmyprofile.com">info@brandmyprofile.com</a></p>',
-        '      </main>',
-        '    </noscript>',
+        '</main>',
     ].filter(Boolean).join('\n');
 }
 
@@ -500,7 +518,7 @@ function generatePage(urlPath, title, description, image, options = {}) {
     }
 
     if (crawlerHtml) {
-        html = html.replace(/<noscript>\s*<main>[\s\S]*?<\/main>\s*<\/noscript>/, () => crawlerHtml);
+        html = html.replace(/<main data-prerender>[\s\S]*?<\/main>/, () => crawlerHtml);
     }
 
     // Write file

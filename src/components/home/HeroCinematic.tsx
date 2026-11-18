@@ -1,10 +1,11 @@
-import { ArrowRight, Check, FileSearch, MessageCircle, ShieldCheck } from "lucide-react";
+import { ArrowRight, Check, FileSearch, MessageCircle, ShieldCheck, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLeadModal } from "@/components/lead/LeadModalContext";
 import { useRegion } from "@/contexts/RegionContext";
 import { useRegionPricing } from "@/hooks/useRegionPricing";
 import { GOOGLE_BUSINESS_PROFILE_URL } from "@/lib/seo/organization";
 import { buildWhatsAppUrl } from "@/lib/whatsapp";
+import { RATING_SNAPSHOT } from "@/lib/data/reviewsSnapshot";
 import heroImage from "@/assets/hero-gcc-professional.webp";
 import laurelArtwork from "../../../laurel.svg";
 
@@ -85,9 +86,22 @@ export default function HeroCinematic() {
           </h1>
 
           <p className="mt-6 max-w-[34rem] text-lg leading-8 text-white/90 xl:text-xl xl:leading-9">
-            Human-written, ATS-friendly CVs for {isIndia ? "GCC and international employers" : `${place} and GCC employers`}.{" "}
-            <span className="text-white/70">Start with a free CV review, or send your CV on WhatsApp.</span>
+            Human-written, ATS-friendly CVs for {isIndia ? "GCC and international employers" : `${place} and GCC employers`}
+            {startingPrice ? <>, <span className="whitespace-nowrap font-semibold text-white">from {startingPrice}</span></> : null}.{" "}
+            {/* Phones: the two buttons below say this already, and the line pushed them off the first screen. */}
+            <span className="hidden text-white/70 sm:inline">Start with a free CV review, or send your CV on WhatsApp.</span>
           </p>
+
+          {/* The proof the visitor just saw on Google, one line under the promise. Dated snapshot,
+              no network request on first load (see src/lib/data/reviewsSnapshot.ts). */}
+          <a href={GOOGLE_BUSINESS_PROFILE_URL} target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex items-center gap-2 rounded-sm text-sm font-semibold text-white/90 underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white">
+            <span className="flex" aria-hidden="true">
+              {Array.from({ length: 5 }).map((_, i) => (
+                <Star key={i} className="h-4 w-4 fill-[hsl(45_95%_60%)] text-[hsl(45_95%_60%)]" />
+              ))}
+            </span>
+            {RATING_SNAPSHOT.rating.toFixed(1)} from {RATING_SNAPSHOT.totalReviews} Google reviews
+          </a>
 
           <div id="hero-cta" className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <Button variant="cta" size="xl" onClick={() => openLeadModal({ trigger: "hero_cv_review" })} className="group min-h-14 w-full whitespace-normal px-7 text-base shadow-none hover:shadow-none focus-visible:ring-white focus-visible:ring-offset-[hsl(var(--surface-ink))] sm:w-auto sm:text-lg">
@@ -117,8 +131,8 @@ export default function HeroCinematic() {
             </p>
           ))}
           <a href={GOOGLE_BUSINESS_PROFILE_URL} target="_blank" rel="noopener noreferrer" className="group w-fit rounded-sm pr-4 leading-5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white">
-            <span className="block font-bold text-white">Google reviews</span>
-            <span className="block text-white/80 underline decoration-white/40 underline-offset-4 transition-colors duration-200 group-hover:decoration-white">Read them</span>
+            <span className="block font-bold text-white">{RATING_SNAPSHOT.rating.toFixed(1)}★ on Google</span>
+            <span className="block text-white/80 underline decoration-white/40 underline-offset-4 transition-colors duration-200 group-hover:decoration-white">{RATING_SNAPSHOT.totalReviews} reviews</span>
           </a>
         </div>
       </div>

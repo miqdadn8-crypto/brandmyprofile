@@ -310,15 +310,17 @@ export default function LinkedInMakeover() {
         <section className="relative isolate overflow-hidden border-b border-border bg-[linear-gradient(135deg,hsl(var(--surface-warm))_0%,hsl(var(--background))_48%,hsl(var(--surface-teal-soft))_100%)]">
           <div className="section-container grid min-h-[760px] items-center gap-12 py-16 lg:min-h-[800px] lg:grid-cols-[1fr_0.88fr] lg:py-20">
             <div className="min-w-0 max-w-3xl">
+              {/* The H1 says what and where (the words people search); the old headline line
+                  ("Build a LinkedIn profile recruiters understand") becomes the eyebrow. */}
               <p className="mb-5 text-xs font-semibold uppercase tracking-[0.16em] text-accent sm:text-sm sm:tracking-[0.22em]">
-                LinkedIn Profile Writing &amp; Optimization in {selectedRegion.name}
+                Build a profile recruiters understand
               </p>
               <h1 className="font-serif text-[clamp(2.65rem,10vw,5.8rem)] font-semibold leading-[0.98] tracking-normal">
-                Build a LinkedIn Profile
-                <span className="block text-primary">Recruiters Understand</span>
+                LinkedIn Profile Writing
+                <span className="block text-primary">in {selectedRegion.code === "uae" ? "the UAE" : selectedRegion.name}</span>
               </h1>
               <p className="mt-7 max-w-2xl text-lg leading-8 text-muted-foreground md:text-xl">
-                Professional LinkedIn optimization that improves your headline, About section, experience, keywords and overall professional positioning for recruiters across Kuwait and the GCC.
+                Professional LinkedIn profile writing and optimization: your headline, About section, experience and keywords rewritten for recruiters across {selectedRegion.code === "uae" ? "the UAE" : selectedRegion.name}{selectedRegion.code === "india" ? ", the GCC and international markets" : " and the GCC"}.
               </p>
               <div className="mt-6 flex flex-wrap gap-x-4 gap-y-2 text-sm font-semibold text-primary">
                 {trustItems.map((item) => (
@@ -625,6 +627,10 @@ export default function LinkedInMakeover() {
                 </Button>
               </div>
               <p className="mt-5 text-sm font-medium text-white/70">Human reviewed. Confidential. No obligation.</p>
+              <p className="mt-3 text-sm text-white/80">
+                Writing it yourself first? Read our{" "}
+                <a href="/blog/linkedin-headline-gulf-jobs" className="font-semibold text-white underline underline-offset-4">LinkedIn headline guide for Gulf jobs</a>.
+              </p>
             </div>
           </div>
         </section>

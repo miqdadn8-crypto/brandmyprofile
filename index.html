@@ -22,15 +22,20 @@
 
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <style>
+      main[data-prerender]{max-width:46rem;margin:0 auto;padding:1.5rem 1rem;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.6;color:#1f2937}
+      main[data-prerender] h1{font-size:1.6rem;line-height:1.25;margin:0 0 .75rem}
+      main[data-prerender] h2{font-size:1.2rem;margin:1.5rem 0 .5rem}
+      main[data-prerender] a{color:#0f5f6b}
+    </style>
   </head>
 
   <body>
-    <div id="root"></div>
-    <!-- Static fallback for crawlers/AI agents that don't execute JavaScript
-         (e.g. GPTBot, ClaudeBot, PerplexityBot). React/Helmet replace this
-         once the app mounts, so it's invisible to normal browser users. -->
-    <noscript>
-      <main>
+    <!-- Static content for crawlers and AI agents that don't execute JavaScript (GPTBot,
+         ClaudeBot, PerplexityBot). It lives inside #root as real HTML (not a noscript block, which many
+         HTML-to-text readers discard); React's createRoot().render() replaces it when the app
+         mounts. scripts/generate-static-pages.js swaps in page-specific content per URL. -->
+    <div id="root"><main data-prerender>
         <h1>BrandMyProfile — CV Writing, ATS Optimization, GCC CV, LinkedIn &amp; Career Coaching</h1>
         <p>
           BrandMyProfile is an online career-support service offering professional CV writing, ATS CV
@@ -72,8 +77,7 @@
         </p>
         <p><a href="/kuwait/pricing">View pricing</a> &middot; <a href="/kuwait/contact">Book a free consultation</a></p>
         <p><a href="https://share.google/2G466PLGfS085Dtiz">Read verified reviews on Google</a></p>
-      </main>
-    </noscript>
+      </main></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

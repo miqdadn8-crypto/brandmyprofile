@@ -290,8 +290,21 @@ All colors MUST be HSL.
 
   /* While the phone sticky CTA bar is up it carries WhatsApp, so the floating bubble steps aside. */
   @media (max-width: 639px) {
-    body[data-sticky-cta="on"] .whatsapp-float {
+    body[data-sticky-cta="on"] .whatsapp-float,
+    /* While the hero's own "Chat on WhatsApp" button is on screen the bubble is redundant,
+       and on phones it sat on top of the main "Get My Free CV Review" button. */
+    body[data-hero-cta="visible"] .whatsapp-float,
+    /* The slim consent bar spans the bottom edge while it's open. */
+    body[data-consent-open="on"] .whatsapp-float {
       display: none;
+    }
+  }
+
+  /* The slim consent bar sits on the bottom edge, and steps up above the sticky CTA bar when
+     that bar is showing (phones only). */
+  @media (max-width: 639px) {
+    body[data-sticky-cta="on"] .consent-bar {
+      bottom: 5.25rem;
     }
   }
 

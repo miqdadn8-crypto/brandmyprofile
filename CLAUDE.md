@@ -27,7 +27,9 @@ The entire app is structured around a `/:region` URL prefix. The `RegionContext`
 - IP geolocation fallback for auto-detection
 - Forced redirect to region selection at root `/`
 
-Region codes: `kw` (Kuwait/KWD), `ae` (UAE/AED), `sa` (Saudi Arabia/SAR), `qa` (Qatar/QAR), `in` (India/INR)
+Region codes (used as the URL slug, e.g. `/kuwait/pricing`): `kuwait` (KWD), `uae` (AED), `saudi` (SAR), `qatar` (QAR), `india` (INR), plus a limited footprint for `bahrain` and `oman` (home, CV writing and contact only). Prices live per region in `src/lib/data/<region>/pricing.json`; the `regionalPricing` block in the top-level `src/lib/data/pricing.json` is stale and unused.
+
+Static HTML: `scripts/generate-static-pages.js` writes each page's crawler-readable content as `<main data-prerender>` inside `<div id="root">` (not `<noscript>`, which many HTML-to-text readers discard). React's `createRoot().render()` replaces it on mount. Blog bodies support `[text](/path or https://…)` links and `**bold**` in both the generator and `src/pages/BlogPost.tsx`.
 
 Route pattern: `/:region/jobs`, `/:region/pricing`, `/:region/services/cv-writing`, etc. Blog routes (`/blog`, `/blog/:slug`) are global (no region prefix).
 

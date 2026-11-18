@@ -33,7 +33,7 @@ export const blogHubs: BlogHubConfig[] = [
       "CV writing and ATS optimization are related but distinct: writing focuses on how your experience is presented and argued, while ATS optimization focuses on machine-readable structure. Regional adaptation - GCC formatting conventions, industry-specific positioning - sits on top of both.",
     ],
     cornerstoneSlug: "gcc-cv-format-guide",
-    supportingSlugs: ["best-cv-writing-service-kuwait", "best-cv-writing-service-uae", "best-cv-writing-service-saudi", "best-cv-writing-service-qatar", "best-cv-writing-service-bahrain", "best-cv-writing-service-oman", "kuwait-cv-format-guide", "gcc-cv-mistakes", "cover-letter-gcc-jobs", "engineering-cv-kuwait-guide", "oil-gas-cv-gcc-guide"],
+    supportingSlugs: ["best-cv-writing-service-kuwait", "best-cv-writing-service-uae", "best-cv-writing-service-saudi", "best-cv-writing-service-qatar", "best-cv-writing-service-bahrain", "best-cv-writing-service-oman", "kuwait-cv-format-guide", "kuwait-cv-format-freshers", "gcc-cv-mistakes", "cover-letter-gcc-jobs", "engineering-cv-kuwait-guide", "oil-gas-cv-gcc-guide"],
     serviceLinks: [
       { label: "Professional CV Writing in Kuwait", path: "/kuwait/services/cv-writing" },
       { label: "GCC CV Writing", path: "/kuwait/services/gcc-cv" },
@@ -67,7 +67,7 @@ export const blogHubs: BlogHubConfig[] = [
       "These guides focus on CV writing, application positioning and interview preparation - not visa, immigration or legal advice. Confirm any visa or work-authorization requirements with official authorities or a qualified professional.",
     ],
     cornerstoneSlug: "gcc-cv-format-guide",
-    supportingSlugs: ["best-cv-writing-service-kuwait", "best-cv-writing-service-uae", "best-cv-writing-service-saudi", "best-cv-writing-service-qatar", "best-cv-writing-service-bahrain", "best-cv-writing-service-oman", "kuwait-cv-format-guide", "gcc-cv-mistakes", "engineering-cv-kuwait-guide", "oil-gas-cv-gcc-guide", "gcc-interview-preparation", "career-transition-gcc-job-market"],
+    supportingSlugs: ["best-cv-writing-service-kuwait", "best-cv-writing-service-uae", "best-cv-writing-service-saudi", "best-cv-writing-service-qatar", "best-cv-writing-service-bahrain", "best-cv-writing-service-oman", "kuwait-cv-format-guide", "kuwait-cv-format-freshers", "gcc-cv-mistakes", "engineering-cv-kuwait-guide", "oil-gas-cv-gcc-guide", "gcc-interview-preparation", "career-transition-gcc-job-market", "linkedin-headline-gulf-jobs"],
     serviceLinks: [
       { label: "GCC CV Writing", path: "/kuwait/services/gcc-cv" },
       { label: "Career Guidance", path: "/kuwait/services/career-guidance" },
@@ -98,7 +98,7 @@ export const blogHubs: BlogHubConfig[] = [
       "This page is an informational guide hub. If you're ready to start your application, our India to GCC Jobs pathway covers the commercial next steps - CV services, industry paths and service links - in one place.",
     ],
     cornerstoneSlug: "india-to-gcc-jobs-guide",
-    supportingSlugs: ["gcc-cv-format-guide", "career-transition-gcc-job-market", "engineering-cv-kuwait-guide", "oil-gas-cv-gcc-guide"],
+    supportingSlugs: ["gcc-cv-format-guide", "india-to-gcc-jobs-guide", "career-transition-gcc-job-market", "engineering-cv-kuwait-guide", "oil-gas-cv-gcc-guide"],
     serviceLinks: [
       { label: "India GCC CV Writing", path: "/india/services/gcc-cv" },
       { label: "India ATS CV Writing", path: "/india/services/ats-cv" },

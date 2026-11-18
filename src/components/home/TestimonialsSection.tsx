@@ -3,11 +3,12 @@ import { ExternalLink, Star } from "lucide-react";
 import Reveal from "@/components/motion/Reveal";
 import { useGoogleReviews } from "@/hooks/useGoogleReviews";
 import { GOOGLE_BUSINESS_PROFILE_URL } from "@/lib/seo/organization";
+import { RATING_SNAPSHOT, REVIEW_SNAPSHOT, REVIEWS_COLLECTED } from "@/lib/data/reviewsSnapshot";
 
-// Genuine Google review data only, from the existing integration (useGoogleReviews ->
-// googleReviewsService -> Supabase edge function "fetch-google-reviews"). Nothing is
-// invented, edited, truncated or hardcoded; if the feed is unavailable we show a plain
-// link to the Google profile instead of any review cards. Visual display only - no
+// Genuine Google review data only: the live feed (useGoogleReviews -> googleReviewsService ->
+// Supabase edge function "fetch-google-reviews"), or, when the feed is unavailable, a dated
+// verbatim snapshot of real reviews (src/lib/data/reviewsSnapshot.ts) labelled with the month
+// it was collected. Nothing is invented, edited or truncated. Visual display only - no
 // Review/AggregateRating structured data is emitted from this data.
 
 // Defers the reviews request (and its render) until the section is near the viewport,
@@ -45,38 +46,29 @@ function ReviewsContent() {
     return <div className="my-8 h-64 animate-pulse rounded-[var(--radius-bento)] bg-muted/60" aria-hidden="true" />;
   }
 
-  if (!isLive) {
-    return (
-      <div className="flex flex-col gap-4 border-y border-foreground/15 py-8 sm:flex-row sm:items-center sm:justify-between">
-        <p className="font-serif text-2xl leading-tight tracking-[-0.015em] sm:text-3xl">See what clients say about BrandMyProfile.</p>
-        <a
-          href={googleUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex min-h-12 w-fit shrink-0 items-center gap-2 rounded-lg border-2 border-primary/40 px-5 font-semibold text-primary transition-colors duration-200 ease-micro hover:border-primary hover:bg-primary hover:text-primary-foreground"
-        >
-          Read our reviews on Google <ExternalLink className="h-4 w-4" aria-hidden="true" />
-        </a>
-      </div>
-    );
-  }
+  // Live reviews when the feed answers; otherwise the dated verbatim snapshot.
+  const list = isLive
+    ? reviews.slice(0, 6)
+    : REVIEW_SNAPSHOT.map((r) => ({ ...r, authorUrl: undefined, avatar: undefined, relativeTime: REVIEWS_COLLECTED }));
+  const shownRating = isLive ? rating : RATING_SNAPSHOT.rating;
+  const shownTotal = isLive ? totalReviews : RATING_SNAPSHOT.totalReviews;
 
   return (
     <div className="py-8 md:py-12">
       <Reveal className="mb-8 text-center">
         <h2 id="reviews-heading" className="heading-section mb-3">What Professionals Say About BrandMyProfile</h2>
         <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
-          Feedback from Google reviews, shown exactly as posted.
+          {isLive ? "Feedback from Google reviews, shown exactly as posted." : `Feedback from our Google reviews, shown exactly as posted (collected ${REVIEWS_COLLECTED}).`}
         </p>
       </Reveal>
-      {rating ? (
+      {shownRating ? (
         <p className="mb-6 flex flex-wrap items-center justify-center gap-2 text-sm font-semibold text-foreground">
           <span className="flex" aria-hidden="true">
             {Array.from({ length: 5 }).map((_, i) => (
-              <Star key={i} className={`h-4 w-4 ${i < Math.round(rating) ? "fill-foreground text-foreground" : "text-border"}`} />
+              <Star key={i} className={`h-4 w-4 ${i < Math.round(shownRating) ? "fill-foreground text-foreground" : "text-border"}`} />
             ))}
           </span>
-          <span>{rating.toFixed(1)} on Google{totalReviews ? ` · ${totalReviews} reviews` : ""}</span>
+          <span>{shownRating.toFixed(1)} on Google{shownTotal ? ` · ${shownTotal} reviews` : ""}</span>
         </p>
       ) : null}
 
@@ -85,7 +77,7 @@ function ReviewsContent() {
         className="-mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-4 [scrollbar-width:thin] sm:mx-0 sm:px-0"
         aria-label="Google reviews"
       >
-        {reviews.slice(0, 6).map((review) => (
+        {list.map((review) => (
           <li
             key={`${review.author}-${review.time}`}
             className="flex w-[86%] shrink-0 snap-start flex-col rounded-[var(--radius-bento)] border border-border/80 bg-card p-6 shadow-[var(--shadow-card)] sm:w-[48%] lg:w-[calc((100%-2rem)/3)]"

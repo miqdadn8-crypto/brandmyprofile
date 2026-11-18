@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, type ReactNode } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { ArrowLeft, Calendar, User, Tag } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
@@ -69,6 +69,31 @@ function parseBlogBody(body: string): BlogBodyBlock[] {
 
   flushList();
   return blocks;
+}
+
+// Inline markdown inside a body line: [text](/internal-path or https://url) and **bold**.
+// Mirrors inlineMd() in scripts/generate-static-pages.js so the static HTML and the app agree.
+// Anything else (including other URL schemes) stays plain text.
+const INLINE_PATTERN = /\[([^\]]+)\]\(((?:\/|https:\/\/)[^)\s]+)\)|\*\*([^*]+)\*\*/g;
+
+function renderInline(text: string) {
+  const nodes: ReactNode[] = [];
+  let last = 0;
+  for (const match of text.matchAll(INLINE_PATTERN)) {
+    const start = match.index ?? 0;
+    if (start > last) nodes.push(text.slice(last, start));
+    const [, linkText, url, bold] = match;
+    if (bold) {
+      nodes.push(<strong key={start} className="font-semibold text-foreground">{bold}</strong>);
+    } else if (url.startsWith("/")) {
+      nodes.push(<Link key={start} to={url} className="font-medium text-primary underline underline-offset-2">{linkText}</Link>);
+    } else {
+      nodes.push(<a key={start} href={url} target="_blank" rel="noopener noreferrer" className="font-medium text-primary underline underline-offset-2">{linkText}</a>);
+    }
+    last = start + match[0].length;
+  }
+  if (last < text.length) nodes.push(text.slice(last));
+  return nodes;
 }
 
 export default function BlogPost() {
@@ -206,12 +231,12 @@ export default function BlogPost() {
                     case "h2":
                       return <h2 key={block.key} className="text-3xl font-bold mt-8 mb-4">{block.text}</h2>;
                     case "p":
-                      return <p key={block.key} className="text-muted-foreground leading-relaxed mb-4">{block.text}</p>;
+                      return <p key={block.key} className="text-muted-foreground leading-relaxed mb-4">{renderInline(block.text)}</p>;
                     case "ul":
                       return (
                         <ul key={block.key} className="mb-4 list-disc space-y-2 pl-6 text-muted-foreground marker:text-primary">
                           {block.items.map((item, i) => (
-                            <li key={i} className="leading-relaxed">{item}</li>
+                            <li key={i} className="leading-relaxed">{renderInline(item)}</li>
                           ))}
                         </ul>
                       );
@@ -219,7 +244,7 @@ export default function BlogPost() {
                       return (
                         <ol key={block.key} className="mb-4 list-decimal space-y-2 pl-6 text-muted-foreground marker:font-semibold marker:text-primary">
                           {block.items.map((item, i) => (
-                            <li key={i} className="leading-relaxed">{item}</li>
+                            <li key={i} className="leading-relaxed">{renderInline(item)}</li>
                           ))}
                         </ol>
                       );
